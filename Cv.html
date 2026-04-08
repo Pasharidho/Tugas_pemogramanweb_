@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Pasha Ridho Pradipta Setiawan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #070b14;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* === BACKGROUND === */
+        .bg-scene {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99,102,241,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 80% at 90% 80%, rgba(168,85,247,0.10) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 50% at 50% 0%, rgba(59,130,246,0.06) 0%, transparent 70%),
+                linear-gradient(160deg, #070b14 0%, #0c1222 40%, #111827 100%);
+        }
+
+        .grid-pattern {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image: 
+                linear-gradient(rgba(99,102,241,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99,102,241,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .floating-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            animation: orbFloat 15s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px; height: 400px;
+            background: rgba(99,102,241,0.08);
+            top: -100px; left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px; height: 300px;
+            background: rgba(168,85,247,0.06);
+            bottom: -50px; right: -50px;
+            animation-delay: -5s;
+        }
+
+        .orb-3 {
+            width: 200px; height: 200px;
+            background: rgba(59,130,246,0.05);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(40px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 40px) scale(0.95); }
+            75% { transform: translate(30px, 20px) scale(1.02); }
+        }
+
+        /* === CV CONTAINER === */
+        .cv-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cv-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 6px rgba(0,0,0,0.1),
+                0 20px 60px rgba(0,0,0,0.2),
+                0 0 120px rgba(99,102,241,0.03);
+        }
+
+        /* === SIDEBAR === */
+        .sidebar {
+            background: linear-gradient(175deg, #0f1629 0%, #131a35 30%, #171f45 60%, #1a1845 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .sidebar::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            right: -100px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(168,85,247,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .sidebar-dots {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        /* === PHOTO === */
+        .photo-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+        .photo-glow {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #6366f1, #8b5cf6, #a78bfa, #6366f1);
+            animation: glowSpin 6s linear infinite;
+            opacity: 0.8;
+        }
+
+        .photo-glow::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            border-radius: 50%;
+            background: #131a35;
+        }
+
+        @keyframes glowSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .photo-img {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #131a35;
+        }
+
+        /* === SKILL BARS === */
+        .skill-track {
+            width: 100%;
+            height: 5px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            position: relative;
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .skill-fill::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: #a78bfa;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(167,139,250,0.6);
+        }
+
+        /* === HOBBY TAGS === */
+        .hobby-chip {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.6);
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .hobby-chip:hover {
+            background: rgba(99,102,241,0.15);
+            border-color: rgba(99,102,241,0.3);
+            color: rgba(255,255,255,0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(99,102,241,0.1);
+        }
+
+        /* === RIGHT CONTENT === */
+        .content-area {
+            background: linear-gradient(180deg, #fafaff 0%, #f5f7ff 50%, #fafaff 100%);
+            position: relative;
+        }
+
+        .content-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, rgba(99,102,241,0.03) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        /* === SECTION HEADER === */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #6366f1;
+            margin-bottom: 16px;
+            padding: 6px 14px;
+            background: rgba(99,102,241,0.06);
+            border-radius: 8px;
+            border: 1px solid rgba(99,102,241,0.08);
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.025em;
+            margin-bottom: 20px;
+        }
+
+        /* === TIMELINE === */
+        .timeline-item {
+            position: relative;
+            padding-left: 32px;
+            padding-bottom: 28px;
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 6px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #6366f1;
+            box-shadow: 0 0 0 4px rgba(99,102,241,0.1);
+            z-index: 2;
+        }
+
+        .timeline-item:first-child .timeline-dot {
+            background: #6366f1;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 4px rgba(99,102,241,0.15), 0 0 15px rgba(99,102,241,0.3);
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 6px;
+            top: 24px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #c7d2fe, #e5e7eb);
+            border-radius: 999px;
+        }
+
+        .timeline-item:last-child .timeline-line {
+            display: none;
+        }
+
+        /* === EXPERIENCE CARD === */
+        .exp-card {
+            background: white;
+            border: 1px solid #f1f5f9;
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exp-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--card-accent, #6366f1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .exp-card:hover {
+            border-color: #c7d2fe;
+            box-shadow: 0 8px 40px -10px rgba(99,102,241,0.12), 0 4px 15px -5px rgba(0,0,0,0.04);
+            transform: translateY(-4px);
+        }
+
+        .exp-card:hover::before {
+            opacity: 1;
+        }
+
+        .exp-icon-wrap {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .exp-icon-wrap::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            opacity: 0.15;
+        }
+
+        /* === DIVIDER === */
+        .fancy-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e2e8f0, #c7d2fe, #e2e8f0, transparent);
+            margin: 32px 0;
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .anim-in {
+            animation: slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+        }
+
+        .anim-d1 { animation-delay: 0.08s; }
+        .anim-d2 { animation-delay: 0.16s; }
+        .anim-d3 { animation-delay: 0.24s; }
+        .anim-d4 { animation-delay: 0.32s; }
+        .anim-d5 { animation-delay: 0.40s; }
+        .anim-d6 { animation-delay: 0.48s; }
+        .anim-d7 { animation-delay: 0.56s; }
+
+        /* === CONTACT ITEM === */
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 14px;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.04);
+        }
+
+        .contact-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(99,102,241,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* === PRINT === */
+        @media print {
+            body { background: white !important; }
+            .bg-scene, .grid-pattern, .floating-orb, .no-print { display: none !important; }
+            .cv-card { 
+                box-shadow: none !important; 
+                border-radius: 0 !important; 
+                background: white !important;
+                border: none !important;
+            }
+            .sidebar { 
+                background: #1a1845 !important; 
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .sidebar::before, .sidebar::after, .sidebar-dots { display: none !important; }
+            .content-area { background: white !important; }
+            .content-area::before { display: none !important; }
+            .exp-card:hover { transform: none !important; box-shadow: none !important; }
+            .hobby-chip:hover { transform: none !important; }
+            .photo-glow { animation: none !important; }
+        }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .cv-card { border-radius: 20px; }
+            .photo-container { width: 120px; height: 120px; }
+        }
+    </style>
+</head>
+
+<body class="font-sans">
+
+    <!-- Background Scene -->
+    <div class="bg-scene"></div>
+    <div class="grid-pattern"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+
+    <!-- Print Button -->
+    <button onclick="window.print()" class="no-print fixed top-6 right-6 z-50 bg-white/10 hover:bg-white/15 border border-white/10 hover:border-white/20 text-white px-5 py-3 rounded-2xl flex items-center gap-2.5 text-sm font-semibold backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-indigo-500/10">
+        <iconify-icon icon="lucide:printer" width="17"></iconify-icon>
+        Cetak CV
+    </button>
+
+    <!-- CV -->
+    <div class="cv-wrapper flex items-center justify-center py-10 px-4 min-h-screen">
+        <div class="cv-card w-full max-w-[940px] flex flex-col md:flex-row">
+
+            <!-- ===== SIDEBAR ===== -->
+            <div class="sidebar w-full md:w-[320px] flex-shrink-0 relative">
+                <div class="sidebar-dots"></div>
+
+                <div class="relative z-10 px-7 pt-12 pb-8 flex flex-col items-center text-center">
+
+                    <!-- Photo -->
+                    <div class="photo-container mb-7 anim-in anim-d1">
+                        <div class="photo-glow"></div>
+                        <img src="https://picsum.photos/seed/pasha-profile-cv/300/300.jpg" alt="Foto Profil" class="photo-img">
+                    </div>
+
+                    <!-- Name -->
+                    <h1 class="text-[22px] font-extrabold text-white leading-tight tracking-tight anim-in anim-d2">Pasha Ridho</h1>
+                    <h2 class="text-[22px] font-extrabold text-white leading-tight tracking-tight anim-in anim-d2">Pradipta Setiawan</h2>
+                    
+                    <!-- Badge -->
+                    <div class="mt-4 inline-flex items-center gap-2 bg-white/[0.06] border border-white/[0.08] px-4 py-2 rounded-full anim-in anim-d3">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                        </span>
+                        <span class="text-indigo-200/80 text-[11px] font-semibold tracking-wider uppercase">Pendidikan Komputer</span>
+                    </div>
+                </div>
+
+                <div class="relative z-10 px-7 space-y-0">
+
+                    <!-- Kontak -->
+                    <div class="pb-7 anim-in anim-d3">
+                        <div class="section-label justify-center">
+                            <iconify-icon icon="lucide:at-sign" width="11"></iconify-icon>
+                            Kontak
+                        </div>
+                        <div class="space-y-1">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <iconify-icon icon="lucide:mail" width="15" class="text-indigo-300"></iconify-icon>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-[10px] text-indigo-400/50 font-medium uppercase tracking-wider">Email</p>
+                                    <p class="text-[13px] text-gray-300 leading-tight">pasharidho.ps@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <iconify-icon icon="lucide:phone" width="15" class="text-indigo-300"></iconify-icon>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-[10px] text-indigo-400/50 font-medium uppercase tracking-wider">Telepon</p>
+                                    <p class="text-[13px] text-gray-300">085349714123</p>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <iconify-icon icon="lucide:map-pin" width="15" class="text-indigo-300"></iconify-icon>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-[10px] text-indigo-400/50 font-medium uppercase tracking-wider">Lokasi</p>
+                                    <p class="text-[13px] text-gray-300">Kalimantan Timur</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+                    <!-- Keahlian -->
+                    <div class="py-7 anim-in anim-d4">
+                        <div class="section-label justify-center">
+                            <iconify-icon icon="lucide:sparkles" width="11"></iconify-icon>
+                            Keahlian
+                        </div>
+                        <div class="space-y-5">
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[13px] text-gray-200 font-medium">HTML & CSS</span>
+                                    <span class="text-[11px] text-indigo-400/40 font-bold">80%</span>
+                                </div>
+                                <div class="skill-track">
+                                    <div class="skill-fill" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[13px] text-gray-200 font-medium">Pemrograman Dasar</span>
+                                    <span class="text-[11px] text-indigo-400/40 font-bold">60%</span>
+                                </div>
+                                <div class="skill-track">
+                                    <div class="skill-fill" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[13px] text-gray-200 font-medium">Jaringan Komputer</span>
+                                    <span class="text-[11px] text-indigo-400/40 font-bold">70%</span>
+                                </div>
+                                <div class="skill-track">
+                                    <div class="skill-fill" style="width: 70%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+
+                    <!-- Hobi -->
+                    <div class="py-7 anim-in anim-d5">
+                        <div class="section-label justify-center">
+                            <iconify-icon icon="lucide:heart" width="11"></iconify-icon>
+                            Hobi
+                        </div>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span class="hobby-chip">💻 HTML & CSS</span>
+                            <span class="hobby-chip">🧑‍💻 Coding</span>
+                            <span class="hobby-chip">🎮 Gaming</span>
+                            <span class="hobby-chip">⚽ Olahraga</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===== CONTENT ===== -->
+            <div class="content-area flex-1 relative">
+                <div class="relative z-10 p-8 md:p-10 lg:p-12">
+
+                    <!-- Tentang Saya -->
+                    <div class="anim-in anim-d2">
+                        <div class="section-label">
+                            <iconify-icon icon="lucide:user" width="11"></iconify-icon>
+                            Tentang Saya
+                        </div>
+                        <h2 class="section-title">Hallo, Saya Pasha 👋</h2>
+                        <p class="text-gray-500 text-[15px] leading-[1.85] max-w-lg">
+                            Mahasiswa yang memiliki minat besar dalam bidang teknologi dan pemrograman. 
+                            Memiliki semangat belajar tinggi serta mampu bekerja secara individu maupun dalam tim. 
+                            Aktif berorganisasi dan selalu berupaya mengembangkan kemampuan di bidang IT.
+                        </p>
+                    </div>
+
+                    <div class="fancy-divider"></div>
+
+                    <!-- Pendidikan -->
+                    <div class="anim-in anim-d3">
+                        <div class="section-label">
+                            <iconify-icon icon="lucide:graduation-cap" width="11"></iconify-icon>
+                            Pendidikan
+                        </div>
+                        <h2 class="section-title">Riwayat Pendidikan</h2>
+
+                        <div class="space-y-0">
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-line"></div>
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                                    <div>
+                                        <h3 class="text-[15px] font-bold text-gray-900">S1 Pendidikan Komputer</h3>
+                                        <p class="text-[13px] text-gray-400 mt-0.5">Universitas Mulawarman</p>
+                                    </div>
+                                    <span class="text-[11px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-lg whitespace-nowrap self-start">2024 — Sekarang</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-line"></div>
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                                    <div>
+                                        <h3 class="text-[15px] font-bold text-gray-900">SMA Negeri 5 Samarinda</h3>
+                                        <p class="text-[13px] text-gray-400 mt-0.5">Sekolah Menengah Atas</p>
+                                    </div>
+                                    <span class="text-[11px] font-semibold text-gray-400 bg-gray-100 px-3 py-1 rounded-lg whitespace-nowrap self-start">2021 — 2023</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-line"></div>
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                                    <div>
+                                        <h3 class="text-[15px] font-bold text-gray-900">SMP Negeri 11 Samarinda</h3>
+                                        <p class="text-[13px] text-gray-400 mt-0.5">Sekolah Menengah Pertama</p>
+                                    </div>
+                                    <span class="text-[11px] font-semibold text-gray-400 bg-gray-100 px-3 py-1 rounded-lg whitespace-nowrap self-start">2018 — 2020</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1">
+                                    <div>
+                                        <h3 class="text-[15px] font-bold text-gray-900">SDN 027 Samarinda Ulu</h3>
+                                        <p class="text-[13px] text-gray-400 mt-0.5">Sekolah Dasar</p>
+                                    </div>
+                                    <span class="text-[11px] font-semibold text-gray-400 bg-gray-100 px-3 py-1 rounded-lg whitespace-nowrap self-start">2012 — 2018</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fancy-divider"></div>
+
+                    <!-- Pengalaman -->
+                    <div class="anim-in anim-d4">
+                        <div class="section-label">
+                            <iconify-icon icon="lucide:briefcase" width="11"></iconify-icon>
+                            Pengalaman
+                        </div>
+                        <h2 class="section-title">Pengalaman Saya</h2>
+
+                        <div class="space-y-4">
+                            <!-- Card 1 -->
+                            <div class="exp-card" style="--card-accent: #6366f1;">
+                                <div class="flex items-start gap-4">
+                                    <div class="exp-icon-wrap" style="background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1));">
+                                        <iconify-icon icon="lucide:wifi" width="22" class="text-indigo-500"></iconify-icon>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="text-[15px] font-bold text-gray-900">PKL — Teknisi Jaringan</h3>
+                                        <p class="text-[12px] text-indigo-500 font-bold mt-1 flex items-center gap-1.5">
+                                            <iconify-icon icon="lucide:building-2" width="11"></iconify-icon>
+                                            Lintas Maya
+                                        </p>
+                                        <p class="text-[13px] text-gray-400 mt-3 leading-relaxed">Melaksanakan Praktek Kerja Lapangan dengan tugas memasang kabel WiFi dan konfigurasi jaringan pada pelanggan.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="exp-card" style="--card-accent: #f43f5e;">
+                                <div class="flex items-start gap-4">
+                                    <div class="exp-icon-wrap" style="background: linear-gradient(135deg, rgba(244,63,94,0.1), rgba(236,72,153,0.1));">
+                                        <iconify-icon icon="lucide:heart-handshake" width="22" class="text-rose-500"></iconify-icon>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="text-[15px] font-bold text-gray-900">Kepala Kerohanian OSIS</h3>
+                                        <p class="text-[12px] text-gray-400 font-semibold mt-1 flex items-center gap-1.5">
+                                            <iconify-icon icon="lucide:building-2" width="11"></iconify-icon>
+                                            SMK Negeri 5 Samarinda
+                                        </p>
+                                        <p class="text-[13px] text-gray-400 mt-3 leading-relaxed">Memimpin departemen kerohanian dalam menyelenggarakan kegiatan keagamaan di sekolah.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="exp-card" style="--card-accent: #10b981;">
+                                <div class="flex items-start gap-4">
+                                    <div class="exp-icon-wrap" style="background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(20,184,166,0.1));">
+                                        <iconify-icon icon="lucide:users" width="22" class="text-emerald-500"></iconify-icon>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <h3 class="text-[15px] font-bold text-gray-900">Kepala Departemen Kerohanian</h3>
+                                        <p class="text-[12px] text-indigo-500 font-bold mt-1 flex items-center gap-1.5">
+                                            <iconify-icon icon="lucide:building-2" width="11"></iconify-icon>
+                                            Himapkom — Universitas Mulawarman
+                                        </p>
+                                        <p class="text-[13px] text-gray-400 mt-3 leading-relaxed">Mengelola dan mengoordinasikan kegiatan kerohanian di Himpunan Mahasiswa Pendidikan Komputer.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <p class="no-print relative z-10 text-center text-white/15 text-[11px] mt-8 pb-6 tracking-wider">
+        DESIGNED WITH Pasha Ridho Pradipta setiawan
+    </p>
+
+</body>
+</html>
