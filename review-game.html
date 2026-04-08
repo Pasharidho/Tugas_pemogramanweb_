@@ -30,10 +30,6 @@
             color: #0070d1;
         }
         
-        .ps-bg-blue {
-            background-color: #0070d1;
-        }
-        
         .star-rating {
             color: #ffd700;
         }
@@ -84,557 +80,862 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+        .new-badge {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
+        }
+
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-top-btn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Search Box */
+        .search-box:focus {
+            box-shadow: 0 0 0 3px rgba(0, 112, 209, 0.3);
+        }
+
+        /* Filter Button Active State */
+        .filter-btn.active {
+            background: linear-gradient(135deg, #0070d1, #00a2ff);
+            color: white;
+            border-color: transparent;
+        }
+
+        /* Toast Notification */
+        .toast {
+            animation: slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* Modal */
+        .modal-overlay {
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .modal-content {
+            animation: modalSlideIn 0.4s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Progress Bar Animation */
+        .progress-bar {
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Card Flip Effect */
+        .card-inner {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .card-flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            backface-visibility: hidden;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: max-content;
+            background-color: #1f2937;
+            color: #fff;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: 8px;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .tooltip .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #1f2937 transparent transparent transparent;
+        }
+
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Counter Animation */
+        .counter {
+            display: inline-block;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "/";
+            padding: 0 8px;
+            color: #6b7280;
+        }
+
+        /* Tab System */
+        .tab-btn.active {
+            color: #0070d1;
+            border-bottom: 3px solid #0070d1;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Rating Stars Interactive */
+        .star-interactive {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .star-interactive:hover {
+            transform: scale(1.2);
+        }
+
+        /* Image Zoom on Hover */
+        .img-zoom {
+            overflow: hidden;
+        }
+
+        .img-zoom img, .img-zoom div {
+            transition: transform 0.5s ease;
+        }
+
+        .img-zoom:hover img, .img-zoom:hover div {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-white scroll-smooth">
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800">
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800 shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
                 <div class="flex items-center space-x-3">
                     <i class="fab fa-playstation text-4xl ps-blue"></i>
                     <span class="text-xl font-bold">PS4 Game Reviews</span>
                 </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link hover:text-blue-400 transition">Beranda</a>
-                    <a href="#top-games" class="nav-link hover:text-blue-400 transition">Top Games</a>
-                    <a href="#reviews" class="nav-link hover:text-blue-400 transition">Reviews</a>
-                    <a href="#categories" class="nav-link hover:text-blue-400 transition">Kategori</a>
-                    <a href="#about" class="nav-link hover:text-blue-400 transition">Tentang</a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
+                        <i class="fas fa-home"></i>Beranda
+                    </a>
+                    <a href="#top-games" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
+                        <i class="fas fa-gamepad"></i>Top Games
+                    </a>
+                    <a href="#reviews" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
+                        <i class="fas fa-star"></i>Reviews
+                    </a>
+                    <a href="#categories" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
+                        <i class="fas fa-layer-group"></i>Kategori
+                    </a>
+                    <a href="#about" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
+                        <i class="fas fa-info-circle"></i>Tentang
+                    </a>
                 </div>
+
+                <!-- Right Side Actions -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Search Icon -->
+                    <button id="search-toggle" class="text-gray-300 hover:text-blue-400 transition tooltip">
+                        <i class="fas fa-search text-xl"></i>
+                        <span class="tooltip-text">Cari Game</span>
+                    </button>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="text-gray-300 hover:text-yellow-400 transition tooltip">
+                        <i class="fas fa-moon text-xl"></i>
+                        <span class="tooltip-text">Toggle Theme</span>
+                    </button>
+
+                    <!-- Notification Bell with Badge -->
+                    <button class="relative text-gray-300 hover:text-red-400 transition tooltip">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center new-badge">1</span>
+                        <span class="tooltip-text">Notifikasi</span>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
                 <button id="mobile-menu-btn" class="md:hidden text-2xl">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
+
+        <!-- Search Bar (Hidden by default) -->
+        <div id="search-bar" class="hidden bg-gray-800 border-t border-gray-700 py-4 px-4">
+            <div class="max-w-2xl mx-auto relative">
+                <input type="text" id="search-input" placeholder="🔍 Cari game... (contoh: God of War, Spider-Man, RE9)" 
+                       class="w-full px-6 py-4 rounded-2xl bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none search-box text-white placeholder-gray-400">
+                <button id="search-close" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <!-- Search Results Container -->
+            <div id="search-results" class="max-w-2xl mx-auto mt-2 bg-gray-800 rounded-xl border border-gray-700 hidden"></div>
+        </div>
+
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-gray-800 border-t border-gray-700">
             <div class="px-4 py-3 space-y-3">
-                <a href="#home" class="block hover:text-blue-400 transition">Beranda</a>
-                <a href="#top-games" class="block hover:text-blue-400 transition">Top Games</a>
-                <a href="#reviews" class="block hover:text-blue-400 transition">Reviews</a>
-                <a href="#categories" class="block hover:text-blue-400 transition">Kategori</a>
-                <a href="#about" class="block hover:text-blue-400 transition">Tentang</a>
+                <a href="#home" class="block hover:text-blue-400 transition"><i class="fas fa-home mr-2"></i>Beranda</a>
+                <a href="#top-games" class="block hover:text-blue-400 transition"><i class="fas fa-gamepad mr-2"></i>Top Games</a>
+                <a href="#reviews" class="block hover:text-blue-400 transition"><i class="fas fa-star mr-2"></i>Reviews</a>
+                <a href="#categories" class="block hover:text-blue-400 transition"><i class="fas fa-layer-group mr-2"></i>Kategori</a>
+                <a href="#about" class="block hover:text-blue-400 transition"><i class="fas fa-info-circle mr-2"></i>Tentang</a>
+                
+                <!-- Mobile Search -->
+                <div class="pt-3 border-t border-gray-700">
+                    <input type="text" placeholder="🔍 Cari game..." 
+                           class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none text-sm">
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- ==================== BREADCRUMB ==================== -->
+    <div class="fixed top-16 left-0 right-0 bg-gray-800/90 backdrop-blur-sm z-40 border-b border-gray-700 py-2 px-4 hidden md:block">
+        <div class="max-w-7xl mx-auto">
+            <nav class="breadcrumb flex items-center text-sm">
+                <a href="#" class="text-blue-400 hover:text-blue-300 transition">Home</a>
+                <span class="breadcrumb-item text-gray-400">PlayStation 4</span>
+                <span class="breadcrumb-item text-gray-400">Game Reviews</span>
+                <span class="breadcrumb-item text-white font-semibold">Latest</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ==================== HERO SECTION ==================== -->
     <section id="home" class="hero-gradient min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10">
             <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
             <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-300 rounded-full blur-3xl"></div>
         </div>
+        
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <!-- Animated Logo -->
             <div class="animate-float mb-8">
                 <i class="fab fa-playstation text-8xl md:text-9xl text-white/90 drop-shadow-2xl"></i>
             </div>
+            
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
                 PlayStation 4<br>
                 <span class="text-blue-300">Game Reviews</span>
             </h1>
+            
             <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
                 Temukan review lengkap game-game terbaik di platform PlayStation 4. Dari action hingga RPG, semua ada di sini!
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#top-games" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-100 transition transform hover:scale-105 shadow-lg">
-                    <i class="fas fa-gamepad mr-2"></i>Lihat Top Games
+            
+            <!-- NEW RELEASE BANNER -->
+            <div class="mb-8 inline-block bg-gradient-to-r from-red-600 to-red-800 px-8 py-4 rounded-2xl border-2 border-yellow-400 shadow-2xl new-badge cursor-pointer hover:scale-105 transition-transform" onclick="scrollToSection('top-games')">
+                <span class="text-yellow-300 font-bold text-lg mr-2">🔥 NEW RELEASE:</span>
+                <span class="font-bold text-xl">RESIDENT EVIL 9</span>
+                <i class="fas fa-arrow-right ml-2 animate-bounce"></i>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                <a href="#top-games" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-100 transition transform hover:scale-105 shadow-lg inline-flex items-center justify-center gap-2 group">
+                    <i class="fas fa-gamepad group-hover:rotate-12 transition-transform"></i>Lihat Top Games
                 </a>
-                <a href="#reviews" class="border-2 border-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition transform hover:scale-105">
-                    <i class="fas fa-star mr-2"></i>Baca Reviews
+                <a href="#reviews" class="border-2 border-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition transform hover:scale-105 inline-flex items-center justify-center gap-2">
+                    <i class="fas fa-star"></i>Baca Reviews
                 </a>
             </div>
             
-            <!-- Stats -->
-            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-300">150+</div>
-                    <div class="text-sm text-blue-100 mt-2">Game Direview</div>
+            <!-- Stats Counter -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 card-hover">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-300 counter" data-target="150">0</div>
+                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-gamepad mr-1"></i>Game Direview</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-300">50+</div>
-                    <div class="text-sm text-blue-100 mt-2">Genre Tersedia</div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 card-hover">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-300 counter" data-target="50">0</div>
+                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-tags mr-1"></i>Genre Tersedia</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-300">4.5</div>
-                    <div class="text-sm text-blue-100 mt-2">Rating Rata-rata</div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 card-hover">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-300">4.<span class="counter" data-target="5">0</span></div>
+                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-star mr-1"></i>Rating Rata-rata</div>
                 </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-300">10K+</div>
-                    <div class="text-sm text-blue-100 mt-2">Pembaca</div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-green-500/30 border-2 card-hover">
+                    <div class="text-3xl md:text-4xl font-bold text-green-400 new-badge">NEW!</div>
+                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-fire mr-1 text-orange-400"></i>RE9 Added</div>
                 </div>
             </div>
         </div>
+        
+        <!-- Scroll Down Indicator -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#top-games" class="text-white/70 hover:text-white">
+            <a href="#top-games" class="text-white/70 hover:text-white transition">
                 <i class="fas fa-chevron-down text-3xl"></i>
             </a>
         </div>
     </section>
 
-    <!-- Top Games Section -->
+    <!-- ==================== TOP GAMES SECTION ==================== -->
     <section id="top-games" class="py-20 bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            
+            <!-- Section Header -->
+            <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">
                     <i class="fas fa-trophy text-yellow-500 mr-3"></i>Top Games PS4
                 </h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Kumpulan game terbaik dan paling populer di PlayStation 4 yang wajib kamu mainkan!</p>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-6">Kumpulan game terbaik dan paling populer di PlayStation 4!</p>
+                
+                <!-- NEW RELEASE Tag -->
+                <div class="inline-flex items-center gap-2 bg-red-600 px-4 py-2 rounded-full new-badge mb-6">
+                    <i class="fas fa-fire text-yellow-300"></i>
+                    <span class="font-bold text-sm">RESIDENT EVIL 9 BARU SAJA RILIS!</span>
+                </div>
+            </div>
+
+            <!-- FILTER BUTTONS -->
+            <div class="flex flex-wrap justify-center gap-3 mb-10">
+                <button class="filter-btn active px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500" data-filter="all">
+                    <i class="fas fa-th mr-2"></i>Semua
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="action">
+                    <i class="fas fa-fist-raised mr-2"></i>Action
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="horror">
+                    <i class="fas fa-ghost mr-2"></i>Horror
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="rpg">
+                    <i class="fas fa-hat-wizard mr-2"></i>RPG
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="adventure">
+                    <i class="fas fa-compass mr-2"></i>Adventure
+                </button>
+                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="new">
+                    <i class="fas fa-sparkles mr-2"></i>New Release
+                </button>
+            </div>
+
+            <!-- SORT OPTIONS -->
+            <div class="flex justify-end mb-6">
+                <select id="sort-select" class="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 cursor-pointer">
+                    <option value="rating-desc">Rating: Tinggi → Rendah</option>
+                    <option value="rating-asc">Rating: Rendah → Tinggi</option>
+                    <option value="name-asc">Nama: A-Z</option>
+                    <option value="name-desc">Nama: Z-A</option>
+                    <option value="year-desc">Terbaru</option>
+                    <option value="year-asc">Terlama</option>
+                </select>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Games Grid -->
+            <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 
-                <!-- Game Card 1 - God of War -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
-                    <div class="relative overflow-hidden h-56">
+                <!-- 🆕 RESIDENT EVIL 9 (NEW!) -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border-2 border-red-500 relative" data-genre="horror,new" data-rating="9.4" data-name="Resident Evil 9" data-year="2025">
+                    <div class="absolute top-0 right-0 bg-red-600 text-white px-4 py-2 rounded-bl-2xl font-bold text-sm z-10 new-badge flex items-center gap-1">
+                        <i class="fas fa-star text-yellow-300"></i> NEW!
+                    </div>
+                    
+                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('re9')">
+                        <div class="game-card-img w-full h-full bg-gradient-to-br from-gray-900 via-red-950 to-black flex items-center justify-center relative">
+                            <i class="fas fa-virus text-8xl text-red-500/60 animate-pulse"></i>
+                            <div class="absolute inset-0 bg-black/30"></div>
+                            
+                            <!-- Quick View Overlay -->
+                            <div class="absolute inset-0 bg-black/70 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <div class="text-center">
+                                    <i class="fas fa-eye text-4xl text-white mb-2"></i>
+                                    <p class="text-white font-bold">Quick View</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm z-10">
+                            ⭐ 9.4/10
+                        </div>
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">
+                            🧟 SURVIVAL HORROR
+                        </div>
+                        <div class="absolute bottom-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">
+                            🔥 2025
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-2xl font-bold text-red-400">Resident Evil 9</h3>
+                            <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full font-bold new-badge">BARU!</span>
+                        </div>
+                        
+                        <!-- Interactive Star Rating -->
+                        <div class="star-rating mb-3 text-lg flex items-center gap-1">
+                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
+                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
+                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
+                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
+                            <i class="fas fa-star-half-alt star-interactive" title="Bagus"></i>
+                            <span class="text-gray-400 text-sm ml-2">(9.4)</span>
+                        </div>
+                        
+                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Franchise horror legendaris kembali! Pengalaman mencekam dengan grafis next-gen...</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-red-900/30 text-red-300 px-2 py-1 rounded text-xs"><i class="fas fa-skull mr-1"></i>Horror</span>
+                            <span class="bg-purple-900/30 text-purple-300 px-2 py-1 rounded text-xs"><i class="fas fa-crosshairs mr-1"></i>TPS</span>
+                            <span class="bg-blue-900/30 text-blue-300 px-2 py-1 rounded text-xs"><i class="fas fa-clock mr-1"></i>~25 Jam</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between">
+                            <span class="text-green-400 font-semibold text-sm"><i class="fas fa-calendar-alt mr-1"></i>Rilis: 2025</span>
+                            <div class="flex gap-2">
+                                <button onclick="openGameModal('re9')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-semibold transition tooltip">
+                                    <i class="fas fa-eye mr-1"></i>Detail
+                                    <span class="tooltip-text">Lihat Detail Lengkap</span>
+                                </button>
+                                <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition tooltip">
+                                    <i class="fas fa-heart"></i>
+                                    <span class="tooltip-text">Tambah ke Wishlist</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GOD OF WAR -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="action,rpg" data-rating="10" data-name="God of War" data-year="2018">
+                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('gow')">
                         <div class="game-card-img w-full h-full bg-gradient-to-br from-red-900 to-red-700 flex items-center justify-center">
                             <i class="fas fa-dragon text-8xl text-red-300/50"></i>
                         </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
-                            ⭐ 10/10
-                        </div>
-                        <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            ACTION RPG
-                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 10/10</div>
+                        <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">ACTION RPG</div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-2">God of War (2018)</h3>
                         <div class="star-rating mb-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Perjalanan epis Kratos dan Atreus di dunia Norse mitologi. Cerita yang menyentuh hati dengan gameplay yang sempurna.</p>
+                        <p class="text-gray-400 text-sm mb-4">Perjalanan Kratos dan Atreus di dunia Norse mitologi...</p>
                         <div class="flex items-center justify-between">
                             <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2018</span>
-                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
-                                Baca Review →
-                            </button>
+                            <button onclick="openGameModal('gow')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Game Card 2 - Spider-Man -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
-                    <div class="relative overflow-hidden h-56">
+                <!-- SPIDER-MAN -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="action,adventure" data-rating="9.5" data-name="Spider-Man" data-year="2018">
+                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('spiderman')">
                         <div class="game-card-img w-full h-full bg-gradient-to-br from-red-600 to-blue-700 flex items-center justify-center">
                             <i class="fas fa-spider text-8xl text-white/50"></i>
                         </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
-                            ⭐ 9.5/10
-                        </div>
-                        <div class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            ACTION ADVENTURE
-                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.5/10</div>
+                        <div class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">ACTION ADVENTURE</div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-2">Marvel's Spider-Man</h3>
                         <div class="star-rating mb-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star-half-alt star-interactive"></i>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Jadi Spider-Man di New York City! Web-swinging yang memuaskan dengan cerita superhero yang luar biasa.</p>
+                        <p class="text-gray-400 text-sm mb-4">Jadi Spider-Man di New York City! Web-swinging yang memuaskan...</p>
                         <div class="flex items-center justify-between">
                             <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2018</span>
-                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
-                                Baca Review →
-                            </button>
+                            <button onclick="openGameModal('spiderman')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Game Card 3 - The Last of Us Part II -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
-                    <div class="relative overflow-hidden h-56">
+                <!-- THE LAST OF US PART II -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="horror,adventure" data-rating="9.8" data-name="The Last of Us Part II" data-year="2020">
+                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('tlou2')">
                         <div class="game-card-img w-full h-full bg-gradient-to-br from-gray-700 to-teal-800 flex items-center justify-center">
                             <i class="fas fa-skull-crossbones text-8xl text-teal-300/50"></i>
                         </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
-                            ⭐ 9.8/10
-                        </div>
-                        <div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            SURVIVAL HORROR
-                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.8/10</div>
+                        <div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold">SURVIVAL HORROR</div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-2">The Last of Us Part II</h3>
                         <div class="star-rating mb-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Sebuah masterpiece naratif yang kontroversial namun brilian. Grafis dan emosi yang tak terlupakan.</p>
+                        <p class="text-gray-400 text-sm mb-4">Sebuah masterpiece naratif yang kontroversial namun brilian...</p>
                         <div class="flex items-center justify-between">
                             <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2020</span>
-                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
-                                Baca Review →
-                            </button>
+                            <button onclick="openGameModal('tlou2')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Game Card 4 - Bloodborne -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
-                    <div class="relative overflow-hidden h-56">
+                <!-- BLOODBORNE -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="horror,rpg,action" data-rating="9.7" data-name="Bloodborne" data-year="2015">
+                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('bloodborne')">
                         <div class="game-card-img w-full h-full bg-gradient-to-br from-stone-900 to-red-950 flex items-center justify-center">
                             <i class="fas fa-moon text-8xl text-red-400/50"></i>
                         </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
-                            ⭐ 9.7/10
-                        </div>
-                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            SOULSLIKE
-                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.7/10</div>
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">SOULSLIKE</div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-2">Bloodborne</h3>
                         <div class="star-rating mb-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Masuk ke kota Yharnam yang mengerikan. Action RPG gothic horror dengan combat system yang addictive.</p>
+                        <p class="text-gray-400 text-sm mb-4">Masuk ke kota Yharnam yang mengerikan...</p>
                         <div class="flex items-center justify-between">
                             <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2015</span>
-                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
-                                Baca Review →
-                            </button>
+                            <button onclick="openGameModal('bloodborne')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Game Card 5 - Horizon Zero Dawn -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
-                    <div class="relative overflow-hidden h-56">
+                <!-- HORIZON ZERO DAWN -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="rpg,action" data-rating="9.3" data-name="Horizon Zero Dawn" data-year="2017">
+                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('horizon')">
                         <div class="game-card-img w-full h-full bg-gradient-to-br from-orange-600 to-emerald-700 flex items-center justify-center">
                             <i class="fas fa-dinosaur text-8xl text-orange-200/50"></i>
                         </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
-                            ⭐ 9.3/10
-                        </div>
-                        <div class="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            OPEN WORLD RPG
-                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.3/10</div>
+                        <div class="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold">OPEN WORLD RPG</div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-2">Horizon Zero Dawn</h3>
                         <div class="star-rating mb-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
+                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star-half-alt star-interactive"></i>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Aloy melawan robot dinosaur di dunia pasca-apokaliptik. Open world yang indah dengan cerita unik.</p>
+                        <p class="text-gray-400 text-sm mb-4">Aloy melawan robot dinosaur di dunia pasca-apokaliptik...</p>
                         <div class="flex items-center justify-between">
                             <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2017</span>
-                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
-                                Baca Review →
-                            </button>
+                            <button onclick="openGameModal('horizon')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Game Card 6 - Uncharted 4 -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
-                    <div class="relative overflow-hidden h-56">
+                <!-- UNCHARTED 4 -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="adventure,action" data-rating="9.6" data-name="Uncharted 4" data-year="2016">
+                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('uncharted')">
                         <div class="game-card-img w-full h-full bg-gradient-to-br from-amber-700 to-blue-900 flex items-center justify-center">
                             <i class="fas fa-compass text-8xl text-amber-300/50"></i>
                         </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
-                            ⭐ 9.6/10
-                        </div>
-                        <div class="absolute top-4 left-4 bg-indigo-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-                            ADVENTURE
-                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.6/10</div>
+                        <div class="absolute top-4 left-4 bg-indigo-500 text-white px-3 py-1 rounded-full text-xs font-semibold">ADVENTURE</div>
                     </div>
                     <div class="p-6">
                         <h3 class="text-2xl font-bold mb-2">Uncharted 4: A Thief's End</h3>
                         <div class="star-rating mb-3">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
                         </div>
-                        <p class="text-gray-400 text-sm mb-4">Petualangan terakhir Nathan Drake! Cinematic experience terbaik dengan set piece yang spektakuler.</p>
+                        <p class="text-gray-400 text-sm mb-4">Petualangan terakhir Nathan Drake! Cinematic experience terbaik...</p>
                         <div class="flex items-center justify-between">
                             <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2016</span>
-                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
-                                Baca Review →
-                            </button>
+                            <button onclick="openGameModal('uncharted')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
                         </div>
                     </div>
                 </div>
 
             </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="load-more-btn" class="bg-gradient-to-r from-blue-600 to-purple-600 px-10 py-4 rounded-full font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
+                    <i class="fas fa-plus-circle"></i>Load More Games
+                    <span class="bg-white/20 px-2 py-1 rounded-full text-sm ml-2">+24</span>
+                </button>
+            </div>
         </div>
     </section>
 
-    <!-- Detailed Reviews Section -->
+    <!-- ==================== REVIEWS SECTION WITH TABS ==================== -->
     <section id="reviews" class="py-20 bg-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
+            
+            <div class="text-center mb-12">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">
                     <i class="fas fa-book-open text-blue-500 mr-3"></i>Review Detail
                 </h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Review mendalam dari tim kami untuk membantu kamu memilih game terbaik!</p>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Review mendalam dari tim kami!</p>
             </div>
 
-            <!-- Featured Review -->
-            <div class="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-3xl p-8 md:p-12 mb-12 border border-blue-700/30">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <span class="bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-bold mb-4 inline-block">
-                            🏆 FEATURED REVIEW
-                        </span>
-                        <h3 class="text-3xl md:text-4xl font-bold mb-4">God of War (2018)</h3>
-                        <div class="star-rating text-2xl mb-4">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <span class="text-white ml-2">10/10</span>
-                        </div>
-                        <p class="text-gray-300 mb-6 leading-relaxed">
-                            God of War (2018) adalah reboot yang sempurna dari franchise legendaris ini. Santa Monica Studio berhasil mengubah formula hack-and-slash menjadi pengalaman cinematic yang emosional. Hubungan father-son antara Kratos dan Atreus adalah jantung cerita ini, disampaikan dengan writing dan voice acting yang luar biasa.
-                        </p>
-                        <div class="space-y-3 mb-6">
-                            <div class="flex items-center">
-                                <span class="w-32 text-gray-400">Gameplay:</span>
-                                <div class="flex-1 bg-gray-700 rounded-full h-3">
-                                    <div class="bg-green-500 h-3 rounded-full" style="width: 98%"></div>
-                                </div>
-                                <span class="ml-3 text-green-400 font-bold">9.8</span>
-                            </div>
-                            <div class="flex items-center">
-                                <span class="w-32 text-gray-400">Grafis:</span>
-                                <div class="flex-1 bg-gray-700 rounded-full h-3">
-                                    <div class="bg-blue-500 h-3 rounded-full" style="width: 99%"></div>
-                                </div>
-                                <span class="ml-3 text-blue-400 font-bold">9.9</span>
-                            </div>
-                            <div class="flex items-center">
-                                <span class="w-32 text-gray-400">Cerita:</span>
-                                <div class="flex-1 bg-gray-700 rounded-full h-3">
-                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 100%"></div>
-                                </div>
-                                <span class="ml-3 text-purple-400 font-bold">10</span>
-                            </div>
-                            <div class="flex items-center">
-                                <span class="w-32 text-gray-400">Soundtrack:</span>
-                                <div class="flex-1 bg-gray-700 rounded-full h-3">
-                                    <div class="bg-pink-500 h-3 rounded-full" style="width: 97%"></div>
-                                </div>
-                                <span class="ml-3 text-pink-400 font-bold">9.7</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-600/30 text-blue-300 px-3 py-1 rounded-full text-sm">Single Player</span>
-                            <span class="bg-green-600/30 text-green-300 px-3 py-1 rounded-full text-sm">Action RPG</span>
-                            <span class="bg-purple-600/30 text-purple-300 px-3 py-1 rounded-full text-sm">Third Person</span>
-                            <span class="bg-red-600/30 text-red-300 px-3 py-1 rounded-full text-sm">~35 Jam</span>
-                        </div>
-                    </div>
-                    <div class="relative">
-                        <div class="aspect-square bg-gradient-to-br from-red-900 via-red-700 to-orange-800 rounded-3xl flex items-center justify-center shadow-2xl">
-                            <i class="fas fa-dragon text-[150px] text-white/20"></i>
-                        </div>
-                        <div class="absolute -bottom-4 -right-4 bg-yellow-500 text-black rounded-2xl p-4 shadow-xl">
-                            <div class="text-3xl font-bold">10</div>
-                            <div class="text-xs">MASTERPIECE</div>
-                        </div>
-                    </div>
-                </div>
+            <!-- TAB NAVIGATION -->
+            <div class="flex justify-center mb-10 border-b border-gray-700">
+                <button class="tab-btn active px-6 py-3 font-semibold transition-all" data-tab="featured">
+                    <i class="fas fa-crown mr-2 text-yellow-500"></i>Featured
+                </button>
+                <button class="tab-btn px-6 py-3 font-semibold text-gray-400 hover:text-white transition-all" data-tab="latest">
+                    <i class="fas fa-clock mr-2"></i>Latest
+                </button>
+                <button class="tab-btn px-6 py-3 font-semibold text-gray-400 hover:text-white transition-all" data-tab="popular">
+                    <i class="fas fa-fire mr-2 text-orange-500"></i>Popular
+                </button>
+                <button class="tab-btn px-6 py-3 font-semibold text-gray-400 hover:text-white transition-all" data-tab="all-reviews">
+                    <i class="fas fa-list mr-2"></i>All Reviews
+                </button>
             </div>
 
-            <!-- More Reviews Grid -->
-            <div class="grid md:grid-cols-2 gap-8">
+            <!-- TAB CONTENT: Featured -->
+            <div id="tab-featured" class="tab-content active">
                 
-                <!-- Review 2 -->
-                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-red-600 to-blue-700 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fas fa-spider text-4xl text-white/60"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold">Marvel's Spider-Man</h4>
-                            <div class="star-rating text-sm">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span class="text-white ml-1">9.5/10</span>
-                            </div>
-                            <p class="text-gray-400 text-sm">Insomniac Games • 2018</p>
-                        </div>
+                <!-- RE9 FEATURED REVIEW -->
+                <div class="bg-gradient-to-r from-red-950 via-gray-900 to-red-950 rounded-3xl p-8 md:p-12 mb-12 border-2 border-red-600 relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-5">
+                        <div class="absolute top-0 left-0 text-[200px]">🧟</div>
                     </div>
-                    <p class="text-gray-300 text-sm mb-4">
-                        Spider-Man PS4 adalah definisi dari game superhero yang sempurna. Web-swinging mekaniknya adalah yang terbaik pernah ada, membuat kamu benar-benar merasa jadi Spider-Man. Combat system yang fluid dan side missions yang engaging.
-                    </p>
-                    <div class="flex gap-2 flex-wrap">
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Open World</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Superhero</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~25 Jam</span>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <span class="bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold new-badge">
+                                    <i class="fas fa-fire text-yellow-300 mr-1"></i> NEW RELEASE 2025
+                                </span>
+                                <span class="bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-bold">
+                                    🏆 FEATURED REVIEW
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-3xl md:text-4xl font-bold mb-2 text-red-400">
+                                <i class="fas fa-virus mr-2"></i>Resident Evil 9
+                            </h3>
+                            <p class="text-gray-400 mb-4">Capcom • Survival Horror • Third-Person Shooter</p>
+                            
+                            <div class="star-rating text-2xl mb-4">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                <span class="text-white ml-2">9.4/10</span>
+                            </div>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                <strong class="text-red-400">Resident Evil 9</strong> adalah evolusi besar dari franchise horror legendaris Capcom! Game ini membawa pengalaman survival horror ke level baru dengan RE Engine yang ditingkatkan...
+                            </p>
+                            
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-center">
+                                    <span class="w-32 text-gray-400">Gameplay:</span>
+                                    <div class="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
+                                        <div class="progress-bar bg-red-500 h-3 rounded-full" style="width: 94%"></div>
+                                    </div>
+                                    <span class="ml-3 text-red-400 font-bold">9.4</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-32 text-gray-400">Grafis:</span>
+                                    <div class="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
+                                        <div class="progress-bar bg-blue-500 h-3 rounded-full" style="width: 96%"></div>
+                                    </div>
+                                    <span class="ml-3 text-blue-400 font-bold">9.6</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-32 text-gray-400">Horror Element:</span>
+                                    <div class="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
+                                        <div class="progress-bar bg-purple-500 h-3 rounded-full" style="width: 98%"></div>
+                                    </div>
+                                    <span class="ml-3 text-purple-400 font-bold">9.8</span>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-red-600/30 text-red-300 px-3 py-1 rounded-full text-sm border border-red-700">Survival Horror</span>
+                                <span class="bg-purple-600/30 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700">TPS</span>
+                                <span class="bg-blue-600/30 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-700">~25 Jam</span>
+                            </div>
+                        </div>
+                        
+                        <div class="relative">
+                            <div class="aspect-square bg-gradient-to-br from-gray-900 via-red-950 to-black rounded-3xl flex items-center justify-center shadow-2xl border-2 border-red-700">
+                                <i class="fas fa-skull text-6xl text-red-500 mb-4"></i>
+                                <div class="text-2xl font-bold text-red-400">RE9</div>
+                            </div>
+                            <div class="absolute -bottom-4 -right-4 bg-red-600 text-white rounded-2xl p-4 shadow-xl border-2 border-yellow-400">
+                                <div class="text-3xl font-bold">9.4</div>
+                                <div class="text-xs">EXCELLENT</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Review 3 -->
-                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-gray-700 to-teal-800 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fas fa-skull-crossbones text-4xl text-teal-300/60"></i>
-                        </div>
+                <!-- God of War Review -->
+                <div class="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-3xl p-8 md:p-12 border border-blue-700/30">
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
                         <div>
-                            <h4 class="text-xl font-bold">The Last of Us Part II</h4>
-                            <div class="star-rating text-sm">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="text-white ml-1">9.8/10</span>
+                            <span class="bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-bold mb-4 inline-block">🏆 EDITOR'S CHOICE</span>
+                            <h3 class="text-3xl md:text-4xl font-bold mb-4">God of War (2018)</h3>
+                            <div class="star-rating text-2xl mb-4">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <span class="text-white ml-2">10/10</span>
                             </div>
-                            <p class="text-gray-400 text-sm">Naughty Dog • 2020</p>
+                            <p class="text-gray-300 mb-6">Reboot sempurna dari franchise legendaris...</p>
+                            <div class="space-y-3">
+                                <div class="flex items-center">
+                                    <span class="w-32 text-gray-400">Gameplay:</span>
+                                    <div class="flex-1 bg-gray-700 rounded-full h-3"><div class="bg-green-500 h-3 rounded-full progress-bar" style="width: 98%"></div></div>
+                                    <span class="ml-3 text-green-400 font-bold">9.8</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="w-32 text-gray-400">Cerita:</span>
+                                    <div class="flex-1 bg-gray-700 rounded-full h-3"><div class="bg-purple-500 h-3 rounded-full progress-bar" style="width: 100%"></div></div>
+                                    <span class="ml-3 text-purple-400 font-bold">10</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <p class="text-gray-300 text-sm mb-4">
-                        Sebuah karya seni interaktif yang memecah belah namun tak terbantahkan kualitasnya. Grafis next-gen di hardware current-gen, storytelling yang brave, dan gameplay stealth yang diperbaiki secara signifikan.
-                    </p>
-                    <div class="flex gap-2 flex-wrap">
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Narrative</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Stealth</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~30 Jam</span>
+                        <div class="aspect-square bg-gradient-to-br from-red-900 to-orange-800 rounded-3xl flex items-center justify-center">
+                            <i class="fas fa-dragon text-[120px] text-white/20"></i>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Review 4 -->
-                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-stone-900 to-red-950 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fas fa-moon text-4xl text-red-400/60"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold">Bloodborne</h4>
-                            <div class="star-rating text-sm">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="text-white ml-1">9.7/10</span>
-                            </div>
-                            <p class="text-gray-400 text-sm">FromSoftware • 2015</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 text-sm mb-4">
-                        Dark Souls bertemu Victorian Gothic Horror. Combat lebih agresif dan cepat, atmosphere yang mencekam, dan lore yang misterius. Chalice Dungeons menambah replayability yang hampir tak terbatas.
-                    </p>
-                    <div class="flex gap-2 flex-wrap">
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Soulslike</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Hardcore</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~40 Jam</span>
-                    </div>
-                </div>
-
-                <!-- Review 5 -->
-                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
-                    <div class="flex items-start gap-4 mb-4">
-                        <div class="w-24 h-24 bg-gradient-to-br from-amber-700 to-blue-900 rounded-xl flex items-center justify-center shrink-0">
-                            <i class="fas fa-compass text-4xl text-amber-300/60"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold">Uncharted 4</h4>
-                            <div class="star-rating text-sm">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <span class="text-white ml-1">9.6/10</span>
-                            </div>
-                            <p class="text-gray-400 text-sm">Naughty Dog • 2016</p>
-                        </div>
-                    </div>
-                    <p class="text-gray-300 text-sm mb-4">
-                        Penutup sempurna untuk trilogi Uncharted. Set piece yang mengejutkan, karakter development yang mendalam, dan visual yang masih memukau sampai sekarang. Multiplayer juga sangat fun!
-                    </p>
-                    <div class="flex gap-2 flex-wrap">
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Cinematic</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Adventure</span>
-                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~15 Jam</span>
-                    </div>
-                </div>
-
             </div>
+
+            <!-- TAB CONTENT: Latest (Hidden by default) -->
+            <div id="tab-latest" class="tab-content">
+                <div class="bg-gray-800 rounded-2xl p-8 text-center">
+                    <i class="fas fa-clock text-6xl text-blue-500 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Review Terbaru</h3>
+                    <p class="text-gray-400">Review game terbaru akan ditampilkan di sini...</p>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT: Popular (Hidden by default) -->
+            <div id="tab-popular" class="tab-content">
+                <div class="bg-gray-800 rounded-2xl p-8 text-center">
+                    <i class="fas fa-fire text-6xl text-orange-500 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Review Populer</h3>
+                    <p class="text-gray-400">Review dengan rating tertinggi dan paling banyak dibaca...</p>
+                </div>
+            </div>
+
+            <!-- TAB CONTENT: All Reviews (Hidden by default) -->
+            <div id="tab-all-reviews" class="tab-content">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition cursor-pointer">
+                        <h4 class="font-bold text-lg mb-2">God of War (2018)</h4>
+                        <div class="star-rating text-sm mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> <span class="ml-1">10/10</span></div>
+                        <p class="text-gray-400 text-sm">Masterpiece action RPG...</p>
+                    </div>
+                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition cursor-pointer">
+                        <h4 class="font-bold text-lg mb-2">Resident Evil 9</h4>
+                        <div class="star-rating text-sm mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <span class="ml-1">9.4/10</span></div>
+                        <p class="text-gray-400 text-sm">Horror survival terbaru...</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Categories Section -->
+    <!-- ==================== CATEGORIES SECTION ==================== -->
     <section id="categories" class="py-20 bg-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold mb-4">
                     <i class="fas fa-layer-group text-green-500 mr-3"></i>Kategori Game
                 </h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Jelajahi game berdasarkan genre favoritmu!</p>
+                <p class="text-gray-400 text-lg">Jelajahi game berdasarkan genre favoritmu!</p>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                
-                <div class="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                <div class="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
                     <i class="fas fa-fist-raised text-4xl mb-3"></i>
                     <h3 class="font-bold">Action</h3>
                     <p class="text-red-200 text-sm mt-1">45+ Games</p>
                 </div>
-
-                <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
                     <i class="fas fa-hat-wizard text-4xl mb-3"></i>
                     <h3 class="font-bold">RPG</h3>
                     <p class="text-purple-200 text-sm mt-1">38+ Games</p>
                 </div>
-
-                <div class="bg-gradient-to-br from-green-600 to-green-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                <div class="bg-gradient-to-br from-green-600 to-green-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
                     <i class="fas fa-car text-4xl mb-3"></i>
                     <h3 class="font-bold">Racing</h3>
                     <p class="text-green-200 text-sm mt-1">22+ Games</p>
                 </div>
-
-                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
                     <i class="fas fa-futbol text-4xl mb-3"></i>
                     <h3 class="font-bold">Sports</h3>
                     <p class="text-blue-200 text-sm mt-1">28+ Games</p>
                 </div>
-
-                <div class="bg-gradient-to-br from-orange-600 to-orange-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                <div class="bg-gradient-to-br from-orange-600 to-red-900 rounded-2xl p-6 text-center card-hover cursor-pointer border-2 border-yellow-400 relative transform hover:scale-105">
+                    <div class="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs px-2 py-1 rounded-full font-bold">HOT!</div>
                     <i class="fas fa-ghost text-4xl mb-3"></i>
                     <h3 class="font-bold">Horror</h3>
                     <p class="text-orange-200 text-sm mt-1">18+ Games</p>
                 </div>
-
-                <div class="bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                <div class="bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
                     <i class="fas fa-chess text-4xl mb-3"></i>
                     <h3 class="font-bold">Strategy</h3>
                     <p class="text-pink-200 text-sm mt-1">15+ Games</p>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
+    <!-- ==================== ABOUT SECTION ==================== -->
     <section id="about" class="py-20 bg-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -642,90 +943,435 @@
                     <h2 class="text-4xl md:text-5xl font-bold mb-6">
                         Tentang <span class="gradient-text">PS4 Game Reviews</span>
                     </h2>
-                    <p class="text-gray-300 text-lg mb-6 leading-relaxed">
-                        Kami adalah tim gamer passionate yang telah menghabiskan ribuan jam bermain dan mereview game PlayStation 4. Misi kami adalah memberikan review jujur, mendalam, dan objektif untuk membantu kamu menemukan game terbaik sesuai selera.
-                    </p>
+                    <p class="text-gray-300 text-lg mb-6">Kami adalah tim gamer passionate yang telah menghabiskan ribuan jam bermain dan mereview game PS4.</p>
+                    
                     <div class="space-y-4">
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
-                                <i class="fas fa-check text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Review Tanpa Spoiler</h4>
-                                <p class="text-gray-400 text-sm">Kami menjaga agar cerita tetap surprise untukmu</p>
-                            </div>
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-check text-xl"></i></div>
+                            <div><h4 class="font-bold">Review Tanpa Spoiler</h4><p class="text-gray-400 text-sm">Cerita tetap surprise</p></div>
                         </div>
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center shrink-0">
-                                <i class="fas fa-check text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Rating Objektif</h4>
-                                <p class="text-gray-400 text-sm">Setiap aspek game dinilai secara fair</p>
-                            </div>
+                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-check text-xl"></i></div>
+                            <div><h4 class="font-bold">Rating Objektif</h4><p class="text-gray-400 text-sm">Dinilai secara fair</p></div>
                         </div>
                         <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center shrink-0">
-                                <i class="fas fa-check text-xl"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold">Update Berkala</h4>
-                                <p class="text-gray-400 text-sm">Review baru ditambahkan setiap minggu</p>
-                            </div>
+                            <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-fire text-xl text-yellow-300"></i></div>
+                            <div><h4 class="font-bold">Latest Releases</h4><p class="text-gray-400 text-sm">Review game baru langsung tersedia!</p></div>
                         </div>
                     </div>
                 </div>
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-blue-600 to-purple-700 rounded-3xl p-8 text-center">
-                        <i class="fab fa-playstation text-9xl text-white/80 mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-2">Join Community Kami!</h3>
-                        <p class="text-blue-100 mb-6">Dapatkan update review terbaru langsung ke inboxmu</p>
-                        <form class="space-y-3">
-                            <input type="email" placeholder="Email kamu..." class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur border border-white/30 focus:outline-none focus:border-white placeholder-white/60">
-                            <button type="submit" class="w-full bg-white text-blue-600 font-bold py-3 rounded-lg hover:bg-blue-100 transition">
-                                Subscribe Now
-                            </button>
-                        </form>
-                    </div>
+                
+                <div class="bg-gradient-to-br from-blue-600 to-purple-700 rounded-3xl p-8 text-center">
+                    <i class="fab fa-playstation text-9xl text-white/80 mb-4"></i>
+                    <h3 class="text-2xl font-bold mb-2">Join Community Kami!</h3>
+                    <form id="subscribe-form" class="space-y-3 mt-6">
+                        <input type="email" id="subscribe-email" placeholder="Email kamu..." required
+                               class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur border border-white/30 focus:outline-none focus:border-white placeholder-white/60">
+                        <button type="submit" class="w-full bg-white text-blue-600 font-bold py-3 rounded-lg hover:bg-blue-100 transition transform hover:scale-105">
+                            <i class="fas fa-paper-plane mr-2"></i>Subscribe Now
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- JavaScript for Mobile Menu & Smooth Scroll -->
+    <!-- ==================== SCROLL TO TOP BUTTON ==================== -->
+    <button id="scroll-top-btn" class="scroll-top-btn fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center z-50 transition-all hover:scale-110 tooltip">
+        <i class="fas fa-arrow-up text-xl"></i>
+        <span class="tooltip-text">Kembali ke Atas</span>
+    </button>
+
+    <!-- ==================== GAME DETAIL MODAL ==================== -->
+    <div id="game-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="modal-overlay absolute inset-0 bg-black/80" onclick="closeGameModal()"></div>
+        <div class="modal-content absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 rounded-3xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-700">
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 id="modal-title" class="text-3xl font-bold text-red-400">Resident Evil 9</h2>
+                    <button onclick="closeGameModal()" class="text-gray-400 hover:text-white text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div id="modal-content" class="grid md:grid-cols-2 gap-8">
+                    <!-- Content will be injected here -->
+                </div>
+                
+                <div class="mt-8 flex gap-4">
+                    <button class="flex-1 bg-red-600 hover:bg-red-700 py-3 rounded-xl font-bold transition">
+                        <i class="fas fa-shopping-cart mr-2"></i>Beli Sekarang
+                    </button>
+                    <button class="flex-1 bg-gray-700 hover:bg-gray-600 py-3 rounded-xl font-bold transition">
+                        <i class="fas fa-heart mr-2"></i>Add to Wishlist
+                    </button>
+                    <button class="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-xl font-bold transition tooltip">
+                        <i class="fas fa-share-alt"></i>
+                        <span class="tooltip-text">Share</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
+    <div id="toast-container" class="fixed top-24 right-4 z-[110] space-y-3"></div>
+
+    <!-- ==================== LOADING OVERLAY ==================== -->
+    <div id="loading-overlay" class="fixed inset-0 bg-gray-900/95 z-[120] flex items-center justify-center hidden">
+        <div class="text-center">
+            <div class="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p class="text-xl font-bold">Loading...</p>
+        </div>
+    </div>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
     <script>
-        // Mobile Menu Toggle
+        // ==========================================
+        // MOBILE MENU TOGGLE
+        // ==========================================
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
         });
 
-        // Close mobile menu when clicking a link
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-            });
-        });
+        // ==========================================
+        // SEARCH FUNCTIONALITY
+        // ==========================================
+        const searchToggle = document.getElementById('search-toggle');
+        const searchBar = document.getElementById('search-bar');
+        const searchClose = document.getElementById('search-close');
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
 
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.classList.add('shadow-lg');
-            } else {
-                nav.classList.remove('shadow-lg');
+        searchToggle.addEventListener('click', () => {
+            searchBar.classList.toggle('hidden');
+            if (!searchBar.classList.contains('hidden')) {
+                searchInput.focus();
             }
         });
 
-        // Simple animation on scroll (Intersection Observer)
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        searchClose.addEventListener('click', () => searchBar.classList.add('hidden'));
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 0) {
+                const games = document.querySelectorAll('.game-card');
+                let results = [];
+                games.forEach(game => {
+                    const name = game.dataset.name.toLowerCase();
+                    if (name.includes(query)) {
+                        results.push({
+                            name: game.dataset.name,
+                            rating: game.dataset.rating,
+                            year: game.dataset.year,
+                            genre: game.dataset.genre.split(',')[0]
+                        });
+                    }
+                });
+                
+                if (results.length > 0) {
+                    searchResults.innerHTML = results.map(r => `
+                        <div class="p-3 hover:bg-gray-700 cursor-pointer rounded-lg transition" onclick="scrollToSection('top-games'); searchBar.classList.add('hidden');">
+                            <div class="font-bold">${r.name}</div>
+                            <div class="text-sm text-gray-400">⭐ ${r.rating}/10 • ${r.year} • ${r.genre}</div>
+                        </div>
+                    `).join('');
+                    searchResults.classList.remove('hidden');
+                } else {
+                    searchResults.innerHTML = '<div class="p-3 text-gray-400">Tidak ada game ditemukan 😢</div>';
+                    searchResults.classList.remove('hidden');
+                }
+            } else {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        // ==========================================
+        // SCROLL TO TOP BUTTON
+        // ==========================================
+        const scrollTopBtn = document.getElementById('scroll-top-btn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+            
+            // Navbar shadow
+            const nav = document.querySelector('nav');
+            nav.classList.toggle('shadow-lg', window.scrollY > 50);
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            showToast('Kembali ke atas! 🚀', 'info');
+        });
+
+        // ==========================================
+        // COUNTER ANIMATION
+        // ==========================================
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.dataset.target);
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current) + '+';
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target + '+';
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        // Trigger counter when hero is visible
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        heroObserver.observe(document.getElementById('home'));
+
+        // ==========================================
+        // FILTER & SORT GAMES
+        // ==========================================
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const sortSelect = document.getElementById('sort-select');
+        const gamesGrid = document.getElementById('games-grid');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                const cards = document.querySelectorAll('.game-card');
+                
+                cards.forEach(card => {
+                    if (filter === 'all' || card.dataset.genre.includes(filter)) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.5s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+                
+                showToast(`Filter: ${btn.textContent.trim()} 🎮`, 'success');
+            });
+        });
+
+        sortSelect.addEventListener('change', (e) => {
+            const value = e.target.value;
+            const cards = Array.from(document.querySelectorAll('.game-card'));
+            
+            cards.sort((a, b) => {
+                switch(value) {
+                    case 'rating-desc': return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+                    case 'rating-asc': return parseFloat(a.dataset.rating) - parseFloat(b.dataset.rating);
+                    case 'name-asc': return a.dataset.name.localeCompare(b.dataset.name);
+                    case 'name-desc': return b.dataset.name.localeCompare(a.dataset.name);
+                    case 'year-desc': return b.dataset.year - a.dataset.year;
+                    case 'year-asc': return a.dataset.year - b.dataset.year;
+                    default: return 0;
+                }
+            });
+            
+            cards.forEach(card => gamesGrid.appendChild(card));
+            showToast(`Diurutkan: ${e.target.options[e.target.selectedIndex].text} 📊`, 'info');
+        });
+
+        // ==========================================
+        // TAB SYSTEM
+        // ==========================================
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+            });
+        });
+
+        // ==========================================
+        // GAME MODAL
+        // ==========================================
+        const gameData = {
+            re9: {
+                title: 'Resident Evil 9',
+                subtitle: 'Capcom • 2025 • Survival Horror',
+                rating: 9.4,
+                description: 'Franchise horror legendaris kembali dengan evolusi besar! RE Engine yang ditingkatkan menghadirkan visual photorealistic yang memukau.',
+                pros: ['Visual photorealistik', 'Combat system refined', 'Co-op mode improved', 'Monster baru yang menakutkan'],
+                cons: ['Load time agak lama', 'Story pacing kadang lambat'],
+                gradient: 'from-red-950 via-gray-900 to-black'
+            },
+            gow: {
+                title: 'God of War (2018)',
+                subtitle: 'Santa Monica Studio • 2018 • Action RPG',
+                rating: 10,
+                description: 'Reboot sempurna yang mengubah formula hack-and-slash menjadi cinematic experience emosional.',
+                pros: ['Cerita masterclass', 'Combat satisfying', 'Visual stunning', 'Character development'],
+                cons: ['Tidak ada multiplayer'],
+                gradient: 'from-red-900 to-orange-800'
+            },
+            spiderman: {
+                title: 'Marvel\'s Spider-Man',
+                subtitle: 'Insomniac Games • 2018 • Action Adventure',
+                rating: 9.5,
+                description: 'Definisi sempurna game superhero dengan web-swinging mekanik terbaik!',
+                pros: ['Web-swinging perfect', 'Combat fluid', 'Side missions fun'],
+                cons: ['Collectibles repetitive'],
+                gradient: 'from-red-600 to-blue-700'
+            }
         };
 
+        function openGameModal(gameId) {
+            const modal = document.getElementById('game-modal');
+            const game = gameData[gameId];
+            
+            if (game) {
+                document.getElementById('modal-title').textContent = game.title;
+                document.getElementById('modal-content').innerHTML = `
+                    <div>
+                        <p class="text-gray-400 mb-4">${game.subtitle}</p>
+                        <div class="star-rating text-2xl mb-4">
+                            ${Array(Math.floor(game.rating)).fill('<i class="fas fa-star"></i>').join('')}
+                            ${game.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                            <span class="text-white ml-2">${game.rating}/10</span>
+                        </div>
+                        <p class="text-gray-300 mb-6">${game.description}</p>
+                        <div class="mb-4">
+                            <h4 class="font-bold text-green-400 mb-2"><i class="fas fa-check-circle mr-2"></i>Kelebihan:</h4>
+                            <ul class="space-y-1">${game.pros.map(p => `<li class="text-gray-300 text-sm"><i class="fas fa-plus text-green-500 mr-2"></i>${p}</li>`).join('')}</ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-red-400 mb-2"><i class="fas fa-times-circle mr-2"></i>Kekurangan:</h4>
+                            <ul class="space-y-1">${game.cons.map(c => `<li class="text-gray-300 text-sm"><i class="fas fa-minus text-red-500 mr-2"></i>${c}</li>`).join('')}</ul>
+                        </div>
+                    </div>
+                    <div class="aspect-square bg-gradient-to-br ${game.gradient} rounded-2xl flex items-center justify-center">
+                        <i class="fas fa-gamepad text-[100px] text-white/20"></i>
+                    </div>
+                `;
+                
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeGameModal() {
+            document.getElementById('game-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeGameModal();
+        });
+
+        // ==========================================
+        // TOAST NOTIFICATION SYSTEM
+        // ==========================================
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const colors = {
+                success: 'bg-green-600',
+                error: 'bg-red-600',
+                info: 'bg-blue-600',
+                warning: 'bg-yellow-600'
+            };
+            
+            const icons = {
+                success: 'fa-check-circle',
+                error: 'fa-exclamation-circle',
+                info: 'fa-info-circle',
+                warning: 'fa-exclamation-triangle'
+            };
+            
+            toast.className = `toast ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]`;
+            toast.innerHTML = `<i class="fas ${icons[type]} text-xl"></i><span>${message}</span>`;
+            
+            container.appendChild(toast);
+            
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ==========================================
+        // SUBSCRIBE FORM
+        // ==========================================
+        document.getElementById('subscribe-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('subscribe-email').value;
+            
+            // Show loading
+            showLoading();
+            
+            // Simulate API call
+            setTimeout(() => {
+                hideLoading();
+                showToast(`Berhasil subscribe! 🎉 Cek email: ${email}`, 'success');
+                document.getElementById('subscribe-email').value = '';
+            }, 1500);
+        });
+
+        // ==========================================
+        // LOADING FUNCTIONS
+        // ==========================================
+        function showLoading() {
+            document.getElementById('loading-overlay').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading-overlay').classList.add('hidden');
+        }
+
+        // ==========================================
+        // LOAD MORE GAMES
+        // ==========================================
+        document.getElementById('load-more-btn').addEventListener('click', function() {
+            this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
+            this.disabled = true;
+            
+            setTimeout(() => {
+                showToast('24 game baru dimuat! 🎮', 'success');
+                this.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Semua Game Dimuat';
+                this.classList.replace('from-blue-600', 'from-green-600');
+                this.classList.replace('to-purple-600', 'to-green-600');
+            }, 2000);
+        });
+
+        // ==========================================
+        // UTILITY FUNCTIONS
+        // ==========================================
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // INTERSECTION OBSERVER FOR ANIMATIONS
+        // ==========================================
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -735,12 +1381,34 @@
             });
         }, observerOptions);
 
-        // Apply animation to cards
         document.querySelectorAll('.game-card, .card-hover').forEach(card => {
             card.style.opacity = '0';
             card.style.transform = 'translateY(20px)';
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(card);
+        });
+
+        // Progress bar animation on scroll
+        const progressObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.style.width;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.progress-bar').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0';
+            progressObserver.observe(bar);
+            setTimeout(() => bar.style.width = width, 500);
+        });
+
+        // Initial welcome toast
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                showToast('Selamat datang di PS4 Game Reviews! 👋', 'success');
+            }, 1000);
         });
     </script>
 
