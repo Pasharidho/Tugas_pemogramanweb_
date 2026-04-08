@@ -362,15 +362,6 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            position: relative;
-        }
-
-        .exp-icon-wrap::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            opacity: 0.15;
         }
 
         /* === DIVIDER === */
@@ -380,14 +371,52 @@
             margin: 32px 0;
         }
 
+        /* === BACK BUTTON === */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            margin-bottom: 28px;
+        }
+
+        .back-btn:hover {
+            color: #e2e8f0;
+            background: rgba(255,255,255,0.04);
+        }
+
+        .back-btn:hover .back-arrow {
+            transform: translateX(-4px);
+        }
+
+        .back-arrow {
+            transition: transform 0.3s ease;
+        }
+
         /* === ANIMATIONS === */
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .anim-in {
             animation: slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            opacity: 0;
+        }
+
+        .anim-fade {
+            animation: fadeUp 0.5s ease forwards;
             opacity: 0;
         }
 
@@ -445,6 +474,7 @@
             .exp-card:hover { transform: none !important; box-shadow: none !important; }
             .hobby-chip:hover { transform: none !important; }
             .photo-glow { animation: none !important; }
+            .back-btn { display: none !important; }
         }
 
         /* === RESPONSIVE === */
@@ -603,6 +633,14 @@
             <div class="content-area flex-1 relative">
                 <div class="relative z-10 p-8 md:p-10 lg:p-12">
 
+                    <!-- Back Button -->
+                    <a href="index.html"
+                       class="back-btn no-print anim-fade anim-d1"
+                       aria-label="Kembali ke halaman utama">
+                        <iconify-icon icon="lucide:arrow-left" width="13" class="back-arrow"></iconify-icon>
+                        <span>Kembali</span>
+                    </a>
+
                     <!-- Tentang Saya -->
                     <div class="anim-in anim-d2">
                         <div class="section-label">
@@ -746,7 +784,7 @@
 
     <!-- Footer -->
     <p class="no-print relative z-10 text-center text-white/15 text-[11px] mt-8 pb-6 tracking-wider">
-        DESIGNED WITH Pasha Ridho Pradipta setiawan
+        DESIGNED WITH TAILWIND CSS
     </p>
 
 </body>
