@@ -21,9 +21,9 @@
             theme: {
                 extend: {
                     colors: {
-                        'retro-bg': '#0f172a',    /* Dark Blue/Slate */
-                        'retro-card': '#1e293b',  /* Lighter Slate */
-                        'retro-green': '#4ade80', /* Neon Green */
+                        'retro-bg': '#0f172a',
+                        'retro-card': '#1e293b',
+                        'retro-green': '#4ade80',
                         'retro-dark-green': '#14532d',
                     },
                     fontFamily: {
@@ -41,19 +41,16 @@
     </script>
 
     <style>
-        /* Base Styling */
         body {
             font-family: 'VT323', monospace;
             background-color: #0f172a;
             overflow-x: hidden;
-            /* Background Pattern Grid */
             background-image: 
                 linear-gradient(rgba(74, 222, 128, 0.05) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(74, 222, 128, 0.05) 1px, transparent 1px);
             background-size: 20px 20px;
         }
 
-        /* CRT Scanline Effect Overlay */
         .crt-overlay {
             position: fixed;
             top: 0;
@@ -66,12 +63,10 @@
             z-index: 50;
         }
 
-        /* Pixelated Image Rendering */
         img {
             image-rendering: pixelated;
         }
 
-        /* Floating Animation */
         @keyframes floating {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
@@ -81,7 +76,6 @@
             animation: floating 4s ease-in-out infinite;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 10px;
         }
@@ -96,37 +90,27 @@
 </head>
 <body class="text-white min-h-screen flex flex-col justify-center items-center p-4 selection:bg-retro-green selection:text-retro-bg">
 
-    <!-- CRT Effect Layer -->
     <div class="crt-overlay"></div>
 
-    <!-- Main Container -->
     <main class="relative z-10 w-full max-w-lg">
         
-        <!-- Pixel Card -->
         <div class="animate-floating bg-retro-card/90 border-4 border-retro-green shadow-pixel p-6 md:p-10 text-center relative backdrop-blur-sm">
             
-            <!-- Decorative Corners -->
             <div class="absolute top-0 left-0 w-4 h-4 bg-retro-green border-r-2 border-b-2 border-retro-card translate-x-[-2px] translate-y-[-2px]"></div>
             <div class="absolute bottom-0 right-0 w-4 h-4 bg-retro-green border-l-2 border-t-2 border-retro-card translate-x-[2px] translate-y-[2px]"></div>
 
-            <!-- Profile Image Container -->
             <div class="relative w-32 h-32 mx-auto mb-6 group">
-                <!-- Glow Effect -->
                 <div class="absolute inset-0 bg-retro-green opacity-20 blur-md rounded-full group-hover:opacity-40 transition-opacity duration-300"></div>
                 
-                <!-- Avatar Image (Ganti src dengan file lokal Anda nanti) -->
-                <!-- Menggunakan placeholder random motorbike/retro untuk demo -->
                 <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272757189673061/pasha_ridho_pradipta_setiawan.jpg?ex=69d7177b&is=69d5c5fb&hm=cb78415139439ea92163f63f7444b6cdcbb16082675c741f1cd6765c42539445&" 
                      alt="Pasha Ridho" 
                      class="relative w-full h-full object-cover border-4 border-white bg-gray-700 shadow-lg">
                 
-                <!-- Level Badge -->
                 <div class="absolute -bottom-2 -right-2 bg-retro-green text-retro-bg px-2 py-0.5 border-2 border-white text-[10px] font-bold font-pixel shadow-sm">
                     LVL 99
                 </div>
             </div>
 
-            <!-- Header Text -->
             <p class="text-retro-green tracking-[0.2em] text-sm md:text-base mb-2 animate-pulse">
                 > INSERT COIN
             </p>
@@ -138,7 +122,6 @@
                 </span>
             </h1>
 
-            <!-- Description -->
             <div class="bg-black/30 p-3 mb-8 border-l-2 border-retro-green text-left mx-2 md:mx-6">
                 <p class="text-gray-300 text-xl md:text-2xl leading-tight font-terminal">
                     <span class="text-retro-green mr-2">$</span> Mahasiswa Pendidikan Komputer.<br>
@@ -146,40 +129,39 @@
                 </p>
             </div>
 
-            <!-- Navigation Grid (DIUBAH KE 2x2) -->
+            <!-- NAVIGATION GRID 2x2 -->
             <div class="grid grid-cols-2 gap-3 md:gap-4">
                 
-                <!-- Blog Button -->
+                <!-- BLOG -->
                 <a href="blog.html" class="group relative flex flex-col items-center justify-center p-3 bg-blue-900/40 border-2 border-blue-400 hover:bg-blue-900/60 transition-all duration-100 active:translate-y-1 active:shadow-none">
                     <div class="absolute inset-0 bg-blue-400/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <i class="fa-solid fa-layer-group text-2xl mb-2 text-blue-300 group-hover:text-white group-hover:-translate-y-1 transition-transform"></i>
                     <span class="text-xs font-bold font-pixel text-blue-300 group-hover:text-white">BLOG</span>
                 </a>
 
-                <!-- Kontak Button -->
+                <!-- KONTAK -->
                 <a href="Kontak.html" class="group relative flex flex-col items-center justify-center p-3 bg-green-900/40 border-2 border-green-400 hover:bg-green-900/60 transition-all duration-100 active:translate-y-1 active:shadow-none">
                     <div class="absolute inset-0 bg-green-400/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <i class="fa-solid fa-paper-plane text-2xl mb-2 text-green-300 group-hover:text-white group-hover:-translate-y-1 transition-transform"></i>
                     <span class="text-xs font-bold font-pixel text-green-300 group-hover:text-white">KONTAK</span>
                 </a>
 
-                <!-- CV Button -->
+                <!-- CV -->
                 <a href="Cv.html" class="group relative flex flex-col items-center justify-center p-3 bg-purple-900/40 border-2 border-purple-400 hover:bg-purple-900/60 transition-all duration-100 active:translate-y-1 active:shadow-none">
                     <div class="absolute inset-0 bg-purple-400/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     <i class="fa-solid fa-file-invoice text-2xl mb-2 text-purple-300 group-hover:text-white group-hover:-translate-y-1 transition-transform"></i>
                     <span class="text-xs font-bold font-pixel text-purple-300 group-hover:text-white">CV</span>
                 </a>
 
-                <!-- Sport Button (BARU DITAMBAHKAN) ⚽ -->
-                <a href="sport.html" class="group relative flex flex-col items-center justify-center p-3 bg-orange-900/40 border-2 border-orange-400 hover:bg-orange-900/60 transition-all duration-100 active:translate-y-1 active:shadow-none">
-                    <div class="absolute inset-0 bg-orange-400/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <i class="fa-solid fa-futbol text-2xl mb-2 text-orange-300 group-hover:text-white group-hover:-translate-y-1 transition-transform"></i>
-                    <span class="text-xs font-bold font-pixel text-orange-300 group-hover:text-white">SPORT</span>
+                <!-- REVIEW GAME 🎮 -->
+                <a href="review-game.html" class="group relative flex flex-col items-center justify-center p-3 bg-red-900/40 border-2 border-red-400 hover:bg-red-900/60 transition-all duration-100 active:translate-y-1 active:shadow-none">
+                    <div class="absolute inset-0 bg-red-400/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <i class="fa-solid fa-gamepad text-2xl mb-2 text-red-300 group-hover:text-white group-hover:-translate-y-1 transition-transform"></i>
+                    <span class="text-xs font-bold font-pixel text-red-300 group-hover:text-white">REVIEW<br>GAME</span>
                 </a>
 
             </div>
 
-            <!-- Footer Decor -->
             <div class="mt-8 flex items-center justify-center opacity-60 space-x-4">
                 <i class="fa-solid fa-ghost text-xl hover:text-retro-green transition-colors cursor-pointer hover:animate-bounce"></i>
                 <span class="text-lg font-terminal">PRESS START</span>
@@ -188,7 +170,7 @@
         </div>
     </main>
 
-    <!-- Gameboy Style Controls (Bottom Left) -->
+    <!-- Gameboy Controls -->
     <div class="fixed bottom-6 left-6 z-40 hidden md:flex flex-col items-center gap-2">
         <div class="text-[10px] font-pixel text-gray-500 mb-1">CONTROLS</div>
         <div class="flex gap-2">
@@ -209,7 +191,7 @@
         </div>
     </div>
 
-    <!-- Start/Pause Decor (Bottom Right) -->
+    <!-- Start/Pause Decor -->
     <div class="fixed bottom-6 right-6 z-40 hidden md:flex gap-4 items-center">
         <div class="w-12 h-4 border-2 border-gray-500 rounded-full rotate-[-45deg] opacity-50"></div>
         <div class="flex flex-col gap-2">
