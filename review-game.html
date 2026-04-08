@@ -3,43 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS4 Game Reviews - Review Game Terbaik PlayStation 4</title>
+    <title>EA Sports FC 26 - The Future of Football</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'fc-green': '#00FF87',
+                        'fc-dark': '#0a0f1c',
+                        'fc-blue': '#1e3a5f',
+                        'fc-gold': '#FFD700'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
         
-        * {
-            font-family: 'Poppins', sans-serif;
+        body {
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #00FF87, #00D4FF, #FFFFFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .hero-gradient {
-            background: linear-gradient(135deg, #0066cc 0%, #003d7a 50%, #001a33 100%);
+            background: linear-gradient(135deg, rgba(10,15,28,0.95) 0%, rgba(30,58,95,0.9) 50%, rgba(10,15,28,0.95) 100%);
         }
         
         .card-hover {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
         .card-hover:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 102, 204, 0.3);
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 255, 135, 0.35);
         }
         
-        .ps-blue {
-            color: #0070d1;
+        .glow-effect {
+            box-shadow: 0 0 30px rgba(0, 255, 135, 0.5), 0 0 60px rgba(0, 212, 255, 0.3);
         }
         
-        .star-rating {
-            color: #ffd700;
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
         
-        .game-card-img {
-            transition: transform 0.5s ease;
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
         
-        .game-card:hover .game-card-img {
-            transform: scale(1.1);
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        
+        .particle-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00FF87;
+            border-radius: 50%;
+            animation: particleFloat 8s infinite linear;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .mode-card {
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 255, 135, 0.2);
         }
         
         .nav-link {
@@ -49,1368 +126,727 @@
         .nav-link::after {
             content: '';
             position: absolute;
+            bottom: -4px;
+            left: 0;
             width: 0;
             height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: #0070d1;
+            background: linear-gradient(90deg, #00FF87, #00D4FF);
             transition: width 0.3s ease;
         }
         
         .nav-link:hover::after {
             width: 100%;
         }
-        
-        .scroll-smooth {
-            scroll-behavior: smooth;
+
+        .scroll-indicator {
+            animation: bounce 2s infinite;
         }
 
-        .animate-float {
-            animation: float 3s ease-in-out infinite;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .gradient-text {
-            background: linear-gradient(135deg, #0070d1, #00a2ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .new-badge {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.05); }
-        }
-
-        /* Scroll to Top Button */
-        .scroll-top-btn {
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .scroll-top-btn.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Search Box */
-        .search-box:focus {
-            box-shadow: 0 0 0 3px rgba(0, 112, 209, 0.3);
-        }
-
-        /* Filter Button Active State */
-        .filter-btn.active {
-            background: linear-gradient(135deg, #0070d1, #00a2ff);
-            color: white;
-            border-color: transparent;
-        }
-
-        /* Toast Notification */
-        .toast {
-            animation: slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
-        }
-
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; visibility: hidden; }
-        }
-
-        /* Modal */
-        .modal-overlay {
-            backdrop-filter: blur(8px);
-            transition: all 0.3s ease;
-        }
-
-        .modal-content {
-            animation: modalSlideIn 0.4s ease;
-        }
-
-        @keyframes modalSlideIn {
-            from { transform: translateY(-50px) scale(0.9); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        /* Loading Skeleton */
-        .skeleton {
-            background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Progress Bar Animation */
-        .progress-bar {
-            transition: width 1.5s ease-in-out;
-        }
-
-        /* Card Flip Effect */
-        .card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-
-        .card-flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front, .card-back {
-            backface-visibility: hidden;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-        }
-
-        /* Tooltip */
-        .tooltip {
+        /* Back Button Styles */
+        .back-btn {
             position: relative;
-        }
-
-        .tooltip .tooltip-text {
-            visibility: hidden;
-            width: max-content;
-            background-color: #1f2937;
-            color: #fff;
-            text-align: center;
-            padding: 8px 12px;
-            border-radius: 8px;
-            position: absolute;
-            z-index: 100;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 12px;
-            white-space: nowrap;
-        }
-
-        .tooltip .tooltip-text::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #1f2937 transparent transparent transparent;
-        }
-
-        .tooltip:hover .tooltip-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Counter Animation */
-        .counter {
-            display: inline-block;
-        }
-
-        /* Breadcrumb */
-        .breadcrumb-item + .breadcrumb-item::before {
-            content: "/";
-            padding: 0 8px;
-            color: #6b7280;
-        }
-
-        /* Tab System */
-        .tab-btn.active {
-            color: #0070d1;
-            border-bottom: 3px solid #0070d1;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Rating Stars Interactive */
-        .star-interactive {
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .star-interactive:hover {
-            transform: scale(1.2);
-        }
-
-        /* Image Zoom on Hover */
-        .img-zoom {
             overflow: hidden;
+            transition: all 0.3s ease;
         }
 
-        .img-zoom img, .img-zoom div {
-            transition: transform 0.5s ease;
+        .back-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
         }
 
-        .img-zoom:hover img, .img-zoom:hover div {
-            transform: scale(1.1);
+        .back-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .back-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-5px);
+        }
+
+        /* Floating Back Button */
+        .floating-back-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            transform: translateY(20px);
+        }
+
+        .floating-back-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .floating-back-btn:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.4);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white scroll-smooth">
-
-    <!-- ==================== NAVIGATION ==================== -->
-    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <!-- Logo -->
-                <div class="flex items-center space-x-3">
-                    <i class="fab fa-playstation text-4xl ps-blue"></i>
-                    <span class="text-xl font-bold">PS4 Game Reviews</span>
-                </div>
-
-                <!-- Desktop Nav Links -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
-                        <i class="fas fa-home"></i>Beranda
-                    </a>
-                    <a href="#top-games" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
-                        <i class="fas fa-gamepad"></i>Top Games
-                    </a>
-                    <a href="#reviews" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
-                        <i class="fas fa-star"></i>Reviews
-                    </a>
-                    <a href="#categories" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
-                        <i class="fas fa-layer-group"></i>Kategori
-                    </a>
-                    <a href="#about" class="nav-link hover:text-blue-400 transition flex items-center gap-1">
-                        <i class="fas fa-info-circle"></i>Tentang
-                    </a>
-                </div>
-
-                <!-- Right Side Actions -->
-                <div class="hidden md:flex items-center space-x-4">
-                    <!-- Search Icon -->
-                    <button id="search-toggle" class="text-gray-300 hover:text-blue-400 transition tooltip">
-                        <i class="fas fa-search text-xl"></i>
-                        <span class="tooltip-text">Cari Game</span>
+<body class="bg-fc-dark text-white overflow-x-hidden">
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-fc-dark/80 backdrop-blur-xl border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <!-- Tombol Kembali di Navbar -->
+                    <button onclick="goBack()" class="back-btn flex items-center space-x-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 hover:bg-fc-green/20 hover:border-fc-green/50 hover:text-fc-green text-gray-300 transition-all duration-300 group">
+                        <i class="fas fa-arrow-left group-hover:text-fc-green"></i>
+                        <span class="hidden sm:inline font-semibold text-sm">Kembali</span>
                     </button>
                     
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="text-gray-300 hover:text-yellow-400 transition tooltip">
-                        <i class="fas fa-moon text-xl"></i>
-                        <span class="tooltip-text">Toggle Theme</span>
-                    </button>
-
-                    <!-- Notification Bell with Badge -->
-                    <button class="relative text-gray-300 hover:text-red-400 transition tooltip">
-                        <i class="fas fa-bell text-xl"></i>
-                        <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center new-badge">1</span>
-                        <span class="tooltip-text">Notifikasi</span>
-                    </button>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-fc-green to-cyan-400 flex items-center justify-center glow-effect">
+                            <i class="fas fa-futbol text-fc-dark text-xl"></i>
+                        </div>
+                        <span class="font-orbitron text-2xl font-bold gradient-text">FC 26</span>
+                    </div>
                 </div>
-
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-btn" class="md:hidden text-2xl">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-
-        <!-- Search Bar (Hidden by default) -->
-        <div id="search-bar" class="hidden bg-gray-800 border-t border-gray-700 py-4 px-4">
-            <div class="max-w-2xl mx-auto relative">
-                <input type="text" id="search-input" placeholder="🔍 Cari game... (contoh: God of War, Spider-Man, RE9)" 
-                       class="w-full px-6 py-4 rounded-2xl bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none search-box text-white placeholder-gray-400">
-                <button id="search-close" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white">
-                    <i class="fas fa-times text-xl"></i>
-                </button>
-            </div>
-            <!-- Search Results Container -->
-            <div id="search-results" class="max-w-2xl mx-auto mt-2 bg-gray-800 rounded-xl border border-gray-700 hidden"></div>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 border-t border-gray-700">
-            <div class="px-4 py-3 space-y-3">
-                <a href="#home" class="block hover:text-blue-400 transition"><i class="fas fa-home mr-2"></i>Beranda</a>
-                <a href="#top-games" class="block hover:text-blue-400 transition"><i class="fas fa-gamepad mr-2"></i>Top Games</a>
-                <a href="#reviews" class="block hover:text-blue-400 transition"><i class="fas fa-star mr-2"></i>Reviews</a>
-                <a href="#categories" class="block hover:text-blue-400 transition"><i class="fas fa-layer-group mr-2"></i>Kategori</a>
-                <a href="#about" class="block hover:text-blue-400 transition"><i class="fas fa-info-circle mr-2"></i>Tentang</a>
                 
-                <!-- Mobile Search -->
-                <div class="pt-3 border-t border-gray-700">
-                    <input type="text" placeholder="🔍 Cari game..." 
-                           class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:border-blue-500 focus:outline-none text-sm">
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="nav-link text-gray-300 hover:text-fc-green transition-colors font-semibold">Fitur</a>
+                    <a href="#modes" class="nav-link text-gray-300 hover:text-fc-green transition-colors font-semibold">Mode Game</a>
+                    <a href="#stats" class="nav-link text-gray-300 hover:text-fc-green transition-colors font-semibold">Statistik</a>
+                    <a href="#gallery" class="nav-link text-gray-300 hover:text-fc-green transition-colors font-semibold">Galeri</a>
                 </div>
+                
+                <button class="bg-gradient-to-r from-fc-green to-emerald-500 text-fc-dark font-bold px-6 py-3 rounded-full hover:shadow-lg hover:shadow-fc-green/30 transition-all duration-300 transform hover:scale-105">
+                    <i class="fas fa-shopping-cart mr-2"></i>Pre-Order
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- ==================== BREADCRUMB ==================== -->
-    <div class="fixed top-16 left-0 right-0 bg-gray-800/90 backdrop-blur-sm z-40 border-b border-gray-700 py-2 px-4 hidden md:block">
-        <div class="max-w-7xl mx-auto">
-            <nav class="breadcrumb flex items-center text-sm">
-                <a href="#" class="text-blue-400 hover:text-blue-300 transition">Home</a>
-                <span class="breadcrumb-item text-gray-400">PlayStation 4</span>
-                <span class="breadcrumb-item text-gray-400">Game Reviews</span>
-                <span class="breadcrumb-item text-white font-semibold">Latest</span>
-            </nav>
-        </div>
-    </div>
-
-    <!-- ==================== HERO SECTION ==================== -->
-    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
-            <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-300 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <!-- Animated Logo -->
-            <div class="animate-float mb-8">
-                <i class="fab fa-playstation text-8xl md:text-9xl text-white/90 drop-shadow-2xl"></i>
-            </div>
-            
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
-                PlayStation 4<br>
-                <span class="text-blue-300">Game Reviews</span>
-            </h1>
-            
-            <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-                Temukan review lengkap game-game terbaik di platform PlayStation 4. Dari action hingga RPG, semua ada di sini!
-            </p>
-            
-            <!-- NEW RELEASE BANNER -->
-            <div class="mb-8 inline-block bg-gradient-to-r from-red-600 to-red-800 px-8 py-4 rounded-2xl border-2 border-yellow-400 shadow-2xl new-badge cursor-pointer hover:scale-105 transition-transform" onclick="scrollToSection('top-games')">
-                <span class="text-yellow-300 font-bold text-lg mr-2">🔥 NEW RELEASE:</span>
-                <span class="font-bold text-xl">RESIDENT EVIL 9</span>
-                <i class="fas fa-arrow-right ml-2 animate-bounce"></i>
-            </div>
-
-            <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <a href="#top-games" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-100 transition transform hover:scale-105 shadow-lg inline-flex items-center justify-center gap-2 group">
-                    <i class="fas fa-gamepad group-hover:rotate-12 transition-transform"></i>Lihat Top Games
-                </a>
-                <a href="#reviews" class="border-2 border-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition transform hover:scale-105 inline-flex items-center justify-center gap-2">
-                    <i class="fas fa-star"></i>Baca Reviews
-                </a>
-            </div>
-            
-            <!-- Stats Counter -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 card-hover">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-300 counter" data-target="150">0</div>
-                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-gamepad mr-1"></i>Game Direview</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 card-hover">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-300 counter" data-target="50">0</div>
-                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-tags mr-1"></i>Genre Tersedia</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 card-hover">
-                    <div class="text-3xl md:text-4xl font-bold text-blue-300">4.<span class="counter" data-target="5">0</span></div>
-                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-star mr-1"></i>Rating Rata-rata</div>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-green-500/30 border-2 card-hover">
-                    <div class="text-3xl md:text-4xl font-bold text-green-400 new-badge">NEW!</div>
-                    <div class="text-sm text-blue-100 mt-2"><i class="fas fa-fire mr-1 text-orange-400"></i>RE9 Added</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Scroll Down Indicator -->
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#top-games" class="text-white/70 hover:text-white transition">
-                <i class="fas fa-chevron-down text-3xl"></i>
-            </a>
-        </div>
-    </section>
-
-    <!-- ==================== TOP GAMES SECTION ==================== -->
-    <section id="top-games" class="py-20 bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Section Header -->
-            <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                    <i class="fas fa-trophy text-yellow-500 mr-3"></i>Top Games PS4
-                </h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto mb-6">Kumpulan game terbaik dan paling populer di PlayStation 4!</p>
-                
-                <!-- NEW RELEASE Tag -->
-                <div class="inline-flex items-center gap-2 bg-red-600 px-4 py-2 rounded-full new-badge mb-6">
-                    <i class="fas fa-fire text-yellow-300"></i>
-                    <span class="font-bold text-sm">RESIDENT EVIL 9 BARU SAJA RILIS!</span>
-                </div>
-            </div>
-
-            <!-- FILTER BUTTONS -->
-            <div class="flex flex-wrap justify-center gap-3 mb-10">
-                <button class="filter-btn active px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500" data-filter="all">
-                    <i class="fas fa-th mr-2"></i>Semua
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="action">
-                    <i class="fas fa-fist-raised mr-2"></i>Action
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="horror">
-                    <i class="fas fa-ghost mr-2"></i>Horror
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="rpg">
-                    <i class="fas fa-hat-wizard mr-2"></i>RPG
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="adventure">
-                    <i class="fas fa-compass mr-2"></i>Adventure
-                </button>
-                <button class="filter-btn px-6 py-2 rounded-full border-2 border-gray-600 font-semibold transition-all hover:border-blue-500 bg-gray-800" data-filter="new">
-                    <i class="fas fa-sparkles mr-2"></i>New Release
-                </button>
-            </div>
-
-            <!-- SORT OPTIONS -->
-            <div class="flex justify-end mb-6">
-                <select id="sort-select" class="bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500 cursor-pointer">
-                    <option value="rating-desc">Rating: Tinggi → Rendah</option>
-                    <option value="rating-asc">Rating: Rendah → Tinggi</option>
-                    <option value="name-asc">Nama: A-Z</option>
-                    <option value="name-desc">Nama: Z-A</option>
-                    <option value="year-desc">Terbaru</option>
-                    <option value="year-asc">Terlama</option>
-                </select>
-            </div>
-            
-            <!-- Games Grid -->
-            <div id="games-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- 🆕 RESIDENT EVIL 9 (NEW!) -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border-2 border-red-500 relative" data-genre="horror,new" data-rating="9.4" data-name="Resident Evil 9" data-year="2025">
-                    <div class="absolute top-0 right-0 bg-red-600 text-white px-4 py-2 rounded-bl-2xl font-bold text-sm z-10 new-badge flex items-center gap-1">
-                        <i class="fas fa-star text-yellow-300"></i> NEW!
-                    </div>
-                    
-                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('re9')">
-                        <div class="game-card-img w-full h-full bg-gradient-to-br from-gray-900 via-red-950 to-black flex items-center justify-center relative">
-                            <i class="fas fa-virus text-8xl text-red-500/60 animate-pulse"></i>
-                            <div class="absolute inset-0 bg-black/30"></div>
-                            
-                            <!-- Quick View Overlay -->
-                            <div class="absolute inset-0 bg-black/70 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <div class="text-center">
-                                    <i class="fas fa-eye text-4xl text-white mb-2"></i>
-                                    <p class="text-white font-bold">Quick View</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm z-10">
-                            ⭐ 9.4/10
-                        </div>
-                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">
-                            🧟 SURVIVAL HORROR
-                        </div>
-                        <div class="absolute bottom-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold z-10">
-                            🔥 2025
-                        </div>
-                    </div>
-                    
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-2xl font-bold text-red-400">Resident Evil 9</h3>
-                            <span class="bg-red-600 text-white text-xs px-2 py-1 rounded-full font-bold new-badge">BARU!</span>
-                        </div>
-                        
-                        <!-- Interactive Star Rating -->
-                        <div class="star-rating mb-3 text-lg flex items-center gap-1">
-                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
-                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
-                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
-                            <i class="fas fa-star star-interactive" title="Sangat Bagus!"></i>
-                            <i class="fas fa-star-half-alt star-interactive" title="Bagus"></i>
-                            <span class="text-gray-400 text-sm ml-2">(9.4)</span>
-                        </div>
-                        
-                        <p class="text-gray-400 text-sm mb-4 line-clamp-2">Franchise horror legendaris kembali! Pengalaman mencekam dengan grafis next-gen...</p>
-                        
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="bg-red-900/30 text-red-300 px-2 py-1 rounded text-xs"><i class="fas fa-skull mr-1"></i>Horror</span>
-                            <span class="bg-purple-900/30 text-purple-300 px-2 py-1 rounded text-xs"><i class="fas fa-crosshairs mr-1"></i>TPS</span>
-                            <span class="bg-blue-900/30 text-blue-300 px-2 py-1 rounded text-xs"><i class="fas fa-clock mr-1"></i>~25 Jam</span>
-                        </div>
-                        
-                        <div class="flex items-center justify-between">
-                            <span class="text-green-400 font-semibold text-sm"><i class="fas fa-calendar-alt mr-1"></i>Rilis: 2025</span>
-                            <div class="flex gap-2">
-                                <button onclick="openGameModal('re9')" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm font-semibold transition tooltip">
-                                    <i class="fas fa-eye mr-1"></i>Detail
-                                    <span class="tooltip-text">Lihat Detail Lengkap</span>
-                                </button>
-                                <button class="bg-gray-700 hover:bg-gray-600 p-2 rounded-lg transition tooltip">
-                                    <i class="fas fa-heart"></i>
-                                    <span class="tooltip-text">Tambah ke Wishlist</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- GOD OF WAR -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="action,rpg" data-rating="10" data-name="God of War" data-year="2018">
-                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('gow')">
-                        <div class="game-card-img w-full h-full bg-gradient-to-br from-red-900 to-red-700 flex items-center justify-center">
-                            <i class="fas fa-dragon text-8xl text-red-300/50"></i>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 10/10</div>
-                        <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">ACTION RPG</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">God of War (2018)</h3>
-                        <div class="star-rating mb-3">
-                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">Perjalanan Kratos dan Atreus di dunia Norse mitologi...</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2018</span>
-                            <button onclick="openGameModal('gow')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SPIDER-MAN -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="action,adventure" data-rating="9.5" data-name="Spider-Man" data-year="2018">
-                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('spiderman')">
-                        <div class="game-card-img w-full h-full bg-gradient-to-br from-red-600 to-blue-700 flex items-center justify-center">
-                            <i class="fas fa-spider text-8xl text-white/50"></i>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.5/10</div>
-                        <div class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">ACTION ADVENTURE</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Marvel's Spider-Man</h3>
-                        <div class="star-rating mb-3">
-                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star-half-alt star-interactive"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">Jadi Spider-Man di New York City! Web-swinging yang memuaskan...</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2018</span>
-                            <button onclick="openGameModal('spiderman')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- THE LAST OF US PART II -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="horror,adventure" data-rating="9.8" data-name="The Last of Us Part II" data-year="2020">
-                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('tlou2')">
-                        <div class="game-card-img w-full h-full bg-gradient-to-br from-gray-700 to-teal-800 flex items-center justify-center">
-                            <i class="fas fa-skull-crossbones text-8xl text-teal-300/50"></i>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.8/10</div>
-                        <div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold">SURVIVAL HORROR</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">The Last of Us Part II</h3>
-                        <div class="star-rating mb-3">
-                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">Sebuah masterpiece naratif yang kontroversial namun brilian...</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2020</span>
-                            <button onclick="openGameModal('tlou2')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- BLOODBORNE -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="horror,rpg,action" data-rating="9.7" data-name="Bloodborne" data-year="2015">
-                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('bloodborne')">
-                        <div class="game-card-img w-full h-full bg-gradient-to-br from-stone-900 to-red-950 flex items-center justify-center">
-                            <i class="fas fa-moon text-8xl text-red-400/50"></i>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.7/10</div>
-                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">SOULSLIKE</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Bloodborne</h3>
-                        <div class="star-rating mb-3">
-                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">Masuk ke kota Yharnam yang mengerikan...</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2015</span>
-                            <button onclick="openGameModal('bloodborne')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- HORIZON ZERO DAWN -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="rpg,action" data-rating="9.3" data-name="Horizon Zero Dawn" data-year="2017">
-                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('horizon')">
-                        <div class="game-card-img w-full h-full bg-gradient-to-br from-orange-600 to-emerald-700 flex items-center justify-center">
-                            <i class="fas fa-dinosaur text-8xl text-orange-200/50"></i>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.3/10</div>
-                        <div class="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold">OPEN WORLD RPG</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Horizon Zero Dawn</h3>
-                        <div class="star-rating mb-3">
-                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star-half-alt star-interactive"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">Aloy melawan robot dinosaur di dunia pasca-apokaliptik...</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2017</span>
-                            <button onclick="openGameModal('horizon')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- UNCHARTED 4 -->
-                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700" data-genre="adventure,action" data-rating="9.6" data-name="Uncharted 4" data-year="2016">
-                    <div class="relative overflow-hidden h-56 img-zoom cursor-pointer" onclick="openGameModal('uncharted')">
-                        <div class="game-card-img w-full h-full bg-gradient-to-br from-amber-700 to-blue-900 flex items-center justify-center">
-                            <i class="fas fa-compass text-8xl text-amber-300/50"></i>
-                        </div>
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">⭐ 9.6/10</div>
-                        <div class="absolute top-4 left-4 bg-indigo-500 text-white px-3 py-1 rounded-full text-xs font-semibold">ADVENTURE</div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold mb-2">Uncharted 4: A Thief's End</h3>
-                        <div class="star-rating mb-3">
-                            <i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i><i class="fas fa-star star-interactive"></i>
-                        </div>
-                        <p class="text-gray-400 text-sm mb-4">Petualangan terakhir Nathan Drake! Cinematic experience terbaik...</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2016</span>
-                            <button onclick="openGameModal('uncharted')" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">Baca Review →</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Load More Button -->
-            <div class="text-center mt-12">
-                <button id="load-more-btn" class="bg-gradient-to-r from-blue-600 to-purple-600 px-10 py-4 rounded-full font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition transform hover:scale-105 shadow-lg inline-flex items-center gap-2">
-                    <i class="fas fa-plus-circle"></i>Load More Games
-                    <span class="bg-white/20 px-2 py-1 rounded-full text-sm ml-2">+24</span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== REVIEWS SECTION WITH TABS ==================== -->
-    <section id="reviews" class="py-20 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="text-center mb-12">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                    <i class="fas fa-book-open text-blue-500 mr-3"></i>Review Detail
-                </h2>
-                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Review mendalam dari tim kami!</p>
-            </div>
-
-            <!-- TAB NAVIGATION -->
-            <div class="flex justify-center mb-10 border-b border-gray-700">
-                <button class="tab-btn active px-6 py-3 font-semibold transition-all" data-tab="featured">
-                    <i class="fas fa-crown mr-2 text-yellow-500"></i>Featured
-                </button>
-                <button class="tab-btn px-6 py-3 font-semibold text-gray-400 hover:text-white transition-all" data-tab="latest">
-                    <i class="fas fa-clock mr-2"></i>Latest
-                </button>
-                <button class="tab-btn px-6 py-3 font-semibold text-gray-400 hover:text-white transition-all" data-tab="popular">
-                    <i class="fas fa-fire mr-2 text-orange-500"></i>Popular
-                </button>
-                <button class="tab-btn px-6 py-3 font-semibold text-gray-400 hover:text-white transition-all" data-tab="all-reviews">
-                    <i class="fas fa-list mr-2"></i>All Reviews
-                </button>
-            </div>
-
-            <!-- TAB CONTENT: Featured -->
-            <div id="tab-featured" class="tab-content active">
-                
-                <!-- RE9 FEATURED REVIEW -->
-                <div class="bg-gradient-to-r from-red-950 via-gray-900 to-red-950 rounded-3xl p-8 md:p-12 mb-12 border-2 border-red-600 relative overflow-hidden">
-                    <div class="absolute inset-0 opacity-5">
-                        <div class="absolute top-0 left-0 text-[200px]">🧟</div>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-2 gap-8 items-center relative z-10">
-                        <div>
-                            <div class="flex items-center gap-3 mb-4">
-                                <span class="bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold new-badge">
-                                    <i class="fas fa-fire text-yellow-300 mr-1"></i> NEW RELEASE 2025
-                                </span>
-                                <span class="bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-bold">
-                                    🏆 FEATURED REVIEW
-                                </span>
-                            </div>
-                            
-                            <h3 class="text-3xl md:text-4xl font-bold mb-2 text-red-400">
-                                <i class="fas fa-virus mr-2"></i>Resident Evil 9
-                            </h3>
-                            <p class="text-gray-400 mb-4">Capcom • Survival Horror • Third-Person Shooter</p>
-                            
-                            <div class="star-rating text-2xl mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                                <span class="text-white ml-2">9.4/10</span>
-                            </div>
-                            
-                            <p class="text-gray-300 mb-6 leading-relaxed">
-                                <strong class="text-red-400">Resident Evil 9</strong> adalah evolusi besar dari franchise horror legendaris Capcom! Game ini membawa pengalaman survival horror ke level baru dengan RE Engine yang ditingkatkan...
-                            </p>
-                            
-                            <div class="space-y-3 mb-6">
-                                <div class="flex items-center">
-                                    <span class="w-32 text-gray-400">Gameplay:</span>
-                                    <div class="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
-                                        <div class="progress-bar bg-red-500 h-3 rounded-full" style="width: 94%"></div>
-                                    </div>
-                                    <span class="ml-3 text-red-400 font-bold">9.4</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <span class="w-32 text-gray-400">Grafis:</span>
-                                    <div class="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
-                                        <div class="progress-bar bg-blue-500 h-3 rounded-full" style="width: 96%"></div>
-                                    </div>
-                                    <span class="ml-3 text-blue-400 font-bold">9.6</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <span class="w-32 text-gray-400">Horror Element:</span>
-                                    <div class="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
-                                        <div class="progress-bar bg-purple-500 h-3 rounded-full" style="width: 98%"></div>
-                                    </div>
-                                    <span class="ml-3 text-purple-400 font-bold">9.8</span>
-                                </div>
-                            </div>
-                            
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-red-600/30 text-red-300 px-3 py-1 rounded-full text-sm border border-red-700">Survival Horror</span>
-                                <span class="bg-purple-600/30 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-700">TPS</span>
-                                <span class="bg-blue-600/30 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-700">~25 Jam</span>
-                            </div>
-                        </div>
-                        
-                        <div class="relative">
-                            <div class="aspect-square bg-gradient-to-br from-gray-900 via-red-950 to-black rounded-3xl flex items-center justify-center shadow-2xl border-2 border-red-700">
-                                <i class="fas fa-skull text-6xl text-red-500 mb-4"></i>
-                                <div class="text-2xl font-bold text-red-400">RE9</div>
-                            </div>
-                            <div class="absolute -bottom-4 -right-4 bg-red-600 text-white rounded-2xl p-4 shadow-xl border-2 border-yellow-400">
-                                <div class="text-3xl font-bold">9.4</div>
-                                <div class="text-xs">EXCELLENT</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- God of War Review -->
-                <div class="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-3xl p-8 md:p-12 border border-blue-700/30">
-                    <div class="grid md:grid-cols-2 gap-8 items-center">
-                        <div>
-                            <span class="bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-bold mb-4 inline-block">🏆 EDITOR'S CHOICE</span>
-                            <h3 class="text-3xl md:text-4xl font-bold mb-4">God of War (2018)</h3>
-                            <div class="star-rating text-2xl mb-4">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                                <span class="text-white ml-2">10/10</span>
-                            </div>
-                            <p class="text-gray-300 mb-6">Reboot sempurna dari franchise legendaris...</p>
-                            <div class="space-y-3">
-                                <div class="flex items-center">
-                                    <span class="w-32 text-gray-400">Gameplay:</span>
-                                    <div class="flex-1 bg-gray-700 rounded-full h-3"><div class="bg-green-500 h-3 rounded-full progress-bar" style="width: 98%"></div></div>
-                                    <span class="ml-3 text-green-400 font-bold">9.8</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <span class="w-32 text-gray-400">Cerita:</span>
-                                    <div class="flex-1 bg-gray-700 rounded-full h-3"><div class="bg-purple-500 h-3 rounded-full progress-bar" style="width: 100%"></div></div>
-                                    <span class="ml-3 text-purple-400 font-bold">10</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="aspect-square bg-gradient-to-br from-red-900 to-orange-800 rounded-3xl flex items-center justify-center">
-                            <i class="fas fa-dragon text-[120px] text-white/20"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- TAB CONTENT: Latest (Hidden by default) -->
-            <div id="tab-latest" class="tab-content">
-                <div class="bg-gray-800 rounded-2xl p-8 text-center">
-                    <i class="fas fa-clock text-6xl text-blue-500 mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-2">Review Terbaru</h3>
-                    <p class="text-gray-400">Review game terbaru akan ditampilkan di sini...</p>
-                </div>
-            </div>
-
-            <!-- TAB CONTENT: Popular (Hidden by default) -->
-            <div id="tab-popular" class="tab-content">
-                <div class="bg-gray-800 rounded-2xl p-8 text-center">
-                    <i class="fas fa-fire text-6xl text-orange-500 mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-2">Review Populer</h3>
-                    <p class="text-gray-400">Review dengan rating tertinggi dan paling banyak dibaca...</p>
-                </div>
-            </div>
-
-            <!-- TAB CONTENT: All Reviews (Hidden by default) -->
-            <div id="tab-all-reviews" class="tab-content">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition cursor-pointer">
-                        <h4 class="font-bold text-lg mb-2">God of War (2018)</h4>
-                        <div class="star-rating text-sm mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> <span class="ml-1">10/10</span></div>
-                        <p class="text-gray-400 text-sm">Masterpiece action RPG...</p>
-                    </div>
-                    <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-blue-500 transition cursor-pointer">
-                        <h4 class="font-bold text-lg mb-2">Resident Evil 9</h4>
-                        <div class="star-rating text-sm mb-2"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <span class="ml-1">9.4/10</span></div>
-                        <p class="text-gray-400 text-sm">Horror survival terbaru...</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ==================== CATEGORIES SECTION ==================== -->
-    <section id="categories" class="py-20 bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">
-                    <i class="fas fa-layer-group text-green-500 mr-3"></i>Kategori Game
-                </h2>
-                <p class="text-gray-400 text-lg">Jelajahi game berdasarkan genre favoritmu!</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
-                    <i class="fas fa-fist-raised text-4xl mb-3"></i>
-                    <h3 class="font-bold">Action</h3>
-                    <p class="text-red-200 text-sm mt-1">45+ Games</p>
-                </div>
-                <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
-                    <i class="fas fa-hat-wizard text-4xl mb-3"></i>
-                    <h3 class="font-bold">RPG</h3>
-                    <p class="text-purple-200 text-sm mt-1">38+ Games</p>
-                </div>
-                <div class="bg-gradient-to-br from-green-600 to-green-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
-                    <i class="fas fa-car text-4xl mb-3"></i>
-                    <h3 class="font-bold">Racing</h3>
-                    <p class="text-green-200 text-sm mt-1">22+ Games</p>
-                </div>
-                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
-                    <i class="fas fa-futbol text-4xl mb-3"></i>
-                    <h3 class="font-bold">Sports</h3>
-                    <p class="text-blue-200 text-sm mt-1">28+ Games</p>
-                </div>
-                <div class="bg-gradient-to-br from-orange-600 to-red-900 rounded-2xl p-6 text-center card-hover cursor-pointer border-2 border-yellow-400 relative transform hover:scale-105">
-                    <div class="absolute -top-2 -right-2 bg-yellow-400 text-black text-xs px-2 py-1 rounded-full font-bold">HOT!</div>
-                    <i class="fas fa-ghost text-4xl mb-3"></i>
-                    <h3 class="font-bold">Horror</h3>
-                    <p class="text-orange-200 text-sm mt-1">18+ Games</p>
-                </div>
-                <div class="bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-6 text-center card-hover cursor-pointer transform hover:scale-105">
-                    <i class="fas fa-chess text-4xl mb-3"></i>
-                    <h3 class="font-bold">Strategy</h3>
-                    <p class="text-pink-200 text-sm mt-1">15+ Games</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== ABOUT SECTION ==================== -->
-    <section id="about" class="py-20 bg-gray-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
-                        Tentang <span class="gradient-text">PS4 Game Reviews</span>
-                    </h2>
-                    <p class="text-gray-300 text-lg mb-6">Kami adalah tim gamer passionate yang telah menghabiskan ribuan jam bermain dan mereview game PS4.</p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-check text-xl"></i></div>
-                            <div><h4 class="font-bold">Review Tanpa Spoiler</h4><p class="text-gray-400 text-sm">Cerita tetap surprise</p></div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-check text-xl"></i></div>
-                            <div><h4 class="font-bold">Rating Objektif</h4><p class="text-gray-400 text-sm">Dinilai secara fair</p></div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center shrink-0"><i class="fas fa-fire text-xl text-yellow-300"></i></div>
-                            <div><h4 class="font-bold">Latest Releases</h4><p class="text-gray-400 text-sm">Review game baru langsung tersedia!</p></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="bg-gradient-to-br from-blue-600 to-purple-700 rounded-3xl p-8 text-center">
-                    <i class="fab fa-playstation text-9xl text-white/80 mb-4"></i>
-                    <h3 class="text-2xl font-bold mb-2">Join Community Kami!</h3>
-                    <form id="subscribe-form" class="space-y-3 mt-6">
-                        <input type="email" id="subscribe-email" placeholder="Email kamu..." required
-                               class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur border border-white/30 focus:outline-none focus:border-white placeholder-white/60">
-                        <button type="submit" class="w-full bg-white text-blue-600 font-bold py-3 rounded-lg hover:bg-blue-100 transition transform hover:scale-105">
-                            <i class="fas fa-paper-plane mr-2"></i>Subscribe Now
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== SCROLL TO TOP BUTTON ==================== -->
-    <button id="scroll-top-btn" class="scroll-top-btn fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center z-50 transition-all hover:scale-110 tooltip">
-        <i class="fas fa-arrow-up text-xl"></i>
-        <span class="tooltip-text">Kembali ke Atas</span>
+    <!-- Floating Back Button (Muncul saat scroll) -->
+    <button id="floatingBackBtn" onclick="goBack()" class="floating-back-btn w-14 h-14 rounded-full bg-gradient-to-br from-fc-green to-cyan-500 text-fc-dark shadow-lg shadow-fc-green/30 flex items-center justify-center backdrop-blur-sm border-2 border-white/20">
+        <i class="fas fa-arrow-left text-xl"></i>
     </button>
 
-    <!-- ==================== GAME DETAIL MODAL ==================== -->
-    <div id="game-modal" class="fixed inset-0 z-[100] hidden">
-        <div class="modal-overlay absolute inset-0 bg-black/80" onclick="closeGameModal()"></div>
-        <div class="modal-content absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900 rounded-3xl max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto border border-gray-700">
-            <div class="p-8">
-                <div class="flex justify-between items-start mb-6">
-                    <h2 id="modal-title" class="text-3xl font-bold text-red-400">Resident Evil 9</h2>
-                    <button onclick="closeGameModal()" class="text-gray-400 hover:text-white text-2xl">
-                        <i class="fas fa-times"></i>
-                    </button>
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1920&q=80" 
+                 alt="FC 26 Stadium" 
+                 class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        
+        <!-- Particles -->
+        <div class="particle-bg" id="particles"></div>
+        
+        <!-- Content -->
+        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+            <!-- Tombol Kembali Hero (Alternatif) -->
+            <button onclick="goBack(event)" class="absolute top-8 left-8 back-btn flex items-center space-x-3 px-6 py-3 rounded-full bg-white/5 backdrop-blur-md border border-white/20 hover:bg-fc-green/20 hover:border-fc-green/50 hover:text-fc-green text-white transition-all duration-300 group md:hidden">
+                <i class="fas fa-arrow-left text-lg"></i>
+                <span class="font-semibold">Kembali</span>
+            </button>
+
+            <div class="float-animation mb-8">
+                <span class="inline-block px-6 py-2 bg-fc-green/20 border border-fc-green/40 rounded-full text-fc-green font-bold text-sm tracking-wider uppercase pulse-animation">
+                    <i class="fas fa-star mr-2"></i>Generasi Baru Sepak Bola Virtual
+                </span>
+            </div>
+            
+            <h1 class="font-orbitron text-6xl md:text-8xl lg:text-9xl font-black mb-6 leading-tight">
+                <span class="gradient-text">EA SPORTS</span><br>
+                <span class="text-white">FC 26</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Rasakan evolusi terbesar dalam sejarah game sepak bola. 
+                <span class="text-fc-green font-semibold">HyperMotion V</span>, 
+                <span class="text-cyan-400 font-semibold">FC IQ</span>, dan ribuan peningkatan lainnya menantimu.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+                <button class="group relative bg-gradient-to-r from-fc-green to-emerald-500 text-fc-dark font-bold px-10 py-5 rounded-full text-lg hover:shadow-2xl hover:shadow-fc-green/40 transition-all duration-300 transform hover:scale-110">
+                    <i class="fas fa-play mr-3 group-hover:scale-125 inline-block transition-transform"></i>
+                    Tonton Trailer
+                </button>
+                <button class="border-2 border-fc-green/50 text-fc-green font-bold px-10 py-5 rounded-full text-lg hover:bg-fc-green/10 transition-all duration-300">
+                    <i class="fas fa-info-circle mr-3"></i>Pelajari Lebih
+                </button>
+            </div>
+            
+            <!-- Platform Icons -->
+            <div class="flex justify-center space-x-8 text-gray-400">
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <i class="fab fa-playstation text-4xl mb-2 group-hover:text-fc-blue transition-colors"></i>
+                    <span class="text-sm">PlayStation</span>
+                </div>
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <i class="fab fa-xbox text-4xl mb-2 group-hover:text-fc-green transition-colors"></i>
+                    <span class="text-sm">Xbox</span>
+                </div>
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <i class="fab fa-windows text-4xl mb-2 group-hover:text-sky-400 transition-colors"></i>
+                    <span class="text-sm">PC</span>
+                </div>
+                <div class="flex flex-col items-center group cursor-pointer">
+                    <i class="fab fa-nintendo-switch text-4xl mb-2 group-hover:text-red-500 transition-colors"></i>
+                    <span class="text-sm">Switch</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 scroll-indicator">
+            <div class="w-8 h-12 border-2 border-fc-green/50 rounded-full flex justify-center pt-2">
+                <div class="w-2 h-3 bg-fc-green rounded-full animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-fc-green font-bold tracking-widest uppercase text-sm">Inovasi Terbaru</span>
+                <h2 class="font-orbitron text-4xl md:text-6xl font-black mt-4 gradient-text">Fitur Unggulan</h2>
+                <p class="text-gray-400 mt-4 text-lg max-w-2xl mx-auto">Teknologi revolusioner yang mengubah cara kamu bermain</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="card-hover bg-gradient-to-br from-fc-blue/40 to-fc-dark/80 rounded-3xl p-8 border border-white/10 mode-card">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-fc-green to-cyan-400 flex items-center justify-center mb-6 glow-effect">
+                        <i class="fas fa-bolt text-fc-dark text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold mb-4 text-white">HyperMotion V</h3>
+                    <p class="text-gray-300 leading-relaxed">Teknologi motion capture terbaru dengan lebih dari 300 gerakan baru yang direkam dari pemain profesional nyata untuk realisme tanpa batas.</p>
+                    <div class="mt-6 flex items-center text-fc-green font-semibold cursor-pointer hover:gap-3 transition-all">
+                        Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
                 </div>
                 
-                <div id="modal-content" class="grid md:grid-cols-2 gap-8">
-                    <!-- Content will be injected here -->
+                <!-- Feature Card 2 -->
+                <div class="card-hover bg-gradient-to-br from-fc-blue/40 to-fc-dark/80 rounded-3xl p-8 border border-white/10 mode-card">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6" style="box-shadow: 0 0 30px rgba(168,85,247,0.5);">
+                        <i class="fas fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold mb-4 text-white">FC IQ 2.0</h3>
+                    <p class="text-gray-300 leading-relaxed">AI revolusioner yang memungkinkan pemain membuat keputusan taktis cerdas berdasarkan posisi, ruang, dan momen pertandingan.</p>
+                    <div class="mt-6 flex items-center text-purple-400 font-semibold cursor-pointer hover:gap-3 transition-all">
+                        Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
                 </div>
                 
-                <div class="mt-8 flex gap-4">
-                    <button class="flex-1 bg-red-600 hover:bg-red-700 py-3 rounded-xl font-bold transition">
-                        <i class="fas fa-shopping-cart mr-2"></i>Beli Sekarang
+                <!-- Feature Card 3 -->
+                <div class="card-hover bg-gradient-to-br from-fc-blue/40 to-fc-dark/80 rounded-3xl p-8 border border-white/10 mode-card">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center mb-6" style="box-shadow: 0 0 30px rgba(249,115,22,0.5);">
+                        <i class="fas fa-fire text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold mb-4 text-white">PlayStyles Pro</h3>
+                    <p class="text-gray-300 leading-relaxed">Lebih dari 50 PlayStyles unik yang menggambarkan kemampuan khas setiap pemain bintang dunia seperti Haaland, Mbappé, dan Vinícius Jr.</p>
+                    <div class="mt-6 flex items-center text-orange-400 font-semibold cursor-pointer hover:gap-3 transition-all">
+                        Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 4 -->
+                <div class="card-hover bg-gradient-to-br from-fc-blue/40 to-fc-dark/80 rounded-3xl p-8 border border-white/10 mode-card">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center mb-6" style="box-shadow: 0 0 30px rgba(59,130,246,0.5);">
+                        <i class="fas fa-vr-cardboard text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold mb-4 text-white">Grafis Next-Gen</h3>
+                    <p class="text-gray-300 leading-relaxed">Frostbite Engine ditingkatkan dengan ray tracing, lighting dinamis, dan detail stadion yang belum pernah ada sebelumnya.</p>
+                    <div class="mt-6 flex items-center text-blue-400 font-semibold cursor-pointer hover:gap-3 transition-all">
+                        Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 5 -->
+                <div class="card-hover bg-gradient-to-br from-fc-blue/40 to-fc-dark/80 rounded-3xl p-8 border border-white/10 mode-card">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-yellow-500 to-amber-500 flex items-center justify-center mb-6" style="box-shadow: 0 0 30px rgba(234,179,8,0.5);">
+                        <i class="fas fa-trophy text-fc-dark text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold mb-4 text-white">Lisensi Lengkap</h3>
+                    <p class="text-gray-300 leading-relaxed">Akses ke 19.000+ pemain, 700+ klub, 30+ liga, dan 100+ stadion resmi dari seluruh dunia termasuk UEFA Champions League.</p>
+                    <div class="mt-6 flex items-center text-yellow-400 font-semibold cursor-pointer hover:gap-3 transition-all">
+                        Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+                
+                <!-- Feature Card 6 -->
+                <div class="card-hover bg-gradient-to-br from-fc-blue/40 to-fc-dark/80 rounded-3xl p-8 border border-white/10 mode-card">
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-500 to-green-500 flex items-center justify-center mb-6" style="box-shadow: 0 0 30px rgba(20,184,166,0.5);">
+                        <i class="fas fa-headset text-white text-2xl"></i>
+                    </div>
+                    <h3 class="font-orbitron text-2xl font-bold mb-4 text-white">Audio Immersive</h3>
+                    <p class="text-gray-300 leading-relaxed">Suasana stadion autentik dengan commentary dalam 12 bahasa, chants supporter, dan sound effects yang memukau.</p>
+                    <div class="mt-6 flex items-center text-teal-400 font-semibold cursor-pointer hover:gap-3 transition-all">
+                        Selengkapnya <i class="fas fa-arrow-right ml-2"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modes Section -->
+    <section id="modes" class="py-24 bg-gradient-to-b from-fc-dark via-fc-blue/20 to-fc-dark relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-cyan-400 font-bold tracking-widest uppercase text-sm">Cara Bermain</span>
+                <h2 class="font-orbitron text-4xl md:text-6xl font-black mt-4 text-white">Mode Permainan</h2>
+                <p class="text-gray-400 mt-4 text-lg max-w-2xl mx-auto">Berbagai mode seru untuk semua jenis pemain</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Ultimate Team -->
+                <div class="group relative rounded-3xl overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&q=80" 
+                         alt="Ultimate Team" 
+                         class="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fc-dark via-fc-dark/70 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-fc-green to-emerald-500 flex items-center justify-center">
+                                <i class="fas fa-users text-fc-dark text-2xl"></i>
+                            </div>
+                            <span class="px-4 py-1 bg-fc-green/20 text-fc-green rounded-full text-sm font-bold">POPULER</span>
+                        </div>
+                        <h3 class="font-orbitron text-3xl font-bold text-white mb-3">Ultimate Team</h3>
+                        <p class="text-gray-300 mb-4">Buat tim impianmu dari ribuan pemain. Kumpulkan, trade, dan bersaing di Division Rivals & Champions.</p>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><i class="fas fa-check text-fc-green mr-2"></i>Transfer Market Real-time</li>
+                            <li><i class="fas fa-check text-fc-green mr-2"></i>SBC & Objectives Harian</li>
+                            <li><i class="fas fa-check text-fc-green mr-2"></i>Evolution Cards Baru</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Career Mode -->
+                <div class="group relative rounded-3xl overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&q=80" 
+                         alt="Career Mode" 
+                         class="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fc-dark via-fc-dark/70 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                                <i class="fas fa-briefcase text-white text-2xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-orbitron text-3xl font-bold text-white mb-3">Career Mode</h3>
+                        <p class="text-gray-300 mb-4">Jadi manajer atau pemain. Bangun warisanmu selama beberapa dekade dengan fitur transfer dan development baru.</p>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><i class="fas fa-check text-purple-400 mr-2"></i>Pre-season Tour</li>
+                            <li><i class="fas fa-check text-purple-400 mr-2"></i>Youth Academy Enhanced</li>
+                            <li><i class="fas fa-check text-purple-400 mr-2"></i>Realistic Transfer Negotiations</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Clubs / Pro Clubs -->
+                <div class="group relative rounded-3xl overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800&q=80" 
+                         alt="Clubs" 
+                         class="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fc-dark via-fc-dark/70 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center">
+                                <i class="fas fa-user-friends text-white text-2xl"></i>
+                            </div>
+                            <span class="px-4 py-1 bg-blue-500/20 text-blue-400 rounded-full text-sm font-bold">MULTIPLAYER</span>
+                        </div>
+                        <h3 class="font-orbitron text-3xl font-bold text-white mb-3">Clubs (Pro Clubs)</h3>
+                        <p class="text-gray-300 mb-4">Buat Virtual Pro-mu dan bergabung dengan teman untuk kompetisi 11v11 online yang intens.</p>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><i class="fas fa-check text-blue-400 mr-2"></i>Cross-play Support</li>
+                            <li><i class="fas fa-check text-blue-400 mr-2"></i>Custom Kits & Stadium</li>
+                            <li><i class="fas fa-check text-blue-400 mr-2"></i>League System</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Volta -->
+                <div class="group relative rounded-3xl overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=800&q=80" 
+                         alt="Volta" 
+                         class="w-full h-96 object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fc-dark via-fc-dark/70 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-8">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center">
+                                <i class="fas fa-street-view text-white text-2xl"></i>
+                            </div>
+                        </div>
+                        <h3 class="font-orbitron text-3xl font-bold text-white mb-3">VOLTA Football</h3>
+                        <p class="text-gray-300 mb-4">Sepak bola jalanan dengan gaya freestyle. Main 3v3, 4v4, atau 5v5 di lokasi ikonik dunia.</p>
+                        <ul class="space-y-2 text-gray-400 text-sm">
+                            <li><i class="fas fa-check text-orange-400 mr-2"></i>New Arenas & Locations</li>
+                            <li><i class="fas fa-check text-orange-400 mr-2"></i>Skill Moves Expanded</li>
+                            <li><i class="fas fa-check text-orange-400 mr-2"></i>VOLTA World Online</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="bg-gradient-to-br from-fc-blue/30 via-fc-dark to-fc-blue/30 rounded-[3rem] p-12 md:p-16 border border-white/10 relative overflow-hidden">
+                <!-- Background Pattern -->
+                <div class="absolute inset-0 opacity-5">
+                    <div class="absolute top-10 left-10 w-64 h-64 border-4 border-fc-green rounded-full"></div>
+                    <div class="absolute bottom-10 right-10 w-96 h-96 border-4 border-cyan-400 rounded-full"></div>
+                </div>
+                
+                <div class="relative z-10">
+                    <div class="text-center mb-16">
+                        <h2 class="font-orbitron text-4xl md:text-5xl font-black text-white mb-4">FC 26 dalam Angka</h2>
+                        <p class="text-gray-400 text-lg">Skala besar yang tak tertandingi</p>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        <div class="text-center">
+                            <div class="stat-number font-orbitron gradient-text">19K+</div>
+                            <p class="text-gray-400 mt-2 font-semibold">Pemain Terlisensi</p>
+                            <p class="text-gray-500 text-sm">Dari seluruh dunia</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="stat-number font-orbitron gradient-text">700+</div>
+                            <p class="text-gray-400 mt-2 font-semibold">Klub Resmi</p>
+                            <p class="text-gray-500 text-sm">Termasuk wanita</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="stat-number font-orbitron gradient-text">30+</div>
+                            <p class="text-gray-400 mt-2 font-semibold">Liga Top</p>
+                            <p class="text-gray-500 text-sm">Premier League, La Liga, dll</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="stat-number font-orbitron gradient-text">125</div>
+                            <p class="text-gray-400 mt-2 font-semibold">Stadion</p>
+                            <p class="text-gray-500 text-sm">Dengan detail ultra-realistis</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-16 grid md:grid-cols-3 gap-8">
+                        <div class="bg-white/5 rounded-2xl p-6 text-center border border-white/10">
+                            <i class="fas fa-gamepad text-4xl text-fc-green mb-4"></i>
+                            <div class="text-3xl font-bold text-white">300+</div>
+                            <p class="text-gray-400">Gerakan Animasi Baru</p>
+                        </div>
+                        <div class="bg-white/5 rounded-2xl p-6 text-center border border-white/10">
+                            <i class="fas fa-star text-4xl text-yellow-400 mb-4"></i>
+                            <div class="text-3xl font-bold text-white">50+</div>
+                            <p class="text-gray-400">PlayStyles Unik</p>
+                        </div>
+                        <div class="bg-white/5 rounded-2xl p-6 text-center border border-white/10">
+                            <i class="fas fa-globe text-4xl text-cyan-400 mb-4"></i>
+                            <div class="text-3xl font-bold text-white">12</div>
+                            <p class="text-gray-400">Bahasa Commentary</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-gradient-to-b from-fc-dark via-fc-blue/10 to-fc-dark">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="text-fc-green font-bold tracking-widest uppercase text-sm">Visual</span>
+                <h2 class="font-orbitron text-4xl md:text-6xl font-black mt-4 text-white">Screenshot Gallery</h2>
+                <p class="text-gray-400 mt-4 text-lg">Lihat keindahan grafis FC 26</p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="col-span-2 row-span-2 rounded-3xl overflow-hidden group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&q=80" 
+                         alt="Gameplay 1" 
+                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-fc-dark/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                        <span class="text-white font-bold">Match Day Experience</span>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=400&q=80" 
+                         alt="Stadium" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <div class="rounded-3xl overflow-hidden group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1489944440615-453fc2b6a9a9?w=400&q=80" 
+                         alt="Player" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <div class="rounded-3xl overflow-hidden group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=400&q=80" 
+                         alt="Crowd" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <div class="rounded-3xl overflow-hidden group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&q=80" 
+                         alt="Ultimate Team" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <div class="col-span-2 rounded-3xl overflow-hidden group cursor-pointer">
+                    <img src="https://images.unsplash.com/photo-1551958219-acbc608c6377?w=800&q=80" 
+                         alt="Celebration" 
+                         class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pre-order CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-fc-green/20 via-cyan-500/20 to-fc-green/20"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <div class="inline-block mb-6">
+                <i class="fas fa-calendar-alt text-6xl text-fc-green pulse-animation"></i>
+            </div>
+            <h2 class="font-orbitron text-4xl md:text-6xl font-black text-white mb-6">
+                Rilis <span class="gradient-text">27 September 2025</span>
+            </h2>
+            <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                Pre-order sekarang dan dapatkan bonus eksklusif: Ambassador Loan Player Pack, 
+                Kylian Mbappé Item, dan 4600 FC Points!
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20 min-w-[280px]">
+                    <h4 class="font-orbitron text-lg font-bold text-fc-green mb-2">Standard Edition</h4>
+                    <div class="text-3xl font-black text-white mb-4">Rp 899.000</div>
+                    <button class="w-full bg-white/20 hover:bg-white/30 text-white font-bold py-3 rounded-xl transition-all">
+                        Pre-Order
                     </button>
-                    <button class="flex-1 bg-gray-700 hover:bg-gray-600 py-3 rounded-xl font-bold transition">
-                        <i class="fas fa-heart mr-2"></i>Add to Wishlist
-                    </button>
-                    <button class="bg-gray-700 hover:bg-gray-600 px-6 py-3 rounded-xl font-bold transition tooltip">
-                        <i class="fas fa-share-alt"></i>
-                        <span class="tooltip-text">Share</span>
+                </div>
+                <div class="bg-gradient-to-br from-fc-green/20 to-cyan-500/20 backdrop-blur-xl rounded-2xl p-6 border-2 border-fc-green/50 min-w-[280px] relative">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-fc-green text-fc-dark text-xs font-bold px-4 py-1 rounded-full">BEST VALUE</span>
+                    <h4 class="font-orbitron text-lg font-bold text-fc-green mb-2">Ultimate Edition</h4>
+                    <div class="text-3xl font-black text-white mb-4">Rp 1.199.000</div>
+                    <ul class="text-left text-sm text-gray-300 mb-4 space-y-1">
+                        <li><i class="fas fa-check text-fc-green mr-2"></i>Early Access 7 Hari</li>
+                        <li><i class="fas fa-check text-fc-green mr-2"></i>4600 FC Points</li>
+                        <li><i class="fas fa-check text-fc-green mr-2"></i>Ambassador Loan Pack</li>
+                    </ul>
+                    <button class="w-full bg-gradient-to-r from-fc-green to-emerald-500 text-fc-dark font-bold py-3 rounded-xl hover:shadow-lg hover:shadow-fc-green/30 transition-all transform hover:scale-105">
+                        Pre-Order
                     </button>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- ==================== TOAST NOTIFICATION CONTAINER ==================== -->
-    <div id="toast-container" class="fixed top-24 right-4 z-[110] space-y-3"></div>
-
-    <!-- ==================== LOADING OVERLAY ==================== -->
-    <div id="loading-overlay" class="fixed inset-0 bg-gray-900/95 z-[120] flex items-center justify-center hidden">
-        <div class="text-center">
-            <div class="w-20 h-20 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p class="text-xl font-bold">Loading...</p>
+    <!-- Footer dengan Tombol Kembali -->
+    <footer class="bg-fc-dark border-t border-white/10 py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-fc-green to-cyan-400 flex items-center justify-center">
+                            <i class="fas fa-futbol text-fc-dark"></i>
+                        </div>
+                        <span class="font-orbitron text-xl font-bold gradient-text">FC 26</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">EA SPORTS FC 26 - Evolusi terbesar dalam sejarah game sepak bola virtual.</p>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-4">Game</h5>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Fitur</a></li>
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Mode Permainan</a></li>
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Tim & Pemain</a></li>
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Update Terbaru</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-4">Komunitas</h5>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Forums</a></li>
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Discord</a></li>
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Esports</a></li>
+                        <li><a href="#" class="hover:text-fc-green transition-colors">Content Creator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-4">Ikuti Kami</h5>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-fc-green/20 hover:text-fc-green transition-all">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-fc-green/20 hover:text-fc-green transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-fc-green/20 hover:text-fc-green transition-all">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-fc-green/20 hover:text-fc-green transition-all">
+                            <i class="fab fa-twitch"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tombol Kembali di Footer -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <button onclick="goBack()" class="mb-4 md:mb-0 flex items-center space-x-2 px-6 py-3 rounded-full bg-white/5 border border-white/20 hover:bg-fc-green/10 hover:border-fc-green/50 hover:text-fc-green text-gray-300 transition-all duration-300 group">
+                    <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+                    <span class="font-semibold">Kembali ke Halaman Sebelumnya</span>
+                </button>
+                
+                <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
+                    <p class="text-gray-500 text-sm">&copy; 2025 Electronic Arts Inc. EA, the EA logo, and EA SPORTS are trademarks of Electronic Arts Inc.</p>
+                    <div class="flex space-x-6 text-gray-500 text-sm">
+                        <a href="#" class="hover:text-fc-green transition-colors">Privacy Policy</a>
+                        <a href="#" class="hover:text-fc-green transition-colors">Terms of Service</a>
+                        <a href="#" class="hover:text-fc-green transition-colors">Cookie Settings</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- ==================== JAVASCRIPT ==================== -->
     <script>
-        // ==========================================
-        // MOBILE MENU TOGGLE
-        // ==========================================
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 8 + 's';
+                particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+                container.appendChild(particle);
+            }
+        }
         
-        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-        });
-
-        // ==========================================
-        // SEARCH FUNCTIONALITY
-        // ==========================================
-        const searchToggle = document.getElementById('search-toggle');
-        const searchBar = document.getElementById('search-bar');
-        const searchClose = document.getElementById('search-close');
-        const searchInput = document.getElementById('search-input');
-        const searchResults = document.getElementById('search-results');
-
-        searchToggle.addEventListener('click', () => {
-            searchBar.classList.toggle('hidden');
-            if (!searchBar.classList.contains('hidden')) {
-                searchInput.focus();
-            }
-        });
-
-        searchClose.addEventListener('click', () => searchBar.classList.add('hidden'));
-
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            if (query.length > 0) {
-                const games = document.querySelectorAll('.game-card');
-                let results = [];
-                games.forEach(game => {
-                    const name = game.dataset.name.toLowerCase();
-                    if (name.includes(query)) {
-                        results.push({
-                            name: game.dataset.name,
-                            rating: game.dataset.rating,
-                            year: game.dataset.year,
-                            genre: game.dataset.genre.split(',')[0]
-                        });
-                    }
-                });
-                
-                if (results.length > 0) {
-                    searchResults.innerHTML = results.map(r => `
-                        <div class="p-3 hover:bg-gray-700 cursor-pointer rounded-lg transition" onclick="scrollToSection('top-games'); searchBar.classList.add('hidden');">
-                            <div class="font-bold">${r.name}</div>
-                            <div class="text-sm text-gray-400">⭐ ${r.rating}/10 • ${r.year} • ${r.genre}</div>
-                        </div>
-                    `).join('');
-                    searchResults.classList.remove('hidden');
-                } else {
-                    searchResults.innerHTML = '<div class="p-3 text-gray-400">Tidak ada game ditemukan 😢</div>';
-                    searchResults.classList.remove('hidden');
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
-            } else {
-                searchResults.classList.add('hidden');
-            }
+            });
         });
-
-        // ==========================================
-        // SCROLL TO TOP BUTTON
-        // ==========================================
-        const scrollTopBtn = document.getElementById('scroll-top-btn');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
-            
-            // Navbar shadow
+        
+        // Navbar background on scroll
+        window.addEventListener('scroll', function() {
             const nav = document.querySelector('nav');
-            nav.classList.toggle('shadow-lg', window.scrollY > 50);
+            const floatingBtn = document.getElementById('floatingBackBtn');
+            
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-fc-dark/95');
+                // Show floating button after scrolling
+                floatingBtn.classList.add('visible');
+            } else {
+                nav.classList.remove('bg-fc-dark/95');
+                // Hide floating button at top
+                floatingBtn.classList.remove('visible');
+            }
         });
 
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            showToast('Kembali ke atas! 🚀', 'info');
-        });
-
-        // ==========================================
-        // COUNTER ANIMATION
-        // ==========================================
-        function animateCounters() {
-            const counters = document.querySelectorAll('.counter');
-            counters.forEach(counter => {
-                const target = parseInt(counter.dataset.target);
-                const duration = 2000;
-                const step = target / (duration / 16);
-                let current = 0;
-                
-                const updateCounter = () => {
-                    current += step;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current) + '+';
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target + '+';
-                    }
-                };
-                updateCounter();
-            });
+        // Fungsi Kembali
+        function goBack(event) {
+            if (event) {
+                event.preventDefault();
+                // Add ripple effect
+                createRipple(event);
+            }
+            
+            // Cek apakah ada history
+            if (window.history.length > 1) {
+                // Jika ada history, kembali ke halaman sebelumnya
+                window.history.back();
+            } else {
+                // Jika tidak ada history, redirect ke home atau URL tertentu
+                // Ganti URL di bawah ini dengan halaman tujuan default
+                window.location.href = '/';
+                // Atau gunakan alert:
+                // alert('Tidak ada halaman sebelumnya. Anda akan diarahkan ke halaman utama.');
+            }
         }
 
-        // Trigger counter when hero is visible
-        const heroObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCounters();
-                    heroObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        heroObserver.observe(document.getElementById('home'));
+        // Ripple effect untuk tombol
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
 
-        // ==========================================
-        // FILTER & SORT GAMES
-        // ==========================================
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const sortSelect = document.getElementById('sort-select');
-        const gamesGrid = document.getElementById('games-grid');
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add('ripple');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const filter = btn.dataset.filter;
-                const cards = document.querySelectorAll('.game-card');
-                
-                cards.forEach(card => {
-                    if (filter === 'all' || card.dataset.genre.includes(filter)) {
-                        card.style.display = 'block';
-                        card.style.animation = 'fadeIn 0.5s ease';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                
-                showToast(`Filter: ${btn.textContent.trim()} 🎮`, 'success');
-            });
-        });
-
-        sortSelect.addEventListener('change', (e) => {
-            const value = e.target.value;
-            const cards = Array.from(document.querySelectorAll('.game-card'));
-            
-            cards.sort((a, b) => {
-                switch(value) {
-                    case 'rating-desc': return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
-                    case 'rating-asc': return parseFloat(a.dataset.rating) - parseFloat(b.dataset.rating);
-                    case 'name-asc': return a.dataset.name.localeCompare(b.dataset.name);
-                    case 'name-desc': return b.dataset.name.localeCompare(a.dataset.name);
-                    case 'year-desc': return b.dataset.year - a.dataset.year;
-                    case 'year-asc': return a.dataset.year - b.dataset.year;
-                    default: return 0;
-                }
-            });
-            
-            cards.forEach(card => gamesGrid.appendChild(card));
-            showToast(`Diurutkan: ${e.target.options[e.target.selectedIndex].text} 📊`, 'info');
-        });
-
-        // ==========================================
-        // TAB SYSTEM
-        // ==========================================
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                btn.classList.add('active');
-                document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
-            });
-        });
-
-        // ==========================================
-        // GAME MODAL
-        // ==========================================
-        const gameData = {
-            re9: {
-                title: 'Resident Evil 9',
-                subtitle: 'Capcom • 2025 • Survival Horror',
-                rating: 9.4,
-                description: 'Franchise horror legendaris kembali dengan evolusi besar! RE Engine yang ditingkatkan menghadirkan visual photorealistic yang memukau.',
-                pros: ['Visual photorealistik', 'Combat system refined', 'Co-op mode improved', 'Monster baru yang menakutkan'],
-                cons: ['Load time agak lama', 'Story pacing kadang lambat'],
-                gradient: 'from-red-950 via-gray-900 to-black'
-            },
-            gow: {
-                title: 'God of War (2018)',
-                subtitle: 'Santa Monica Studio • 2018 • Action RPG',
-                rating: 10,
-                description: 'Reboot sempurna yang mengubah formula hack-and-slash menjadi cinematic experience emosional.',
-                pros: ['Cerita masterclass', 'Combat satisfying', 'Visual stunning', 'Character development'],
-                cons: ['Tidak ada multiplayer'],
-                gradient: 'from-red-900 to-orange-800'
-            },
-            spiderman: {
-                title: 'Marvel\'s Spider-Man',
-                subtitle: 'Insomniac Games • 2018 • Action Adventure',
-                rating: 9.5,
-                description: 'Definisi sempurna game superhero dengan web-swinging mekanik terbaik!',
-                pros: ['Web-swinging perfect', 'Combat fluid', 'Side missions fun'],
-                cons: ['Collectibles repetitive'],
-                gradient: 'from-red-600 to-blue-700'
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
             }
+
+            button.appendChild(circle);
+        }
+        
+        // Initialize
+        createParticles();
+        
+        // Counter animation for stats
+        const observerOptions = {
+            threshold: 0.5
         };
-
-        function openGameModal(gameId) {
-            const modal = document.getElementById('game-modal');
-            const game = gameData[gameId];
-            
-            if (game) {
-                document.getElementById('modal-title').textContent = game.title;
-                document.getElementById('modal-content').innerHTML = `
-                    <div>
-                        <p class="text-gray-400 mb-4">${game.subtitle}</p>
-                        <div class="star-rating text-2xl mb-4">
-                            ${Array(Math.floor(game.rating)).fill('<i class="fas fa-star"></i>').join('')}
-                            ${game.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
-                            <span class="text-white ml-2">${game.rating}/10</span>
-                        </div>
-                        <p class="text-gray-300 mb-6">${game.description}</p>
-                        <div class="mb-4">
-                            <h4 class="font-bold text-green-400 mb-2"><i class="fas fa-check-circle mr-2"></i>Kelebihan:</h4>
-                            <ul class="space-y-1">${game.pros.map(p => `<li class="text-gray-300 text-sm"><i class="fas fa-plus text-green-500 mr-2"></i>${p}</li>`).join('')}</ul>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-red-400 mb-2"><i class="fas fa-times-circle mr-2"></i>Kekurangan:</h4>
-                            <ul class="space-y-1">${game.cons.map(c => `<li class="text-gray-300 text-sm"><i class="fas fa-minus text-red-500 mr-2"></i>${c}</li>`).join('')}</ul>
-                        </div>
-                    </div>
-                    <div class="aspect-square bg-gradient-to-br ${game.gradient} rounded-2xl flex items-center justify-center">
-                        <i class="fas fa-gamepad text-[100px] text-white/20"></i>
-                    </div>
-                `;
-                
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            }
-        }
-
-        function closeGameModal() {
-            document.getElementById('game-modal').classList.add('hidden');
-            document.body.style.overflow = '';
-        }
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeGameModal();
-        });
-
-        // ==========================================
-        // TOAST NOTIFICATION SYSTEM
-        // ==========================================
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            
-            const colors = {
-                success: 'bg-green-600',
-                error: 'bg-red-600',
-                info: 'bg-blue-600',
-                warning: 'bg-yellow-600'
-            };
-            
-            const icons = {
-                success: 'fa-check-circle',
-                error: 'fa-exclamation-circle',
-                info: 'fa-info-circle',
-                warning: 'fa-exclamation-triangle'
-            };
-            
-            toast.className = `toast ${colors[type]} text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 min-w-[300px]`;
-            toast.innerHTML = `<i class="fas ${icons[type]} text-xl"></i><span>${message}</span>`;
-            
-            container.appendChild(toast);
-            
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        // ==========================================
-        // SUBSCRIBE FORM
-        // ==========================================
-        document.getElementById('subscribe-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('subscribe-email').value;
-            
-            // Show loading
-            showLoading();
-            
-            // Simulate API call
-            setTimeout(() => {
-                hideLoading();
-                showToast(`Berhasil subscribe! 🎉 Cek email: ${email}`, 'success');
-                document.getElementById('subscribe-email').value = '';
-            }, 1500);
-        });
-
-        // ==========================================
-        // LOADING FUNCTIONS
-        // ==========================================
-        function showLoading() {
-            document.getElementById('loading-overlay').classList.remove('hidden');
-        }
-
-        function hideLoading() {
-            document.getElementById('loading-overlay').classList.add('hidden');
-        }
-
-        // ==========================================
-        // LOAD MORE GAMES
-        // ==========================================
-        document.getElementById('load-more-btn').addEventListener('click', function() {
-            this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Loading...';
-            this.disabled = true;
-            
-            setTimeout(() => {
-                showToast('24 game baru dimuat! 🎮', 'success');
-                this.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Semua Game Dimuat';
-                this.classList.replace('from-blue-600', 'from-green-600');
-                this.classList.replace('to-purple-600', 'to-green-600');
-            }, 2000);
-        });
-
-        // ==========================================
-        // UTILITY FUNCTIONS
-        // ==========================================
-        function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // ==========================================
-        // INTERSECTION OBSERVER FOR ANIMATIONS
-        // ==========================================
-        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+                    entry.target.classList.add('animate-in');
                 }
             });
         }, observerOptions);
-
-        document.querySelectorAll('.game-card, .card-hover').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
-
-        // Progress bar animation on scroll
-        const progressObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.width = entry.target.style.width;
-                }
-            });
-        }, { threshold: 0.5 });
-
-        document.querySelectorAll('.progress-bar').forEach(bar => {
-            const width = bar.style.width;
-            bar.style.width = '0';
-            progressObserver.observe(bar);
-            setTimeout(() => bar.style.width = width, 500);
-        });
-
-        // Initial welcome toast
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                showToast('Selamat datang di PS4 Game Reviews! 👋', 'success');
-            }, 1000);
+        
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            observer.observe(stat);
         });
     </script>
-
 </body>
 </html>
