@@ -3,870 +3,745 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RESIDENT EVIL - Survival Horror Game</title>
+    <title>PS4 Game Reviews - Review Game Terbaik PlayStation 4</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        're-dark': '#0a0a0a',
-                        're-darker': '#050505',
-                        're-blood': '#8B0000',
-                        're-blood-light': '#DC143C',
-                        're-green': '#00ff41',
-                        're-zombie': '#4a5d23',
-                    },
-                    fontFamily: {
-                        'creepster': ['Creepster', 'cursive'],
-                        'orbitron': ['Orbitron', 'sans-serif'],
-                        'rajdhani': ['Rajdhani', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-blood': 'pulseBlood 2s ease-in-out infinite',
-                        'flicker': 'flicker 3s linear infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'scanline': 'scanline 8s linear infinite',
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @keyframes pulseBlood {
-            0%, 100% { text-shadow: 0 0 10px #8B0000, 0 0 20px #8B0000, 0 0 30px #8B0000; }
-            50% { text-shadow: 0 0 20px #DC143C, 0 0 40px #DC143C, 0 0 60px #DC143C; }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Poppins', sans-serif;
         }
         
-        @keyframes flicker {
-            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-            20%, 24%, 55% { opacity: 0.4; }
+        .hero-gradient {
+            background: linear-gradient(135deg, #0066cc 0%, #003d7a 50%, #001a33 100%);
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        .card-hover {
+            transition: all 0.3s ease;
         }
         
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 102, 204, 0.3);
         }
-
-        body {
-            background-color: #0a0a0a;
-            font-family: 'Rajdhani', sans-serif;
+        
+        .ps-blue {
+            color: #0070d1;
         }
-
-        .scanlines::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            pointer-events: none;
-            z-index: 9999;
+        
+        .ps-bg-blue {
+            background-color: #0070d1;
         }
-
-        .blood-drip {
-            background: linear-gradient(180deg, #8B0000 0%, #DC143C 50%, transparent 100%);
-            clip-path: polygon(0 0, 100% 0, 85% 100%, 70% 80%, 60% 100%, 45% 85%, 30% 100%, 15% 75%, 0 100%);
+        
+        .star-rating {
+            color: #ffd700;
         }
-
-        .zombie-card:hover .zombie-overlay {
-            opacity: 1;
+        
+        .game-card-img {
+            transition: transform 0.5s ease;
         }
-
-        .glow-red {
-            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 20px rgba(139, 0, 0, 0.2);
+        
+        .game-card:hover .game-card-img {
+            transform: scale(1.1);
         }
-
-        .text-glow {
-            animation: pulseBlood 2s ease-in-out infinite;
-        }
-
-        .vhs-effect {
+        
+        .nav-link {
             position: relative;
         }
-
-        .vhs-effect::after {
+        
+        .nav-link::after {
             content: '';
             position: absolute;
-            top: 0;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(
-                transparent 50%,
-                rgba(0, 255, 65, 0.03) 50%
-            );
-            background-size: 100% 4px;
-            pointer-events: none;
+            background-color: #0070d1;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
         }
 
-        .noise-bg {
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
         }
 
-        .character-card {
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .character-card:hover {
-            transform: scale(1.05) translateY(-10px);
-        }
-
-        .umbrella-logo {
-            filter: drop-shadow(0 0 20px rgba(192, 0, 0, 0.8));
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #8B0000;
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #DC143C;
+        .gradient-text {
+            background: linear-gradient(135deg, #0070d1, #00a2ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
     </style>
 </head>
-<body class="bg-re-dark text-white scanlines noise-bg overflow-x-hidden">
+<body class="bg-gray-900 text-white scroll-smooth">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 bg-re-darker/90 backdrop-blur-md border-b border-re-blood/30">
-        <div class="max-w-7xl mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center space-x-2">
-                    <span class="text-3xl umbrella-logo">☂</span>
-                    <span class="font-orbitron font-bold text-xl tracking-wider text-re-blood-light">UMBRELLA CORP</span>
+    <nav class="fixed top-0 w-full bg-gray-900/95 backdrop-blur-md z-50 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <i class="fab fa-playstation text-4xl ps-blue"></i>
+                    <span class="text-xl font-bold">PS4 Game Reviews</span>
                 </div>
-                <div class="hidden md:flex space-x-8 font-rajdhani font-semibold tracking-wide">
-                    <a href="#home" class="hover:text-re-blood-light transition-colors duration-300">HOME</a>
-                    <a href="#about" class="hover:text-re-blood-light transition-colors duration-300">ABOUT</a>
-                    <a href="#characters" class="hover:text-re-blood-light transition-colors duration-300">CHARACTERS</a>
-                    <a href="#games" class="hover:text-re-blood-light transition-colors duration-300">GAMES</a>
-                    <a href="#gallery" class="hover:text-re-blood-light transition-colors duration-300">GALLERY</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link hover:text-blue-400 transition">Beranda</a>
+                    <a href="#top-games" class="nav-link hover:text-blue-400 transition">Top Games</a>
+                    <a href="#reviews" class="nav-link hover:text-blue-400 transition">Reviews</a>
+                    <a href="#categories" class="nav-link hover:text-blue-400 transition">Kategori</a>
+                    <a href="#about" class="nav-link hover:text-blue-400 transition">Tentang</a>
                 </div>
-                <button id="menuBtn" class="md:hidden text-re-blood-light text-2xl">☰</button>
+                <button id="mobile-menu-btn" class="md:hidden text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden bg-re-darker/95 border-t border-re-blood/30">
-            <div class="flex flex-col space-y-4 p-6 font-rajdhani font-semibold">
-                <a href="#home" class="hover:text-re-blood-light transition-colors">HOME</a>
-                <a href="#about" class="hover:text-re-blood-light transition-colors">ABOUT</a>
-                <a href="#characters" class="hover:text-re-blood-light transition-colors">CHARACTERS</a>
-                <a href="#games" class="hover:text-re-blood-light transition-colors">GAMES</a>
-                <a href="#gallery" class="hover:text-re-blood-light transition-colors">GALLERY</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 border-t border-gray-700">
+            <div class="px-4 py-3 space-y-3">
+                <a href="#home" class="block hover:text-blue-400 transition">Beranda</a>
+                <a href="#top-games" class="block hover:text-blue-400 transition">Top Games</a>
+                <a href="#reviews" class="block hover:text-blue-400 transition">Reviews</a>
+                <a href="#categories" class="block hover:text-blue-400 transition">Kategori</a>
+                <a href="#about" class="block hover:text-blue-400 transition">Tentang</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <!-- Background Effects -->
-        <div class="absolute inset-0 bg-gradient-to-b from-re-darker via-re-dark to-black"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(139,0,0,0.15)_0%,_transparent_70%)]"></div>
-        
-        <!-- Animated Blood Drips -->
-        <div class="absolute top-0 left-10 w-2 h-40 blood-drip animate-pulse-blood opacity-60"></div>
-        <div class="absolute top-0 right-20 w-3 h-60 blood-drip animate-pulse-blood opacity-40" style="animation-delay: 1s;"></div>
-        <div class="absolute top-0 left-1/4 w-2 h-32 blood-drip animate-pulse-blood opacity-50" style="animation-delay: 0.5s;"></div>
-
-        <!-- Floating Elements -->
-        <div class="absolute top-20 left-10 text-6xl animate-float opacity-20">🧟</div>
-        <div class="absolute bottom-40 right-20 text-5xl animate-float opacity-20" style="animation-delay: 2s;">💀</div>
-        <div class="absolute top-1/3 right-10 text-4xl animate-float opacity-15" style="animation-delay: 4s;">☠️</div>
-
-        <!-- Main Content -->
-        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
-            <!-- Umbrella Logo -->
-            <div class="mb-8 animate-flicker">
-                <span class="text-9xl md:text-[150px] umbrella-logo inline-block">☂</span>
+    <section id="home" class="hero-gradient min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-300 rounded-full blur-3xl"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div class="animate-float mb-8">
+                <i class="fab fa-playstation text-8xl md:text-9xl text-white/90 drop-shadow-2xl"></i>
             </div>
-
-            <!-- Title -->
-            <h1 class="font-creepster text-6xl md:text-8xl lg:text-9xl text-re-blood-light mb-6 text-glow tracking-wider vhs-effect">
-                RESIDENT EVIL
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
+                PlayStation 4<br>
+                <span class="text-blue-300">Game Reviews</span>
             </h1>
-            
-            <!-- Subtitle -->
-            <p class="font-orbitron text-lg md:text-2xl text-gray-400 mb-4 tracking-[0.3em] uppercase">
-                Survival Horror
+            <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                Temukan review lengkap game-game terbaik di platform PlayStation 4. Dari action hingga RPG, semua ada di sini!
             </p>
-            
-            <!-- Tagline -->
-            <p class="font-rajdhani text-xl md:text-2xl text-gray-500 mb-12 italic">
-                "Do not open... until you're ready to face your worst nightmare"
-            </p>
-
-            <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <button class="group relative px-10 py-4 bg-re-blood hover:bg-re-blood-light text-white font-orbitron font-bold tracking-wider transition-all duration-300 glow-red overflow-hidden">
-                    <span class="relative z-10 group-hover:text-black transition-colors">PLAY NOW</span>
-                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                </button>
-                <button class="px-10 py-4 border-2 border-re-blood text-re-blood-light hover:bg-re-blood/20 font-orbitron font-bold tracking-wider transition-all duration-300">
-                    LEARN MORE
-                </button>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#top-games" class="bg-white text-blue-600 px-8 py-4 rounded-full font-bold text-lg hover:bg-blue-100 transition transform hover:scale-105 shadow-lg">
+                    <i class="fas fa-gamepad mr-2"></i>Lihat Top Games
+                </a>
+                <a href="#reviews" class="border-2 border-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-600 transition transform hover:scale-105">
+                    <i class="fas fa-star mr-2"></i>Baca Reviews
+                </a>
             </div>
-
-            <!-- Scroll Indicator -->
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-                <div class="w-6 h-10 border-2 border-re-blood rounded-full flex justify-center pt-2">
-                    <div class="w-1 h-3 bg-re-blood-light rounded-full animate-pulse"></div>
+            
+            <!-- Stats -->
+            <div class="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-300">150+</div>
+                    <div class="text-sm text-blue-100 mt-2">Game Direview</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-300">50+</div>
+                    <div class="text-sm text-blue-100 mt-2">Genre Tersedia</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-300">4.5</div>
+                    <div class="text-sm text-blue-100 mt-2">Rating Rata-rata</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-300">10K+</div>
+                    <div class="text-sm text-blue-100 mt-2">Pembaca</div>
                 </div>
             </div>
         </div>
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#top-games" class="text-white/70 hover:text-white">
+                <i class="fas fa-chevron-down text-3xl"></i>
+            </a>
+        </div>
+    </section>
 
-        <!-- Scanline Effect Overlay -->
-        <div class="absolute inset-0 pointer-events-none overflow-hidden">
-            <div class="w-full h-1 bg-re-green/10 absolute animate-scanline"></div>
+    <!-- Top Games Section -->
+    <section id="top-games" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <i class="fas fa-trophy text-yellow-500 mr-3"></i>Top Games PS4
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Kumpulan game terbaik dan paling populer di PlayStation 4 yang wajib kamu mainkan!</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Game Card 1 - God of War -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
+                    <div class="relative overflow-hidden h-56">
+                        <div class="game-card-img w-full h-full bg-gradient-to-br from-red-900 to-red-700 flex items-center justify-center">
+                            <i class="fas fa-dragon text-8xl text-red-300/50"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
+                            ⭐ 10/10
+                        </div>
+                        <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                            ACTION RPG
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">God of War (2018)</h3>
+                        <div class="star-rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Perjalanan epis Kratos dan Atreus di dunia Norse mitologi. Cerita yang menyentuh hati dengan gameplay yang sempurna.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2018</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
+                                Baca Review →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Card 2 - Spider-Man -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
+                    <div class="relative overflow-hidden h-56">
+                        <div class="game-card-img w-full h-full bg-gradient-to-br from-red-600 to-blue-700 flex items-center justify-center">
+                            <i class="fas fa-spider text-8xl text-white/50"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
+                            ⭐ 9.5/10
+                        </div>
+                        <div class="absolute top-4 left-4 bg-purple-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                            ACTION ADVENTURE
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Marvel's Spider-Man</h3>
+                        <div class="star-rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Jadi Spider-Man di New York City! Web-swinging yang memuaskan dengan cerita superhero yang luar biasa.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2018</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
+                                Baca Review →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Card 3 - The Last of Us Part II -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
+                    <div class="relative overflow-hidden h-56">
+                        <div class="game-card-img w-full h-full bg-gradient-to-br from-gray-700 to-teal-800 flex items-center justify-center">
+                            <i class="fas fa-skull-crossbones text-8xl text-teal-300/50"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
+                            ⭐ 9.8/10
+                        </div>
+                        <div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                            SURVIVAL HORROR
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">The Last of Us Part II</h3>
+                        <div class="star-rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Sebuah masterpiece naratif yang kontroversial namun brilian. Grafis dan emosi yang tak terlupakan.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2020</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
+                                Baca Review →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Card 4 - Bloodborne -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
+                    <div class="relative overflow-hidden h-56">
+                        <div class="game-card-img w-full h-full bg-gradient-to-br from-stone-900 to-red-950 flex items-center justify-center">
+                            <i class="fas fa-moon text-8xl text-red-400/50"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
+                            ⭐ 9.7/10
+                        </div>
+                        <div class="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                            SOULSLIKE
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Bloodborne</h3>
+                        <div class="star-rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Masuk ke kota Yharnam yang mengerikan. Action RPG gothic horror dengan combat system yang addictive.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2015</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
+                                Baca Review →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Card 5 - Horizon Zero Dawn -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
+                    <div class="relative overflow-hidden h-56">
+                        <div class="game-card-img w-full h-full bg-gradient-to-br from-orange-600 to-emerald-700 flex items-center justify-center">
+                            <i class="fas fa-dinosaur text-8xl text-orange-200/50"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
+                            ⭐ 9.3/10
+                        </div>
+                        <div class="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                            OPEN WORLD RPG
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Horizon Zero Dawn</h3>
+                        <div class="star-rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Aloy melawan robot dinosaur di dunia pasca-apokaliptik. Open world yang indah dengan cerita unik.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2017</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
+                                Baca Review →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Card 6 - Uncharted 4 -->
+                <div class="game-card bg-gray-900 rounded-3xl overflow-hidden card-hover border border-gray-700">
+                    <div class="relative overflow-hidden h-56">
+                        <div class="game-card-img w-full h-full bg-gradient-to-br from-amber-700 to-blue-900 flex items-center justify-center">
+                            <i class="fas fa-compass text-8xl text-amber-300/50"></i>
+                        </div>
+                        <div class="absolute top-4 right-4 bg-yellow-500 text-black px-3 py-1 rounded-full font-bold text-sm">
+                            ⭐ 9.6/10
+                        </div>
+                        <div class="absolute top-4 left-4 bg-indigo-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
+                            ADVENTURE
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold mb-2">Uncharted 4: A Thief's End</h3>
+                        <div class="star-rating mb-3">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="text-gray-400 text-sm mb-4">Petualangan terakhir Nathan Drake! Cinematic experience terbaik dengan set piece yang spektakuler.</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-blue-400 font-semibold"><i class="fas fa-calendar mr-1"></i>2016</span>
+                            <button class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm font-semibold transition">
+                                Baca Review →
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Reviews Section -->
+    <section id="reviews" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <i class="fas fa-book-open text-blue-500 mr-3"></i>Review Detail
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Review mendalam dari tim kami untuk membantu kamu memilih game terbaik!</p>
+            </div>
+
+            <!-- Featured Review -->
+            <div class="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-3xl p-8 md:p-12 mb-12 border border-blue-700/30">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <span class="bg-yellow-500 text-black px-4 py-1 rounded-full text-sm font-bold mb-4 inline-block">
+                            🏆 FEATURED REVIEW
+                        </span>
+                        <h3 class="text-3xl md:text-4xl font-bold mb-4">God of War (2018)</h3>
+                        <div class="star-rating text-2xl mb-4">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span class="text-white ml-2">10/10</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 leading-relaxed">
+                            God of War (2018) adalah reboot yang sempurna dari franchise legendaris ini. Santa Monica Studio berhasil mengubah formula hack-and-slash menjadi pengalaman cinematic yang emosional. Hubungan father-son antara Kratos dan Atreus adalah jantung cerita ini, disampaikan dengan writing dan voice acting yang luar biasa.
+                        </p>
+                        <div class="space-y-3 mb-6">
+                            <div class="flex items-center">
+                                <span class="w-32 text-gray-400">Gameplay:</span>
+                                <div class="flex-1 bg-gray-700 rounded-full h-3">
+                                    <div class="bg-green-500 h-3 rounded-full" style="width: 98%"></div>
+                                </div>
+                                <span class="ml-3 text-green-400 font-bold">9.8</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-32 text-gray-400">Grafis:</span>
+                                <div class="flex-1 bg-gray-700 rounded-full h-3">
+                                    <div class="bg-blue-500 h-3 rounded-full" style="width: 99%"></div>
+                                </div>
+                                <span class="ml-3 text-blue-400 font-bold">9.9</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-32 text-gray-400">Cerita:</span>
+                                <div class="flex-1 bg-gray-700 rounded-full h-3">
+                                    <div class="bg-purple-500 h-3 rounded-full" style="width: 100%"></div>
+                                </div>
+                                <span class="ml-3 text-purple-400 font-bold">10</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="w-32 text-gray-400">Soundtrack:</span>
+                                <div class="flex-1 bg-gray-700 rounded-full h-3">
+                                    <div class="bg-pink-500 h-3 rounded-full" style="width: 97%"></div>
+                                </div>
+                                <span class="ml-3 text-pink-400 font-bold">9.7</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-600/30 text-blue-300 px-3 py-1 rounded-full text-sm">Single Player</span>
+                            <span class="bg-green-600/30 text-green-300 px-3 py-1 rounded-full text-sm">Action RPG</span>
+                            <span class="bg-purple-600/30 text-purple-300 px-3 py-1 rounded-full text-sm">Third Person</span>
+                            <span class="bg-red-600/30 text-red-300 px-3 py-1 rounded-full text-sm">~35 Jam</span>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="aspect-square bg-gradient-to-br from-red-900 via-red-700 to-orange-800 rounded-3xl flex items-center justify-center shadow-2xl">
+                            <i class="fas fa-dragon text-[150px] text-white/20"></i>
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 bg-yellow-500 text-black rounded-2xl p-4 shadow-xl">
+                            <div class="text-3xl font-bold">10</div>
+                            <div class="text-xs">MASTERPIECE</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- More Reviews Grid -->
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Review 2 -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-24 h-24 bg-gradient-to-br from-red-600 to-blue-700 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-spider text-4xl text-white/60"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">Marvel's Spider-Man</h4>
+                            <div class="star-rating text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-white ml-1">9.5/10</span>
+                            </div>
+                            <p class="text-gray-400 text-sm">Insomniac Games • 2018</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Spider-Man PS4 adalah definisi dari game superhero yang sempurna. Web-swinging mekaniknya adalah yang terbaik pernah ada, membuat kamu benar-benar merasa jadi Spider-Man. Combat system yang fluid dan side missions yang engaging.
+                    </p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Open World</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Superhero</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~25 Jam</span>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-24 h-24 bg-gradient-to-br from-gray-700 to-teal-800 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-skull-crossbones text-4xl text-teal-300/60"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">The Last of Us Part II</h4>
+                            <div class="star-rating text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-white ml-1">9.8/10</span>
+                            </div>
+                            <p class="text-gray-400 text-sm">Naughty Dog • 2020</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Sebuah karya seni interaktif yang memecah belah namun tak terbantahkan kualitasnya. Grafis next-gen di hardware current-gen, storytelling yang brave, dan gameplay stealth yang diperbaiki secara signifikan.
+                    </p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Narrative</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Stealth</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~30 Jam</span>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-24 h-24 bg-gradient-to-br from-stone-900 to-red-950 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-moon text-4xl text-red-400/60"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">Bloodborne</h4>
+                            <div class="star-rating text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-white ml-1">9.7/10</span>
+                            </div>
+                            <p class="text-gray-400 text-sm">FromSoftware • 2015</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Dark Souls bertemu Victorian Gothic Horror. Combat lebih agresif dan cepat, atmosphere yang mencekam, dan lore yang misterius. Chalice Dungeons menambah replayability yang hampir tak terbatas.
+                    </p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Soulslike</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Hardcore</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~40 Jam</span>
+                    </div>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="bg-gray-800 rounded-2xl p-6 border border-gray-700 hover:border-blue-500 transition">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-24 h-24 bg-gradient-to-br from-amber-700 to-blue-900 rounded-xl flex items-center justify-center shrink-0">
+                            <i class="fas fa-compass text-4xl text-amber-300/60"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold">Uncharted 4</h4>
+                            <div class="star-rating text-sm">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <span class="text-white ml-1">9.6/10</span>
+                            </div>
+                            <p class="text-gray-400 text-sm">Naughty Dog • 2016</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        Penutup sempurna untuk trilogi Uncharted. Set piece yang mengejutkan, karakter development yang mendalam, dan visual yang masih memukau sampai sekarang. Multiplayer juga sangat fun!
+                    </p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Cinematic</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">Adventure</span>
+                        <span class="bg-gray-700 px-2 py-1 rounded text-xs">~15 Jam</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-20 bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">
+                    <i class="fas fa-layer-group text-green-500 mr-3"></i>Kategori Game
+                </h2>
+                <p class="text-gray-400 text-lg max-w-2xl mx-auto">Jelajahi game berdasarkan genre favoritmu!</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                
+                <div class="bg-gradient-to-br from-red-600 to-red-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                    <i class="fas fa-fist-raised text-4xl mb-3"></i>
+                    <h3 class="font-bold">Action</h3>
+                    <p class="text-red-200 text-sm mt-1">45+ Games</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                    <i class="fas fa-hat-wizard text-4xl mb-3"></i>
+                    <h3 class="font-bold">RPG</h3>
+                    <p class="text-purple-200 text-sm mt-1">38+ Games</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-600 to-green-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                    <i class="fas fa-car text-4xl mb-3"></i>
+                    <h3 class="font-bold">Racing</h3>
+                    <p class="text-green-200 text-sm mt-1">22+ Games</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                    <i class="fas fa-futbol text-4xl mb-3"></i>
+                    <h3 class="font-bold">Sports</h3>
+                    <p class="text-blue-200 text-sm mt-1">28+ Games</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-600 to-orange-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                    <i class="fas fa-ghost text-4xl mb-3"></i>
+                    <h3 class="font-bold">Horror</h3>
+                    <p class="text-orange-200 text-sm mt-1">18+ Games</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-pink-600 to-pink-800 rounded-2xl p-6 text-center card-hover cursor-pointer">
+                    <i class="fas fa-chess text-4xl mb-3"></i>
+                    <h3 class="font-bold">Strategy</h3>
+                    <p class="text-pink-200 text-sm mt-1">15+ Games</p>
+                </div>
+
+            </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 px-6 relative">
-        <div class="max-w-7xl mx-auto">
-            <!-- Section Header -->
-            <div class="text-center mb-16">
-                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
-                    ABOUT THE GAME
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
-            </div>
-
+    <section id="about" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 gap-12 items-center">
-                <!-- Left Content -->
-                <div class="space-y-6">
-                    <h3 class="font-creepster text-3xl md:text-4xl text-white">
-                        The Beginning of Horror
-                    </h3>
-                    <p class="font-rajdhani text-lg text-gray-400 leading-relaxed">
-                        <span class="text-re-blood-light font-semibold">Resident Evil</span>, dikenal di Jepang sebagai 
-                        <span class="text-re-green">Biohazard (バイオハザード)</span>, adalah franchise media horor survival Jepang yang dibuat oleh 
-                        <span class="text-white font-semibold">Shinji Mikami dan Tokuro Fujiwara</span>, serta dimiliki oleh Capcom.
-                    </p>
-                    <p class="font-rajdhani text-lg text-gray-400 leading-relaxed">
-                        Franchise ini berfokus pada serangkaian permainan video horor survival dan mencakup film live-action, film animasi, komik, novel, audio drama, dan merchandise. Seri pertama dirilis pada <span class="text-re-blood-light">22 Maret 1996</span>.
-                    </p>
-                    
-                    <!-- Stats -->
-                    <div class="grid grid-cols-3 gap-6 pt-6">
-                        <div class="text-center p-4 border border-re-blood/30 bg-re-darker/50">
-                            <div class="font-orbitron text-3xl font-bold text-re-blood-light">150M+</div>
-                            <div class="font-rajdhani text-sm text-gray-500 uppercase tracking-wider">Copies Sold</div>
-                        </div>
-                        <div class="text-center p-4 border border-re-blood/30 bg-re-darker/50">
-                            <div class="font-orbitron text-3xl font-bold text-re-blood-light">28+</div>
-                            <div class="font-rajdhani text-sm text-gray-500 uppercase tracking-wider">Games</div>
-                        </div>
-                        <div class="text-center p-4 border border-re-blood/30 bg-re-darker/50">
-                            <div class="font-orbitron text-3xl font-bold text-re-blood-light">1996</div>
-                            <div class="font-rajdhani text-sm text-gray-500 uppercase tracking-wider">First Release</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Content - Info Cards -->
-                <div class="space-y-6">
-                    <div class="p-6 bg-gradient-to-br from-re-darker to-re-dark border border-re-blood/30 glow-red relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🧬</div>
-                        <h4 class="font-orbitron text-xl font-bold text-re-blood-light mb-2 flex items-center">
-                            <span class="mr-3">🔬</span> T-Virus
-                        </h4>
-                        <p class="font-rajdhani text-gray-400">
-                            Senjata biologis yang dikembangkan oleh Umbrella Corporation. Virus ini menyebabkan mutasi genetik ekstrem pada manusia, mengubah mereka menjadi zombie.
-                        </p>
-                    </div>
-
-                    <div class="p-6 bg-gradient-to-br from-re-darker to-re-dark border border-re-green/30 relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🏢</div>
-                        <h4 class="font-orbitron text-xl font-bold text-re-green mb-2 flex items-center">
-                            <span class="mr-3">☂</span> Umbrella Corporation
-                        </h4>
-                        <p class="font-rajdhani text-gray-400">
-                            Perusahaan farmasi raksasa yang beroperasi di balik layar sebagai produsen senjata biologis. Motonya: "Protecting your own health from the very beginning."
-                        </p>
-                    </div>
-
-                    <div class="p-6 bg-gradient-to-br from-re-darker to-re-dark border border-re-blood/30 glow-red relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🚔</div>
-                        <h4 class="font-orbitron text-xl font-bold text-re-blood-light mb-2 flex items-center">
-                            <span class="mr-3">⭐</span> S.T.A.R.S.
-                        </h4>
-                        <p class="font-rajdhani text-gray-400">
-                            Special Tactics And Rescue Service - Tim elit penanganan keadaan darurat dari Raccoon City Police Department yang menjadi protagonis dalam seri awal.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Characters Section -->
-    <section id="characters" class="py-24 px-6 relative bg-gradient-to-b from-re-dark via-re-darker to-re-dark">
-        <div class="max-w-7xl mx-auto">
-            <!-- Section Header -->
-            <div class="text-center mb-16">
-                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
-                    LEGENDARY CHARACTERS
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
-                <p class="font-rajdhani text-gray-500 mt-4 text-lg">Meet the survivors who fought against the outbreak</p>
-            </div>
-
-            <!-- Characters Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                
-                <!-- Leon S. Kennedy -->
-                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-blue-900/30 to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👮</div>
-                        <div class="absolute top-4 right-4 bg-re-blood/80 text-xs font-orbitron px-2 py-1">PROTAGONIST</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Leon S. Kennedy</h3>
-                        <p class="font-rajdhani text-re-blood-light text-sm">Rookie Police Officer → Government Agent</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            Debut in RE2. Known for his cool demeanor and one-liners during combat situations.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Claire Redfield -->
-                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-red-900/30 to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👩‍🦰</div>
-                        <div class="absolute top-4 right-4 bg-re-blood/80 text-xs font-orbitron px-2 py-1">PROTAGONIST</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Claire Redfield</h3>
-                        <p class="font-rajdhani text-re-blood-light text-sm">College Student → Activist</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            Chris's younger sister. Searching for her brother led her into the nightmare of Raccoon City.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Jill Valentine -->
-                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-purple-900/30 to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👩‍✈️</div>
-                        <div class="absolute top-4 right-4 bg-re-green/80 text-xs font-orbitron px-2 py-1 text-black">S.T.A.R.S.</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Jill Valentine</h3>
-                        <p class="font-rajdhani text-re-blood-light text-sm">S.T.A.R.S. Alpha Team - B&E Expert</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            "The Master of Unlocking." Survived the Mansion Incident and the Raccoon City outbreak.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Chris Redfield -->
-                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-green-900/30 to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🧔</div>
-                        <div class="absolute top-4 right-4 bg-re-green/80 text-xs font-orbitron px-2 py-1 text-black">S.T.A.R.S.</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Chris Redfield</h3>
-                        <p class="font-rajdhani text-re-blood-light text-sm">S.T.A.R.S. Alpha Team - Pilot</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            Co-founder of BSAA. Dedicated his life to fighting bioterrorism after the Spencer Mansion incident.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Ada Wong -->
-                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-red-900/30 to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🥋</div>
-                        <div class="absolute top-4 right-4 bg-yellow-600/80 text-xs font-orbitron px-2 py-1 text-black">SPY</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Ada Wong</h3>
-                        <p class="font-rajdhani text-re-blood-light text-sm">Industrial Spy / Mercenary</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            Mysterious spy with her own agenda. Always appears when least expected and disappears just as quickly.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Wesker -->
-                <div class="character-card group relative bg-re-darker border border-yellow-600/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-black to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🕶️</div>
-                        <div class="absolute top-4 right-4 bg-yellow-600 text-xs font-orbitron px-2 py-1 text-black">ANTAGONIST</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Albert Wesker</h3>
-                        <p class="font-rajdhani text-yellow-500 text-sm">Former S.T.A.R.S. Captain / Bioweapon</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            The primary antagonist of the series. Betrayed S.T.A.R.S. and gained superhuman abilities through virus experimentation.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Ethan Winters -->
-                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-orange-900/30 to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👨</div>
-                        <div class="absolute top-4 right-4 bg-re-blood/80 text-xs font-orbitron px-2 py-1">PROTAGONIST</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Ethan Winters</h3>
-                        <p class="font-rajdhani text-re-blood-light text-sm">Civilian / System Engineer</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            An ordinary man searching for his wife Mia. His determination leads him through unimaginable horrors.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Lady Dimitrescu -->
-                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
-                    <div class="aspect-[3/4] bg-gradient-to-br from-indigo-900/30 to-re-dark flex items-end justify-center p-6 relative">
-                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
-                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🧛‍♀️</div>
-                        <div class="absolute top-4 right-4 bg-purple-700/80 text-xs font-orbitron px-2 py-1">LORD</div>
-                    </div>
-                    <div class="p-6 space-y-2">
-                        <h3 class="font-orbitron text-xl font-bold text-white">Alcina Dimitrescu</h3>
-                        <p class="font-rajdhani text-re-blood-light text-sm">Countess of Castle Dimitrescu</p>
-                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
-                            The towering vampire countess from Resident Evil Village. Became an internet sensation upon release.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Games Section -->
-    <section id="games" class="py-24 px-6 relative">
-        <div class="max-w-7xl mx-auto">
-            <!-- Section Header -->
-            <div class="text-center mb-16">
-                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
-                    GAME TIMELINE
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
-            </div>
-
-            <!-- Timeline -->
-            <div class="relative">
-                <!-- Timeline Line -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-re-blood via-re-blood-light to-re-blood hidden md:block"></div>
-
-                <!-- Timeline Items -->
-                <div class="space-y-12">
-                    
-                    <!-- RE1 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="md:w-1/2 md:text-right">
-                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
-                                <span class="font-orbitron text-re-blood-light text-sm">1996</span>
-                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL</h3>
-                                <p class="font-rajdhani text-gray-400 mt-2">The original survival horror that started it all. Set in the Spencer Mansion.</p>
-                            </div>
-                        </div>
-                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
-                        <div class="md:w-1/2"></div>
-                    </div>
-
-                    <!-- RE2 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="md:w-1/2"></div>
-                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
-                        <div class="md:w-1/2">
-                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
-                                <span class="font-orbitron text-re-blood-light text-sm">1998</span>
-                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 2</h3>
-                                <p class="font-rajdhani text-gray-400 mt-2">Introduction of Leon & Claire. Raccoon City outbreak begins.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RE3 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="md:w-1/2 md:text-right">
-                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
-                                <span class="font-orbitron text-re-blood-light text-sm">1999</span>
-                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 3</h3>
-                                <p class="font-rajdhani text-gray-400 mt-2">Jill's escape from Nemesis. The fall of Raccoon City.</p>
-                            </div>
-                        </div>
-                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
-                        <div class="md:w-1/2"></div>
-                    </div>
-
-                    <!-- RE4 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="md:w-1/2"></div>
-                        <div class="w-4 h-4 bg-re-green rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
-                        <div class="md:w-1/2">
-                            <div class="p-6 bg-re-darker border border-re-green/30 inline-block">
-                                <span class="font-orbitron text-re-green text-sm">2005</span>
-                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 4</h3>
-                                <p class="font-rajdhani text-gray-400 mt-2">Revolutionary over-the-shoulder camera. Leon rescues Ashley in rural Spain.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RE7 -->
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="md:w-1/2 md:text-right">
-                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
-                                <span class="font-orbitron text-re-blood-light text-sm">2017</span>
-                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 7</h3>
-                                <p class="font-rajdhani text-gray-400 mt-2">First-person horror returns. The Baker family mansion nightmare.</p>
-                            </div>
-                        </div>
-                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
-                        <div class="md:w-1/2"></div>
-                    </div>
-
-                    <!-- RE Village -->
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="md:w-1/2"></div>
-                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
-                        <div class="md:w-1/2">
-                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
-                                <span class="font-orbitron text-re-blood-light text-sm">2021</span>
-                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL VILLAGE</h3>
-                                <p class="font-rajdhani text-gray-400 mt-2">Ethan's journey continues. Meet the Four Lords including Lady Dimitrescu.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- RE4 Remake -->
-                    <div class="flex flex-col md:flex-row items-center gap-8">
-                        <div class="md:w-1/2 md:text-right">
-                            <div class="p-6 bg-re-darker border border-re-green/30 inline-block">
-                                <span class="font-orbitron text-re-green text-sm">2023</span>
-                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RE4 REMAKE</h3>
-                                <p class="font-rajdhani text-gray-400 mt-2">Modern reimagining of the classic. Enhanced graphics and gameplay.</p>
-                            </div>
-                        </div>
-                        <div class="w-4 h-4 bg-re-green rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
-                        <div class="md:w-1/2"></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 px-6 relative bg-gradient-to-b from-re-dark via-re-darker to-re-dark">
-        <div class="max-w-7xl mx-auto">
-            <!-- Section Header -->
-            <div class="text-center mb-16">
-                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
-                    HORROR GALLERY
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
-            </div>
-
-            <!-- Gallery Grid -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <div class="aspect-square bg-gradient-to-br from-re-blood/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    🏚️
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Spencer Mansion</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-blue-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden row-span-2">
-                    🧟‍♂️
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Zombies</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-re-blood/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    💀
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Lickers</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-purple-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    🕷️
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Spiders</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-green-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    🐍
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Yawn</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-orange-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden col-span-2">
-                    🔥
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Raccoon City Destruction</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-indigo-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    🏰
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Castle Dimitrescu</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-red-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    💉
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Viruses</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-gray-800/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    ☣️
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Biohazards</span>
-                    </div>
-                </div>
-                <div class="aspect-square bg-gradient-to-br from-cyan-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
-                    ❄️
-                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
-                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Antarctic Base</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features/Trivia Section -->
-    <section class="py-24 px-6 relative">
-        <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
-                    DID YOU KNOW?
-                </h2>
-                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
-                    <div class="text-5xl mb-4 group-hover:animate-pulse">🎬</div>
-                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Movie Adaptations</h3>
-                    <p class="font-rajdhani text-gray-400">Six live-action films starring Milla Jovovich have grossed over $1 billion worldwide, making it the most successful video game movie franchise.</p>
-                </div>
-
-                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
-                    <div class="text-5xl mb-4 group-hover:animate-pulse">📝</div>
-                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Original Name</h3>
-                    <p class="font-rajdhani text-gray-400">In Japan, the series is called "Biohazard." The name was changed for Western markets because "Biohazard" couldn't be trademarked there.</p>
-                </div>
-
-                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
-                    <div class="text-5xl mb-4 group-hover:animate-pulse">🏆</div>
-                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Guinness Record</h3>
-                    <p class="font-rajdhani text-gray-400">Resident Evil holds the Guinness World Record for "Best-selling survival horror game series" with over 150 million copies sold.</p>
-                </div>
-
-                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
-                    <div class="text-5xl mb-4 group-hover:animate-pulse">🎮</div>
-                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Genre Pioneer</h3>
-                    <p class="font-rajdhani text-gray-400">The first Resident Evil is credited with defining and popularizing the survival horror genre in gaming.</p>
-                </div>
-
-                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
-                    <div class="text-5xl mb-4 group-hover:animate-pulse">🌍</div>
-                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Global Impact</h3>
-                    <p class="font-rajdhani text-gray-400">The franchise has expanded beyond games into movies, comics, novels, theme park attractions, and even a Netflix series.</p>
-                </div>
-
-                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
-                    <div class="text-5xl mb-4 group-hover:animate-pulse">🧬</div>
-                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Multiple Viruses</h3>
-                    <p class="font-rajdhani text-gray-400">The series features multiple viruses: T-Virus, G-Virus, T-Veronica, Las Plagas, Uroboros, Mold, and more!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-24 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-re-blood/20 via-re-dark to-re-blood/20"></div>
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(220,20,60,0.1)_0%,_transparent_70%)]"></div>
-        
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <h2 class="font-creepster text-4xl md:text-6xl text-re-blood-light mb-6 text-glow">
-                ARE YOU READY TO SURVIVE?
-            </h2>
-            <p class="font-rajdhani text-xl text-gray-400 mb-10">
-                Enter the world of biological nightmares. Face your fears. Fight for survival.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <button class="group relative px-12 py-5 bg-re-blood hover:bg-re-blood-light text-white font-orbitron font-bold text-lg tracking-wider transition-all duration-300 glow-red overflow-hidden">
-                    <span class="relative z-10 group-hover:text-black transition-colors">BUY NOW ON STEAM</span>
-                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-                </button>
-                <button class="px-12 py-5 border-2 border-re-green text-re-green hover:bg-re-green/20 font-orbitron font-bold text-lg tracking-wider transition-all duration-300">
-                    WATCH TRAILER
-                </button>
-            </div>
-
-            <!-- Platform Icons -->
-            <div class="mt-12 flex justify-center gap-8 text-4xl opacity-60">
-                <span title="PlayStation">🎮</span>
-                <span title="Xbox">🎯</span>
-                <span title="PC/Steam">💻</span>
-                <span title="Nintendo Switch">🔷</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-re-darker border-t border-re-blood/30 py-12 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
-                <!-- Brand -->
-                <div class="md:col-span-2">
-                    <div class="flex items-center space-x-2 mb-4">
-                        <span class="text-4xl umbrella-logo">☂</span>
-                        <span class="font-orbitron font-bold text-xl text-re-blood-light">RESIDENT EVIL</span>
-                    </div>
-                    <p class="font-rajdhani text-gray-500 max-w-md">
-                        This is a fan-made tribute website dedicated to the legendary Resident Evil franchise by Capcom. All rights belong to their respective owners.
-                    </p>
-                </div>
-
-                <!-- Quick Links -->
                 <div>
-                    <h4 class="font-orbitron font-bold text-white mb-4">QUICK LINKS</h4>
-                    <ul class="space-y-2 font-rajdhani text-gray-500">
-                        <li><a href="#home" class="hover:text-re-blood-light transition-colors">Home</a></li>
-                        <li><a href="#about" class="hover:text-re-blood-light transition-colors">About</a></li>
-                        <li><a href="#characters" class="hover:text-re-blood-light transition-colors">Characters</a></li>
-                        <li><a href="#games" class="hover:text-re-blood-light transition-colors">Games</a></li>
-                    </ul>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+                        Tentang <span class="gradient-text">PS4 Game Reviews</span>
+                    </h2>
+                    <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                        Kami adalah tim gamer passionate yang telah menghabiskan ribuan jam bermain dan mereview game PlayStation 4. Misi kami adalah memberikan review jujur, mendalam, dan objektif untuk membantu kamu menemukan game terbaik sesuai selera.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fas fa-check text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Review Tanpa Spoiler</h4>
+                                <p class="text-gray-400 text-sm">Kami menjaga agar cerita tetap surprise untukmu</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fas fa-check text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Rating Objektif</h4>
+                                <p class="text-gray-400 text-sm">Setiap aspek game dinilai secara fair</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fas fa-check text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Update Berkala</h4>
+                                <p class="text-gray-400 text-sm">Review baru ditambahkan setiap minggu</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Social -->
-                <div>
-                    <h4 class="font-orbitron font-bold text-white mb-4">FOLLOW US</h4>
-                    <div class="flex space-x-4 text-2xl">
-                        <a href="#" class="hover:text-re-blood-light transition-colors" title="Twitter">𝕏</a>
-                        <a href="#" class="hover:text-re-blood-light transition-colors" title="Facebook">f</a>
-                        <a href="#" class="hover:text-re-blood-light transition-colors" title="Instagram">📷</a>
-                        <a href="#" class="hover:text-re-blood-light transition-colors" title="YouTube">▶</a>
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-blue-600 to-purple-700 rounded-3xl p-8 text-center">
+                        <i class="fab fa-playstation text-9xl text-white/80 mb-4"></i>
+                        <h3 class="text-2xl font-bold mb-2">Join Community Kami!</h3>
+                        <p class="text-blue-100 mb-6">Dapatkan update review terbaru langsung ke inboxmu</p>
+                        <form class="space-y-3">
+                            <input type="email" placeholder="Email kamu..." class="w-full px-4 py-3 rounded-lg bg-white/20 backdrop-blur border border-white/30 focus:outline-none focus:border-white placeholder-white/60">
+                            <button type="submit" class="w-full bg-white text-blue-600 font-bold py-3 rounded-lg hover:bg-blue-100 transition">
+                                Subscribe Now
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
-
-            <!-- Bottom Bar -->
-            <div class="border-t border-re-blood/20 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="font-rajdhani text-gray-600 text-sm">
-                    © 2024 Fan Tribute. RESIDENT EVIL is a registered trademark of CAPCO CO., LTD.
-                </p>
-                <p class="font-rajdhani text-re-blood/50 text-sm mt-2 md:mt-0 font-creepster text-lg">
-                    "Do not open... until doomsday"
-                </p>
-            </div>
         </div>
-    </footer>
+    </section>
 
-    <!-- JavaScript -->
+    <!-- JavaScript for Mobile Menu & Smooth Scroll -->
     <script>
         // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
         
-        menuBtn.addEventListener('click', () => {
+        mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
 
-        // Smooth Scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu if open
-                    mobileMenu.classList.add('hidden');
-                }
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
             });
         });
 
-        // Navbar Background on Scroll
+        // Navbar background on scroll
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
-            if (window.scrollY > 100) {
-                nav.classList.add('shadow-lg', 'shadow-re-blood/20');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg');
             } else {
-                nav.classList.remove('shadow-lg', 'shadow-re-blood/20');
+                nav.classList.remove('shadow-lg');
             }
         });
 
-        // Parallax Effect on Hero
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.getElementById('home');
-            if (hero && scrolled < window.innerHeight) {
-                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-            }
-        });
+        // Simple animation on scroll (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        // Random Flicker Effect on Title
-        const title = document.querySelector('.font-creepster.text-glow');
-        if (title) {
-            setInterval(() => {
-                if (Math.random() > 0.95) {
-                    title.style.opacity = '0.7';
-                    setTimeout(() => {
-                        title.style.opacity = '1';
-                    }, 50);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
-            }, 100);
-        }
+            });
+        }, observerOptions);
 
-        // Easter Egg - Konami Code
-        let konamiCode = [];
-        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        
-        document.addEventListener('keydown', (e) => {
-            konamiCode.push(e.key);
-            konamiCode = konamiCode.slice(-10);
-            
-            if (konamiCode.join(',') === konamiSequence.join(',')) {
-                alert('🧟 INFINITE AMMO UNLOCKED! You found the secret! 🧟');
-                document.body.style.animation = 'pulseBlood 0.5s ease-in-out 5';
-            }
+        // Apply animation to cards
+        document.querySelectorAll('.game-card, .card-hover').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
         });
-
-        console.log('%c☂ UMBRELLA CORPORATION ☂', 'color: #8B0000; font-size: 24px; font-weight: bold;');
-        console.log('%c"Do not open... until doomsday"', 'color: #DC143C; font-style: italic;');
     </script>
 
 </body>
