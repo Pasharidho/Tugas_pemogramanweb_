@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Pribadi | Pasha Ridho Pradipta S</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                    colors: {
+                        deep: { 900: '#001219', 800: '#001820', 700: '#002030' },
+                        sea: { 600: '#005f73', 500: '#0a7e8c', 400: '#0a9396' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background: linear-gradient(180deg, #005f73 0%, #001219 100%);
+            background-attachment: fixed;
+        }
+
+        .nav-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(12px);
+        }
+
+        .zoom-image {
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .photo-card:hover .zoom-image {
+            transform: scale(1.15);
+        }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .lightbox-overlay img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 1.5rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox-overlay.active img {
+            transform: scale(1);
+        }
+
+        /* Scroll indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #06b6d4, #10b981, #f59e0b);
+            z-index: 10000;
+            transition: width 0.1s linear;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 10001;
+            transform: translateY(120%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .toast.show {
+            transform: translateY(0);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen pb-20 font-inter">
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress" style="width: 0%"></div>
+
+    <!-- Lightbox -->
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all text-white text-xl">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="lightboxImg" src="" alt="Preview" />
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <div class="glass px-6 py-3 rounded-2xl border-cyan-500/30 text-cyan-200 text-sm font-medium flex items-center gap-3">
+            <i class="fa-solid fa-circle-info text-cyan-400"></i>
+            <span id="toastMsg">Pesan</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="max-w-6xl mx-auto px-6 py-16 flex flex-col md:flex-row justify-between items-center gap-6 border-b border-white/10 mb-12">
+        <div class="text-center md:text-left">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
+                Blog Pribadi &<br class="hidden md:block" /> Sejarah RRQ
+            </h1>
+            <p class="text-cyan-200/80 text-xs font-bold mt-3 uppercase tracking-[0.3em]">
+                Pasha Ridho Pradipta Setiawan — Mahasiswa Pendidikan Komputer
+            </p>
+        </div>
+        <a href="index.html" class="px-8 py-3 rounded-full border border-white/20 hover:bg-white/10 transition-all text-sm font-medium flex items-center gap-2 group text-white shrink-0">
+            <i class="fa-solid fa-house text-cyan-300 group-hover:text-white transition-colors"></i> Beranda
+        </a>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="max-w-4xl mx-auto px-6 mb-24 sticky top-4 z-50">
+        <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <a href="#biodata" class="nav-card flex items-center p-4 rounded-2xl group">
+                <div class="w-10 h-10 mr-3 rounded-xl bg-cyan-500/20 flex items-center justify-center group-hover:bg-cyan-500/30 transition-all shrink-0">
+                    <i class="fa-solid fa-id-card text-cyan-300 text-lg group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="text-[11px] font-bold text-cyan-100 uppercase tracking-widest group-hover:text-white transition-colors">Biodata</span>
+            </a>
+            <a href="#sejarah-section" class="nav-card flex items-center p-4 rounded-2xl group">
+                <div class="w-10 h-10 mr-3 rounded-xl bg-emerald-500/20 flex items-center justify-center group-hover:bg-emerald-500/30 transition-all shrink-0">
+                    <i class="fa-solid fa-clock-rotate-left text-emerald-300 text-lg group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="text-[11px] font-bold text-cyan-100 uppercase tracking-widest group-hover:text-white transition-colors">Sejarah</span>
+            </a>
+            <a href="#pelatih" class="nav-card flex items-center p-4 rounded-2xl group">
+                <div class="w-10 h-10 mr-3 rounded-xl bg-purple-500/20 flex items-center justify-center group-hover:bg-purple-500/30 transition-all shrink-0">
+                    <i class="fa-solid fa-chalkboard-user text-purple-300 text-lg group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="text-[11px] font-bold text-cyan-100 uppercase tracking-widest group-hover:text-white transition-colors">Coach</span>
+            </a>
+            <a href="#hobi" class="nav-card flex items-center p-4 rounded-2xl group">
+                <div class="w-10 h-10 mr-3 rounded-xl bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/30 transition-all shrink-0">
+                    <i class="fa-solid fa-users text-amber-300 text-lg group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="text-[11px] font-bold text-cyan-100 uppercase tracking-widest group-hover:text-white transition-colors">Roster</span>
+            </a>
+            <a href="#album" class="nav-card flex items-center p-4 rounded-2xl group col-span-2 md:col-span-1">
+                <div class="w-10 h-10 mr-3 rounded-xl bg-rose-500/20 flex items-center justify-center group-hover:bg-rose-500/30 transition-all shrink-0">
+                    <i class="fa-solid fa-images text-rose-300 text-lg group-hover:scale-110 transition-transform"></i>
+                </div>
+                <span class="text-[11px] font-bold text-cyan-100 uppercase tracking-widest group-hover:text-white transition-colors">Album</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 space-y-32">
+
+        <!-- BIODATA -->
+        <section id="biodata" class="scroll-mt-32">
+            <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <span class="w-2 h-8 bg-cyan-500 rounded-full"></span> Data Diri
+            </h2>
+            <div class="glass p-8 md:p-10 rounded-3xl flex flex-col md:flex-row gap-12 items-center">
+                <div class="shrink-0 mx-auto md:mx-0">
+                    <img src="foto/PDH.jpg" alt="Foto Pasha" class="w-56 h-56 rounded-3xl object-cover border-4 border-slate-700/50 shadow-2xl" onerror="this.src='https://picsum.photos/seed/pasha-profile/400/400.jpg'" />
+                </div>
+                <div class="flex-1 w-full">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-5">
+                        <div>
+                            <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-1">Nama</p>
+                            <p class="text-lg font-semibold text-white">Pasha Ridho Pradip Setiawan</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-1">Instansi</p>
+                            <p class="text-lg font-semibold text-white">FKIP Universitas Mulawarman</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-1">Prodi</p>
+                            <p class="text-lg font-semibold text-white">S-1 Pendidikan Komputer</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-1">Angkatan</p>
+                            <p class="text-lg font-semibold text-white">2024-A</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-1">Lokasi</p>
+                            <p class="text-lg font-semibold text-white">Samarinda, Kaltim</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-cyan-300 uppercase tracking-widest mb-1">Hobi</p>
+                            <p class="text-lg font-semibold text-white">Gaming, Futsal, Badminton</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEJARAH -->
+        <section id="sejarah-section" class="scroll-mt-32">
+            <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <span class="w-2 h-8 bg-emerald-500 rounded-full"></span> Sejarah
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass p-8 rounded-3xl border-emerald-500/10 flex flex-col h-full">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 flex items-center justify-center mb-6">
+                        <i class="fa-solid fa-trophy text-emerald-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">Sejarah Rex Regum Qeon</h3>
+                    <p class="text-cyan-100/70 text-sm leading-relaxed flex-1">Terbentuknya RRQ pada tahun 2013 hingga menjadi salah satu organisasi esports terbesar di Indonesia dan mendunia.</p>
+                    <div class="mt-8 pt-4 border-t border-white/5">
+                        <a href="https://popgames.vivanews.com/baca/1654-profil-lengkap-rrq-esports-sejarah-prestasi-dan-perjalanan-menuju-puncak-dunia" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition-all inline-flex items-center gap-2">
+                            Lihat Sejarah RRQ <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="glass p-8 rounded-3xl border-amber-500/10 flex flex-col h-full">
+                    <div class="w-14 h-14 rounded-2xl bg-amber-500/20 flex items-center justify-center mb-6">
+                        <i class="fa-brands fa-youtube text-amber-400 text-2xl"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3 tracking-tight">Pertama Kali RRQ Juara MPL Season 2</h3>
+                    <p class="text-cyan-100/70 text-sm leading-relaxed flex-1">Momen bersejarah ketika RRQ meraih gelar juara pertama mereka di Mobile Legends Professional League Season 2.</p>
+                    <div class="mt-8 pt-4 border-t border-white/5">
+                        <a href="http://youtube.com/watch?v=tRWNLNjCT5s" target="_blank" rel="noopener noreferrer" class="px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all inline-flex items-center gap-2">
+                            Lihat YouTube <i class="fa-solid fa-external-link"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PELATIH / COACH -->
+        <section id="pelatih" class="scroll-mt-32">
+            <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <span class="w-2 h-8 bg-purple-500 rounded-full"></span> Foto Coach RRQ Hoshi
+            </h2>
+            <div class="glass p-6 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-6 hover:border-purple-500/50 transition-all">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-chalkboard-user text-purple-400 text-xl"></i>
+                    </div>
+                    <h4 class="text-lg font-bold text-white">Coach RRQ Hoshi</h4>
+                </div>
+                <a href="foto/rrq coach khezcute.jpg" target="_blank" rel="noopener noreferrer" class="px-6 py-2.5 bg-slate-800 hover:bg-purple-600 rounded-xl text-sm font-bold transition-all text-white shrink-0 inline-flex items-center gap-2">
+                    <i class="fa-solid fa-eye"></i> Lihat Foto
+                </a>
+            </div>
+        </section>
+
+        <!-- ROSTER PEMAIN -->
+        <section id="hobi" class="scroll-mt-32">
+            <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <span class="w-2 h-8 bg-amber-500 rounded-full"></span> Roster Pemain
+            </h2>
+            <div class="glass p-6 md:p-10 rounded-3xl">
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/download.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/download.jpg" class="zoom-image w-full h-full object-cover" alt="Toyy" onerror="this.src='https://picsum.photos/seed/toyy/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Muhammad Rizky / Toyy</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/download (1).jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/download (1).jpg" class="zoom-image w-full h-full object-cover" alt="Idok" onerror="this.src='https://picsum.photos/seed/idok/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Ali Ridho / Idok</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/rinz __ save→follow.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/rinz __ save→follow.jpg" class="zoom-image w-full h-full object-cover" alt="Rinz" onerror="this.src='https://picsum.photos/seed/rinz/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Hajirin Arafat / Rinz</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/btr super_kenn.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/btr super_kenn.jpg" class="zoom-image w-full h-full object-cover" alt="Super Kenn" onerror="this.src='https://picsum.photos/seed/superkenn/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Kenneth Marcello / Super Kenn</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/download (2).jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/download (2).jpg" class="zoom-image w-full h-full object-cover" alt="Sutsujin" onerror="this.src='https://picsum.photos/seed/sutsujin/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Sutsujin</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/dyrennn __ save→follow.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/dyrennn __ save→follow.jpg" class="zoom-image w-full h-full object-cover" alt="Dyrenn" onerror="this.src='https://picsum.photos/seed/dyrenn/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Dyrenn</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/KUROKY.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/KUROKY.jpg" class="zoom-image w-full h-full object-cover" alt="Kuroky" onerror="this.src='https://picsum.photos/seed/kuroky/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">RRQ Kuroky</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/˗ˏˋ liquid yehezkiel ˎˊ-.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/˗ˏˋ liquid yehezkiel ˎˊ-.jpg" class="zoom-image w-full h-full object-cover" alt="Yehezkiel" onerror="this.src='https://picsum.photos/seed/yehezkiel/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Yehezkiel</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/hazle __ save→follow.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/hazle __ save→follow.jpg" class="zoom-image w-full h-full object-cover" alt="Hazle" onerror="this.src='https://picsum.photos/seed/hazle/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Hazle</p>
+                        </div>
+                    </div>
+
+                    <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-amber-500/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.15)]" onclick="openLightbox('foto/rezz ☆.jpg')">
+                        <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                            <img src="foto/rezz ☆.jpg" class="zoom-image w-full h-full object-cover" alt="Rezz" onerror="this.src='https://picsum.photos/seed/rezz/400/500.jpg'" />
+                        </div>
+                        <div class="pt-3 text-center">
+                            <p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Rezz</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ALBUM GALERI -->
+        <section id="album" class="scroll-mt-32">
+            <h2 class="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+                <span class="w-2 h-8 bg-rose-500 rounded-full"></span> Album Galeri
+            </h2>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/foto pashaa motor.jpeg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/foto pashaa motor.jpeg" class="zoom-image w-full h-full object-cover" alt="Jalan cari makan" onerror="this.src='https://picsum.photos/seed/motor/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Jalan Cari Makan</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/foto kesayangan aku.jpeg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/foto kesayangan aku.jpeg" class="zoom-image w-full h-full object-cover" alt="Pertama kali dapat Pap" onerror="this.src='https://picsum.photos/seed/pap/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Pertama Kali Dapat Pap</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/foto pas ke perjiwa.jpeg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/foto pas ke perjiwa.jpeg" class="zoom-image w-full h-full object-cover" alt="Ke Perjiwa" onerror="this.src='https://picsum.photos/seed/perjiwa/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Ke Perjiwa Bareng Teman</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/IMG_0017.JPG')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/IMG_0017.JPG" class="zoom-image w-full h-full object-cover" alt="Raker Pemaparan" onerror="this.src='https://picsum.photos/seed/raker/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Raker Pemaparan</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/IMG_20250501_175653_694.jpg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/IMG_20250501_175653_694.jpg" class="zoom-image w-full h-full object-cover" alt="Steling Maba" onerror="this.src='https://picsum.photos/seed/steling/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Maba Pertama Kali Steling</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/foto pash bukber.jpeg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/foto pash bukber.jpeg" class="zoom-image w-full h-full object-cover" alt="Bukber" onerror="this.src='https://picsum.photos/seed/bukber/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Bukber Kecepatan Datang</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/granger .jpeg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/granger .jpeg" class="zoom-image w-full h-full object-cover" alt="M7 Prime" onerror="this.src='https://picsum.photos/seed/granger/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Pertama Kali Dapat M7 Prime</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/Pash Dibontang.jpeg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/Pash Dibontang.jpeg" class="zoom-image w-full h-full object-cover" alt="Lebaran Bontang" onerror="this.src='https://picsum.photos/seed/bontang/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Lebaran di Bontang</p>
+                    </div>
+                </div>
+
+                <div class="photo-card glass p-2.5 rounded-2xl overflow-hidden cursor-pointer transition-all hover:border-rose-500/50 hover:shadow-[0_0_20px_rgba(244,63,94,0.15)]" onclick="openLightbox('foto/foto bareng kartar.jpeg')">
+                    <div class="aspect-[4/5] rounded-xl overflow-hidden">
+                        <img src="foto/foto bareng kartar.jpeg" class="zoom-image w-full h-full object-cover" alt="Bareng Kartar" onerror="this.src='https://picsum.photos/seed/kartar/400/500.jpg'" />
+                    </div>
+                    <div class="pt-3 text-center">
+                        <p class="text-[11px] font-semibold text-white uppercase">Bareng Setelah Sholat</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-6xl mx-auto px-6 mt-32 pt-8 border-t border-white/10 pb-10">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-cyan-200/40 text-sm">&copy; 2025 Pasha Ridho Pradipta Setiawan. Blog pribadi.</p>
+            <div class="flex items-center gap-4">
+                <a href="#biodata" class="text-cyan-200/40 hover:text-cyan-300 text-sm transition-colors">Biodata</a>
+                <span class="text-cyan-200/20">·</span>
+                <a href="#sejarah-section" class="text-cyan-200/40 hover:text-cyan-300 text-sm transition-colors">Sejarah</a>
+                <span class="text-cyan-200/20">·</span>
+                <a href="#album" class="text-cyan-200/40 hover:text-cyan-300 text-sm transition-colors">Album</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', function () {
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scrollProgress').style.width = progress + '%';
+        });
+
+        // Lightbox
+        function openLightbox(src) {
+            var lightbox = document.getElementById('lightbox');
+            var img = document.getElementById('lightboxImg');
+            img.src = src;
+            img.onerror = function () {
+                this.src = 'https://picsum.photos/seed/fallback/800/1000.jpg';
+            };
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            var lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close lightbox with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        // Toast notification on page load
+        window.addEventListener('load', function () {
+            showToast('Klik foto untuk memperbesar');
+        });
+
+        function showToast(msg) {
+            var toast = document.getElementById('toast');
+            document.getElementById('toastMsg').textContent = msg;
+            toast.classList.add('show');
+            setTimeout(function () {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+    </script>
+
+</body>
+</html>
