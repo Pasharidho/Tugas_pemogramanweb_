@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESIDENT EVIL - Survival Horror Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        're-dark': '#0a0a0a',
+                        're-darker': '#050505',
+                        're-blood': '#8B0000',
+                        're-blood-light': '#DC143C',
+                        're-green': '#00ff41',
+                        're-zombie': '#4a5d23',
+                    },
+                    fontFamily: {
+                        'creepster': ['Creepster', 'cursive'],
+                        'orbitron': ['Orbitron', 'sans-serif'],
+                        'rajdhani': ['Rajdhani', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-blood': 'pulseBlood 2s ease-in-out infinite',
+                        'flicker': 'flicker 3s linear infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'scanline': 'scanline 8s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes pulseBlood {
+            0%, 100% { text-shadow: 0 0 10px #8B0000, 0 0 20px #8B0000, 0 0 30px #8B0000; }
+            50% { text-shadow: 0 0 20px #DC143C, 0 0 40px #DC143C, 0 0 60px #DC143C; }
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.4; }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        body {
+            background-color: #0a0a0a;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .scanlines::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .blood-drip {
+            background: linear-gradient(180deg, #8B0000 0%, #DC143C 50%, transparent 100%);
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 70% 80%, 60% 100%, 45% 85%, 30% 100%, 15% 75%, 0 100%);
+        }
+
+        .zombie-card:hover .zombie-overlay {
+            opacity: 1;
+        }
+
+        .glow-red {
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5), inset 0 0 20px rgba(139, 0, 0, 0.2);
+        }
+
+        .text-glow {
+            animation: pulseBlood 2s ease-in-out infinite;
+        }
+
+        .vhs-effect {
+            position: relative;
+        }
+
+        .vhs-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                transparent 50%,
+                rgba(0, 255, 65, 0.03) 50%
+            );
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+
+        .noise-bg {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        .character-card {
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .character-card:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .umbrella-logo {
+            filter: drop-shadow(0 0 20px rgba(192, 0, 0, 0.8));
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #8B0000;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #DC143C;
+        }
+    </style>
+</head>
+<body class="bg-re-dark text-white scanlines noise-bg overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-re-darker/90 backdrop-blur-md border-b border-re-blood/30">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <span class="text-3xl umbrella-logo">☂</span>
+                    <span class="font-orbitron font-bold text-xl tracking-wider text-re-blood-light">UMBRELLA CORP</span>
+                </div>
+                <div class="hidden md:flex space-x-8 font-rajdhani font-semibold tracking-wide">
+                    <a href="#home" class="hover:text-re-blood-light transition-colors duration-300">HOME</a>
+                    <a href="#about" class="hover:text-re-blood-light transition-colors duration-300">ABOUT</a>
+                    <a href="#characters" class="hover:text-re-blood-light transition-colors duration-300">CHARACTERS</a>
+                    <a href="#games" class="hover:text-re-blood-light transition-colors duration-300">GAMES</a>
+                    <a href="#gallery" class="hover:text-re-blood-light transition-colors duration-300">GALLERY</a>
+                </div>
+                <button id="menuBtn" class="md:hidden text-re-blood-light text-2xl">☰</button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-re-darker/95 border-t border-re-blood/30">
+            <div class="flex flex-col space-y-4 p-6 font-rajdhani font-semibold">
+                <a href="#home" class="hover:text-re-blood-light transition-colors">HOME</a>
+                <a href="#about" class="hover:text-re-blood-light transition-colors">ABOUT</a>
+                <a href="#characters" class="hover:text-re-blood-light transition-colors">CHARACTERS</a>
+                <a href="#games" class="hover:text-re-blood-light transition-colors">GAMES</a>
+                <a href="#gallery" class="hover:text-re-blood-light transition-colors">GALLERY</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background Effects -->
+        <div class="absolute inset-0 bg-gradient-to-b from-re-darker via-re-dark to-black"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(139,0,0,0.15)_0%,_transparent_70%)]"></div>
+        
+        <!-- Animated Blood Drips -->
+        <div class="absolute top-0 left-10 w-2 h-40 blood-drip animate-pulse-blood opacity-60"></div>
+        <div class="absolute top-0 right-20 w-3 h-60 blood-drip animate-pulse-blood opacity-40" style="animation-delay: 1s;"></div>
+        <div class="absolute top-0 left-1/4 w-2 h-32 blood-drip animate-pulse-blood opacity-50" style="animation-delay: 0.5s;"></div>
+
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 text-6xl animate-float opacity-20">🧟</div>
+        <div class="absolute bottom-40 right-20 text-5xl animate-float opacity-20" style="animation-delay: 2s;">💀</div>
+        <div class="absolute top-1/3 right-10 text-4xl animate-float opacity-15" style="animation-delay: 4s;">☠️</div>
+
+        <!-- Main Content -->
+        <div class="relative z-10 text-center px-6 max-w-5xl mx-auto">
+            <!-- Umbrella Logo -->
+            <div class="mb-8 animate-flicker">
+                <span class="text-9xl md:text-[150px] umbrella-logo inline-block">☂</span>
+            </div>
+
+            <!-- Title -->
+            <h1 class="font-creepster text-6xl md:text-8xl lg:text-9xl text-re-blood-light mb-6 text-glow tracking-wider vhs-effect">
+                RESIDENT EVIL
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="font-orbitron text-lg md:text-2xl text-gray-400 mb-4 tracking-[0.3em] uppercase">
+                Survival Horror
+            </p>
+            
+            <!-- Tagline -->
+            <p class="font-rajdhani text-xl md:text-2xl text-gray-500 mb-12 italic">
+                "Do not open... until you're ready to face your worst nightmare"
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <button class="group relative px-10 py-4 bg-re-blood hover:bg-re-blood-light text-white font-orbitron font-bold tracking-wider transition-all duration-300 glow-red overflow-hidden">
+                    <span class="relative z-10 group-hover:text-black transition-colors">PLAY NOW</span>
+                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </button>
+                <button class="px-10 py-4 border-2 border-re-blood text-re-blood-light hover:bg-re-blood/20 font-orbitron font-bold tracking-wider transition-all duration-300">
+                    LEARN MORE
+                </button>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+                <div class="w-6 h-10 border-2 border-re-blood rounded-full flex justify-center pt-2">
+                    <div class="w-1 h-3 bg-re-blood-light rounded-full animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scanline Effect Overlay -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden">
+            <div class="w-full h-1 bg-re-green/10 absolute animate-scanline"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
+                    ABOUT THE GAME
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="space-y-6">
+                    <h3 class="font-creepster text-3xl md:text-4xl text-white">
+                        The Beginning of Horror
+                    </h3>
+                    <p class="font-rajdhani text-lg text-gray-400 leading-relaxed">
+                        <span class="text-re-blood-light font-semibold">Resident Evil</span>, dikenal di Jepang sebagai 
+                        <span class="text-re-green">Biohazard (バイオハザード)</span>, adalah franchise media horor survival Jepang yang dibuat oleh 
+                        <span class="text-white font-semibold">Shinji Mikami dan Tokuro Fujiwara</span>, serta dimiliki oleh Capcom.
+                    </p>
+                    <p class="font-rajdhani text-lg text-gray-400 leading-relaxed">
+                        Franchise ini berfokus pada serangkaian permainan video horor survival dan mencakup film live-action, film animasi, komik, novel, audio drama, dan merchandise. Seri pertama dirilis pada <span class="text-re-blood-light">22 Maret 1996</span>.
+                    </p>
+                    
+                    <!-- Stats -->
+                    <div class="grid grid-cols-3 gap-6 pt-6">
+                        <div class="text-center p-4 border border-re-blood/30 bg-re-darker/50">
+                            <div class="font-orbitron text-3xl font-bold text-re-blood-light">150M+</div>
+                            <div class="font-rajdhani text-sm text-gray-500 uppercase tracking-wider">Copies Sold</div>
+                        </div>
+                        <div class="text-center p-4 border border-re-blood/30 bg-re-darker/50">
+                            <div class="font-orbitron text-3xl font-bold text-re-blood-light">28+</div>
+                            <div class="font-rajdhani text-sm text-gray-500 uppercase tracking-wider">Games</div>
+                        </div>
+                        <div class="text-center p-4 border border-re-blood/30 bg-re-darker/50">
+                            <div class="font-orbitron text-3xl font-bold text-re-blood-light">1996</div>
+                            <div class="font-rajdhani text-sm text-gray-500 uppercase tracking-wider">First Release</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content - Info Cards -->
+                <div class="space-y-6">
+                    <div class="p-6 bg-gradient-to-br from-re-darker to-re-dark border border-re-blood/30 glow-red relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🧬</div>
+                        <h4 class="font-orbitron text-xl font-bold text-re-blood-light mb-2 flex items-center">
+                            <span class="mr-3">🔬</span> T-Virus
+                        </h4>
+                        <p class="font-rajdhani text-gray-400">
+                            Senjata biologis yang dikembangkan oleh Umbrella Corporation. Virus ini menyebabkan mutasi genetik ekstrem pada manusia, mengubah mereka menjadi zombie.
+                        </p>
+                    </div>
+
+                    <div class="p-6 bg-gradient-to-br from-re-darker to-re-dark border border-re-green/30 relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🏢</div>
+                        <h4 class="font-orbitron text-xl font-bold text-re-green mb-2 flex items-center">
+                            <span class="mr-3">☂</span> Umbrella Corporation
+                        </h4>
+                        <p class="font-rajdhani text-gray-400">
+                            Perusahaan farmasi raksasa yang beroperasi di balik layar sebagai produsen senjata biologis. Motonya: "Protecting your own health from the very beginning."
+                        </p>
+                    </div>
+
+                    <div class="p-6 bg-gradient-to-br from-re-darker to-re-dark border border-re-blood/30 glow-red relative overflow-hidden group">
+                        <div class="absolute top-0 right-0 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">🚔</div>
+                        <h4 class="font-orbitron text-xl font-bold text-re-blood-light mb-2 flex items-center">
+                            <span class="mr-3">⭐</span> S.T.A.R.S.
+                        </h4>
+                        <p class="font-rajdhani text-gray-400">
+                            Special Tactics And Rescue Service - Tim elit penanganan keadaan darurat dari Raccoon City Police Department yang menjadi protagonis dalam seri awal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Characters Section -->
+    <section id="characters" class="py-24 px-6 relative bg-gradient-to-b from-re-dark via-re-darker to-re-dark">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
+                    LEGENDARY CHARACTERS
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
+                <p class="font-rajdhani text-gray-500 mt-4 text-lg">Meet the survivors who fought against the outbreak</p>
+            </div>
+
+            <!-- Characters Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Leon S. Kennedy -->
+                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-blue-900/30 to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👮</div>
+                        <div class="absolute top-4 right-4 bg-re-blood/80 text-xs font-orbitron px-2 py-1">PROTAGONIST</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Leon S. Kennedy</h3>
+                        <p class="font-rajdhani text-re-blood-light text-sm">Rookie Police Officer → Government Agent</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            Debut in RE2. Known for his cool demeanor and one-liners during combat situations.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Claire Redfield -->
+                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-red-900/30 to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👩‍🦰</div>
+                        <div class="absolute top-4 right-4 bg-re-blood/80 text-xs font-orbitron px-2 py-1">PROTAGONIST</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Claire Redfield</h3>
+                        <p class="font-rajdhani text-re-blood-light text-sm">College Student → Activist</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            Chris's younger sister. Searching for her brother led her into the nightmare of Raccoon City.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Jill Valentine -->
+                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-purple-900/30 to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👩‍✈️</div>
+                        <div class="absolute top-4 right-4 bg-re-green/80 text-xs font-orbitron px-2 py-1 text-black">S.T.A.R.S.</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Jill Valentine</h3>
+                        <p class="font-rajdhani text-re-blood-light text-sm">S.T.A.R.S. Alpha Team - B&E Expert</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            "The Master of Unlocking." Survived the Mansion Incident and the Raccoon City outbreak.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Chris Redfield -->
+                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-green-900/30 to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🧔</div>
+                        <div class="absolute top-4 right-4 bg-re-green/80 text-xs font-orbitron px-2 py-1 text-black">S.T.A.R.S.</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Chris Redfield</h3>
+                        <p class="font-rajdhani text-re-blood-light text-sm">S.T.A.R.S. Alpha Team - Pilot</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            Co-founder of BSAA. Dedicated his life to fighting bioterrorism after the Spencer Mansion incident.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ada Wong -->
+                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-red-900/30 to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🥋</div>
+                        <div class="absolute top-4 right-4 bg-yellow-600/80 text-xs font-orbitron px-2 py-1 text-black">SPY</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Ada Wong</h3>
+                        <p class="font-rajdhani text-re-blood-light text-sm">Industrial Spy / Mercenary</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            Mysterious spy with her own agenda. Always appears when least expected and disappears just as quickly.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Wesker -->
+                <div class="character-card group relative bg-re-darker border border-yellow-600/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-black to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🕶️</div>
+                        <div class="absolute top-4 right-4 bg-yellow-600 text-xs font-orbitron px-2 py-1 text-black">ANTAGONIST</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Albert Wesker</h3>
+                        <p class="font-rajdhani text-yellow-500 text-sm">Former S.T.A.R.S. Captain / Bioweapon</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            The primary antagonist of the series. Betrayed S.T.A.R.S. and gained superhuman abilities through virus experimentation.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Ethan Winters -->
+                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-orange-900/30 to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">👨</div>
+                        <div class="absolute top-4 right-4 bg-re-blood/80 text-xs font-orbitron px-2 py-1">PROTAGONIST</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Ethan Winters</h3>
+                        <p class="font-rajdhani text-re-blood-light text-sm">Civilian / System Engineer</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            An ordinary man searching for his wife Mia. His determination leads him through unimaginable horrors.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Lady Dimitrescu -->
+                <div class="character-card group relative bg-re-darker border border-re-blood/30 overflow-hidden cursor-pointer">
+                    <div class="aspect-[3/4] bg-gradient-to-br from-indigo-900/30 to-re-dark flex items-end justify-center p-6 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-re-darker via-transparent to-transparent"></div>
+                        <div class="text-8xl mb-4 group-hover:scale-110 transition-transform duration-500">🧛‍♀️</div>
+                        <div class="absolute top-4 right-4 bg-purple-700/80 text-xs font-orbitron px-2 py-1">LORD</div>
+                    </div>
+                    <div class="p-6 space-y-2">
+                        <h3 class="font-orbitron text-xl font-bold text-white">Alcina Dimitrescu</h3>
+                        <p class="font-rajdhani text-re-blood-light text-sm">Countess of Castle Dimitrescu</p>
+                        <p class="font-rajdhani text-gray-500 text-sm mt-3">
+                            The towering vampire countess from Resident Evil Village. Became an internet sensation upon release.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Games Section -->
+    <section id="games" class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
+                    GAME TIMELINE
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-re-blood via-re-blood-light to-re-blood hidden md:block"></div>
+
+                <!-- Timeline Items -->
+                <div class="space-y-12">
+                    
+                    <!-- RE1 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2 md:text-right">
+                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
+                                <span class="font-orbitron text-re-blood-light text-sm">1996</span>
+                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL</h3>
+                                <p class="font-rajdhani text-gray-400 mt-2">The original survival horror that started it all. Set in the Spencer Mansion.</p>
+                            </div>
+                        </div>
+                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
+                        <div class="md:w-1/2"></div>
+                    </div>
+
+                    <!-- RE2 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2"></div>
+                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
+                        <div class="md:w-1/2">
+                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
+                                <span class="font-orbitron text-re-blood-light text-sm">1998</span>
+                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 2</h3>
+                                <p class="font-rajdhani text-gray-400 mt-2">Introduction of Leon & Claire. Raccoon City outbreak begins.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RE3 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2 md:text-right">
+                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
+                                <span class="font-orbitron text-re-blood-light text-sm">1999</span>
+                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 3</h3>
+                                <p class="font-rajdhani text-gray-400 mt-2">Jill's escape from Nemesis. The fall of Raccoon City.</p>
+                            </div>
+                        </div>
+                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
+                        <div class="md:w-1/2"></div>
+                    </div>
+
+                    <!-- RE4 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2"></div>
+                        <div class="w-4 h-4 bg-re-green rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
+                        <div class="md:w-1/2">
+                            <div class="p-6 bg-re-darker border border-re-green/30 inline-block">
+                                <span class="font-orbitron text-re-green text-sm">2005</span>
+                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 4</h3>
+                                <p class="font-rajdhani text-gray-400 mt-2">Revolutionary over-the-shoulder camera. Leon rescues Ashley in rural Spain.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RE7 -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2 md:text-right">
+                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
+                                <span class="font-orbitron text-re-blood-light text-sm">2017</span>
+                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL 7</h3>
+                                <p class="font-rajdhani text-gray-400 mt-2">First-person horror returns. The Baker family mansion nightmare.</p>
+                            </div>
+                        </div>
+                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
+                        <div class="md:w-1/2"></div>
+                    </div>
+
+                    <!-- RE Village -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2"></div>
+                        <div class="w-4 h-4 bg-re-blood-light rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
+                        <div class="md:w-1/2">
+                            <div class="p-6 bg-re-darker border border-re-blood/30 glow-red inline-block">
+                                <span class="font-orbitron text-re-blood-light text-sm">2021</span>
+                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RESIDENT EVIL VILLAGE</h3>
+                                <p class="font-rajdhani text-gray-400 mt-2">Ethan's journey continues. Meet the Four Lords including Lady Dimitrescu.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RE4 Remake -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <div class="md:w-1/2 md:text-right">
+                            <div class="p-6 bg-re-darker border border-re-green/30 inline-block">
+                                <span class="font-orbitron text-re-green text-sm">2023</span>
+                                <h3 class="font-orbitron text-2xl font-bold text-white mt-2">RE4 REMAKE</h3>
+                                <p class="font-rajdhani text-gray-400 mt-2">Modern reimagining of the classic. Enhanced graphics and gameplay.</p>
+                            </div>
+                        </div>
+                        <div class="w-4 h-4 bg-re-green rounded-full border-4 border-re-dark z-10 hidden md:block"></div>
+                        <div class="md:w-1/2"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 px-6 relative bg-gradient-to-b from-re-dark via-re-darker to-re-dark">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
+                    HORROR GALLERY
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="aspect-square bg-gradient-to-br from-re-blood/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    🏚️
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Spencer Mansion</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-blue-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden row-span-2">
+                    🧟‍♂️
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Zombies</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-re-blood/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    💀
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Lickers</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-purple-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    🕷️
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Spiders</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-green-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    🐍
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Yawn</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-orange-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden col-span-2">
+                    🔥
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Raccoon City Destruction</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-indigo-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    🏰
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Castle Dimitrescu</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-red-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    💉
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Viruses</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-gray-800/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    ☣️
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Biohazards</span>
+                    </div>
+                </div>
+                <div class="aspect-square bg-gradient-to-br from-cyan-900/20 to-re-darker border border-re-blood/30 flex items-center justify-center text-6xl hover:scale-105 transition-transform cursor-pointer group relative overflow-hidden">
+                    ❄️
+                    <div class="absolute inset-0 bg-re-blood/0 group-hover:bg-re-blood/20 transition-colors flex items-center justify-center">
+                        <span class="font-orbitron text-sm opacity-0 group-hover:opacity-100 transition-opacity">Antarctic Base</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features/Trivia Section -->
+    <section class="py-24 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-orbitron text-4xl md:text-5xl font-bold text-re-blood-light mb-4 tracking-wide">
+                    DID YOU KNOW?
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-transparent via-re-blood to-transparent mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
+                    <div class="text-5xl mb-4 group-hover:animate-pulse">🎬</div>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Movie Adaptations</h3>
+                    <p class="font-rajdhani text-gray-400">Six live-action films starring Milla Jovovich have grossed over $1 billion worldwide, making it the most successful video game movie franchise.</p>
+                </div>
+
+                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
+                    <div class="text-5xl mb-4 group-hover:animate-pulse">📝</div>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Original Name</h3>
+                    <p class="font-rajdhani text-gray-400">In Japan, the series is called "Biohazard." The name was changed for Western markets because "Biohazard" couldn't be trademarked there.</p>
+                </div>
+
+                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
+                    <div class="text-5xl mb-4 group-hover:animate-pulse">🏆</div>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Guinness Record</h3>
+                    <p class="font-rajdhani text-gray-400">Resident Evil holds the Guinness World Record for "Best-selling survival horror game series" with over 150 million copies sold.</p>
+                </div>
+
+                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
+                    <div class="text-5xl mb-4 group-hover:animate-pulse">🎮</div>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Genre Pioneer</h3>
+                    <p class="font-rajdhani text-gray-400">The first Resident Evil is credited with defining and popularizing the survival horror genre in gaming.</p>
+                </div>
+
+                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
+                    <div class="text-5xl mb-4 group-hover:animate-pulse">🌍</div>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Global Impact</h3>
+                    <p class="font-rajdhani text-gray-400">The franchise has expanded beyond games into movies, comics, novels, theme park attractions, and even a Netflix series.</p>
+                </div>
+
+                <div class="p-8 bg-re-darker border border-re-blood/30 hover:border-re-blood transition-colors group">
+                    <div class="text-5xl mb-4 group-hover:animate-pulse">🧬</div>
+                    <h3 class="font-orbitron text-xl font-bold text-white mb-3">Multiple Viruses</h3>
+                    <p class="font-rajdhani text-gray-400">The series features multiple viruses: T-Virus, G-Virus, T-Veronica, Las Plagas, Uroboros, Mold, and more!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-re-blood/20 via-re-dark to-re-blood/20"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(220,20,60,0.1)_0%,_transparent_70%)]"></div>
+        
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="font-creepster text-4xl md:text-6xl text-re-blood-light mb-6 text-glow">
+                ARE YOU READY TO SURVIVE?
+            </h2>
+            <p class="font-rajdhani text-xl text-gray-400 mb-10">
+                Enter the world of biological nightmares. Face your fears. Fight for survival.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <button class="group relative px-12 py-5 bg-re-blood hover:bg-re-blood-light text-white font-orbitron font-bold text-lg tracking-wider transition-all duration-300 glow-red overflow-hidden">
+                    <span class="relative z-10 group-hover:text-black transition-colors">BUY NOW ON STEAM</span>
+                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+                </button>
+                <button class="px-12 py-5 border-2 border-re-green text-re-green hover:bg-re-green/20 font-orbitron font-bold text-lg tracking-wider transition-all duration-300">
+                    WATCH TRAILER
+                </button>
+            </div>
+
+            <!-- Platform Icons -->
+            <div class="mt-12 flex justify-center gap-8 text-4xl opacity-60">
+                <span title="PlayStation">🎮</span>
+                <span title="Xbox">🎯</span>
+                <span title="PC/Steam">💻</span>
+                <span title="Nintendo Switch">🔷</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-re-darker border-t border-re-blood/30 py-12 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <span class="text-4xl umbrella-logo">☂</span>
+                        <span class="font-orbitron font-bold text-xl text-re-blood-light">RESIDENT EVIL</span>
+                    </div>
+                    <p class="font-rajdhani text-gray-500 max-w-md">
+                        This is a fan-made tribute website dedicated to the legendary Resident Evil franchise by Capcom. All rights belong to their respective owners.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-white mb-4">QUICK LINKS</h4>
+                    <ul class="space-y-2 font-rajdhani text-gray-500">
+                        <li><a href="#home" class="hover:text-re-blood-light transition-colors">Home</a></li>
+                        <li><a href="#about" class="hover:text-re-blood-light transition-colors">About</a></li>
+                        <li><a href="#characters" class="hover:text-re-blood-light transition-colors">Characters</a></li>
+                        <li><a href="#games" class="hover:text-re-blood-light transition-colors">Games</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social -->
+                <div>
+                    <h4 class="font-orbitron font-bold text-white mb-4">FOLLOW US</h4>
+                    <div class="flex space-x-4 text-2xl">
+                        <a href="#" class="hover:text-re-blood-light transition-colors" title="Twitter">𝕏</a>
+                        <a href="#" class="hover:text-re-blood-light transition-colors" title="Facebook">f</a>
+                        <a href="#" class="hover:text-re-blood-light transition-colors" title="Instagram">📷</a>
+                        <a href="#" class="hover:text-re-blood-light transition-colors" title="YouTube">▶</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-re-blood/20 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="font-rajdhani text-gray-600 text-sm">
+                    © 2024 Fan Tribute. RESIDENT EVIL is a registered trademark of CAPCO CO., LTD.
+                </p>
+                <p class="font-rajdhani text-re-blood/50 text-sm mt-2 md:mt-0 font-creepster text-lg">
+                    "Do not open... until doomsday"
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        // Navbar Background on Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('shadow-lg', 'shadow-re-blood/20');
+            } else {
+                nav.classList.remove('shadow-lg', 'shadow-re-blood/20');
+            }
+        });
+
+        // Parallax Effect on Hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.getElementById('home');
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Random Flicker Effect on Title
+        const title = document.querySelector('.font-creepster.text-glow');
+        if (title) {
+            setInterval(() => {
+                if (Math.random() > 0.95) {
+                    title.style.opacity = '0.7';
+                    setTimeout(() => {
+                        title.style.opacity = '1';
+                    }, 50);
+                }
+            }, 100);
+        }
+
+        // Easter Egg - Konami Code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+            
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                alert('🧟 INFINITE AMMO UNLOCKED! You found the secret! 🧟');
+                document.body.style.animation = 'pulseBlood 0.5s ease-in-out 5';
+            }
+        });
+
+        console.log('%c☂ UMBRELLA CORPORATION ☂', 'color: #8B0000; font-size: 24px; font-weight: bold;');
+        console.log('%c"Do not open... until doomsday"', 'color: #DC143C; font-style: italic;');
+    </script>
+
+</body>
+</html>
