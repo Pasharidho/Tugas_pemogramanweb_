@@ -6,14 +6,14 @@
     <title>Blog Pribadi | Pasha Ridho Pradipta S</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        heading: ['Space Grotesk', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
+                        heading: ['Playfair Display', 'serif'],
+                        body: ['DM Sans', 'sans-serif'],
                     },
                 }
             }
@@ -24,360 +24,491 @@
         html { scroll-behavior: smooth; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: #06090f;
-            color: #c8d6e5;
+            font-family: 'DM Sans', sans-serif;
+            background: #faf9f7;
+            color: #2d3748;
             overflow-x: hidden;
         }
 
-        .mesh-bg {
+        .pattern-bg {
             position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background:
-                radial-gradient(ellipse 80% 60% at 10% 20%, rgba(16,185,129,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 80% at 90% 80%, rgba(245,158,11,0.06) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 50% at 50% 50%, rgba(6,182,212,0.04) 0%, transparent 70%);
-            animation: meshDrift 20s ease-in-out infinite alternate;
-        }
-        @keyframes meshDrift {
-            0%   { transform: scale(1) translate(0, 0); }
-            50%  { transform: scale(1.05) translate(-20px, 15px); }
-            100% { transform: scale(1) translate(10px, -10px); }
+            background-image: 
+                radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.03) 1px, transparent 0);
+            background-size: 40px 40px;
         }
 
-        .grain {
-            position: fixed; inset: 0; z-index: 1; pointer-events: none; opacity: 0.025;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-size: 128px 128px;
+        .gradient-orb {
+            position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0;
         }
-
-        .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
-        .orb-1 { width: 400px; height: 400px; top: -100px; left: -100px; background: rgba(16,185,129,0.07); animation: orbFloat1 25s ease-in-out infinite; }
-        .orb-2 { width: 350px; height: 350px; bottom: -80px; right: -80px; background: rgba(245,158,11,0.06); animation: orbFloat2 30s ease-in-out infinite; }
-        .orb-3 { width: 250px; height: 250px; top: 40%; left: 60%; background: rgba(6,182,212,0.05); animation: orbFloat3 22s ease-in-out infinite; }
-        @keyframes orbFloat1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(60px,40px); } }
-        @keyframes orbFloat2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-50px,-30px); } }
-        @keyframes orbFloat3 { 0%,100% { transform: translate(0,0); } 33% { transform: translate(-40px,30px); } 66% { transform: translate(30px,-20px); } }
-
-        .scroll-bar {
-            position: fixed; top: 0; left: 0; height: 2px; z-index: 9999;
-            background: linear-gradient(90deg, #10b981, #06b6d4, #f59e0b);
-            transition: width 0.05s linear;
+        .orb-a {
+            width: 500px; height: 500px; top: -150px; right: -100px;
+            background: rgba(99, 102, 241, 0.08);
+            animation: floatA 20s ease-in-out infinite;
+        }
+        .orb-b {
+            width: 400px; height: 400px; bottom: -100px; left: -100px;
+            background: rgba(236, 72, 153, 0.06);
+            animation: floatB 25s ease-in-out infinite;
+        }
+        @keyframes floatA {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-40px, 30px) scale(1.1); }
+        }
+        @keyframes floatB {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -40px) scale(1.05); }
         }
 
         .content-wrap { position: relative; z-index: 2; }
 
-        .nav-link {
-            position: relative; padding: 0.5rem 0; font-size: 0.75rem; font-weight: 600;
-            letter-spacing: 0.08em; text-transform: uppercase; color: rgba(200,214,229,0.5);
-            transition: color 0.3s;
+        /* Navigation */
+        .nav-pill {
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8rem; font-weight: 600;
+            letter-spacing: 0.02em;
+            color: #64748b;
+            border-radius: 9999px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1.5px solid transparent;
         }
-        .nav-link::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1.5px;
-            background: linear-gradient(90deg, #10b981, #06b6d4);
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .nav-link:hover, .nav-link.active { color: #e2e8f0; }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-
-        .g-card {
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            backdrop-filter: blur(16px);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .g-card:hover {
-            background: rgba(255,255,255,0.04);
-            border-color: rgba(255,255,255,0.12);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        .nav-pill:hover { color: #4f46e5; background: rgba(79, 70, 229, 0.05); }
+        .nav-pill.active {
+            color: #ffffff;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
 
-        .photo-card {
-            position: relative; overflow: hidden; border-radius: 1rem;
-            background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.06);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
-        }
-        .photo-card:hover {
-            border-color: rgba(255,255,255,0.15);
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 24px 48px rgba(0,0,0,0.5);
-        }
-        .photo-card .img-wrap { overflow: hidden; }
-        .photo-card img {
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s;
-            filter: brightness(0.9) saturate(0.85);
-        }
-        .photo-card:hover img {
-            transform: scale(1.12);
-            filter: brightness(1) saturate(1);
-        }
-        .photo-card .overlay {
-            position: absolute; inset: 0; opacity: 0;
-            background: linear-gradient(to top, rgba(6,9,15,0.85) 0%, transparent 60%);
-            transition: opacity 0.5s;
-        }
-        .photo-card:hover .overlay { opacity: 1; }
-        .photo-card .label {
-            position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem;
-            transform: translateY(8px); opacity: 0;
+        /* Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .photo-card:hover .label { transform: translateY(0); opacity: 1; }
-
-        .sec-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 700; font-size: 1.75rem; color: #f1f5f9;
-            display: flex; align-items: center; gap: 1rem;
-        }
-        .sec-title .bar { width: 3px; height: 2rem; border-radius: 99px; }
-        .sec-sub {
-            font-size: 0.8rem; color: rgba(200,214,229,0.4);
-            margin-top: 0.5rem; margin-left: 1.75rem;
+        .glass-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border-color: rgba(99, 102, 241, 0.2);
         }
 
-        .reveal {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        /* Photo Card */
+        .photo-card-modern {
+            position: relative; overflow: hidden; border-radius: 1.25rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
         }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
+        .photo-card-modern:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
+            border-color: #c7d2fe;
+        }
+        .photo-card-modern .img-container { overflow: hidden; }
+        .photo-card-modern img {
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s;
+            filter: brightness(0.95);
+        }
+        .photo-card-modern:hover img {
+            transform: scale(1.1);
+            filter: brightness(1);
+        }
+        .photo-card-modern .overlay-modern {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(30, 27, 75, 0.9) 0%, rgba(30, 27, 75, 0.3) 40%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .photo-card-modern:hover .overlay-modern { opacity: 1; }
+        .photo-card-modern .label-modern {
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 1.25rem;
+            transform: translateY(15px); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .photo-card-modern:hover .label-modern { transform: translateY(0); opacity: 1; }
 
-        .lightbox {
-            position: fixed; inset: 0; z-index: 10000; display: none;
-            align-items: center; justify-content: center;
-            background: rgba(6,9,15,0.92); backdrop-filter: blur(20px);
-            cursor: zoom-out; padding: 2rem;
+        /* Section Title */
+        .section-header {
+            display: inline-flex; align-items: center; gap: 1rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08));
+            border-radius: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.1);
         }
-        .lightbox.open { display: flex; animation: lbIn 0.3s ease-out; }
-        .lightbox img {
-            max-width: 90vw; max-height: 85vh; border-radius: 1rem;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.6);
-            animation: lbImgIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700; font-size: 1.65rem; color: #1e1b4b;
         }
-        .lightbox .close-btn {
-            position: absolute; top: 1.5rem; right: 1.5rem;
-            width: 3rem; height: 3rem; border-radius: 50%;
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
-            color: #e2e8f0; font-size: 1.2rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s;
+        .accent-line {
+            width: 4px; height: 2rem; border-radius: 4px;
+            background: linear-gradient(180deg, #6366f1, #ec4899);
         }
-        .lightbox .close-btn:hover { background: rgba(255,255,255,0.15); transform: rotate(90deg); }
-        @keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes lbImgIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        .typing-cursor { display: inline-block; width: 3px; height: 1em; background: #10b981; margin-left: 4px; animation: blink 1s step-end infinite; vertical-align: text-bottom; }
-        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
-
-        .profile-ring { position: relative; display: inline-block; }
-        .profile-ring::before {
-            content: ''; position: absolute; inset: -4px; border-radius: 1.25rem;
-            background: conic-gradient(from 0deg, #10b981, #06b6d4, #f59e0b, #10b981);
-            animation: ringRotate 6s linear infinite;
+        /* Profile */
+        .profile-frame {
+            position: relative; display: inline-block;
+        }
+        .profile-frame::before {
+            content: ''; position: absolute; inset: -5px;
+            border-radius: 1.5rem;
+            background: conic-gradient(from 180deg, #6366f1, #8b5cf6, #ec4899, #f43f5e, #6366f1);
+            animation: spinSlow 8s linear infinite;
             z-index: -1;
         }
-        @keyframes ringRotate { to { transform: rotate(360deg); } }
-
-        .toast-box {
-            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(120%);
-            z-index: 10001; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        .profile-frame::after {
+            content: ''; position: absolute; inset: -2px;
+            border-radius: 1.35rem;
+            background: #faf9f7;
+            z-index: -1;
         }
-        .toast-box.show { transform: translateX(-50%) translateY(0); }
+        @keyframes spinSlow { to { transform: rotate(360deg); } }
 
-        .sticky-nav {
-            background: rgba(6,9,15,0.7);
-            border: 1px solid rgba(255,255,255,0.06);
-            backdrop-filter: blur(20px) saturate(1.4);
+        /* Info Item */
+        .info-item {
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            background: rgba(99, 102, 241, 0.03);
+            border: 1px solid rgba(99, 102, 241, 0.06);
+            transition: all 0.3s;
+        }
+        .info-item:hover {
+            background: rgba(99, 102, 241, 0.06);
+            transform: translateX(4px);
         }
 
-        .info-row { transition: all 0.3s; border-radius: 0.75rem; padding: 0.75rem 1rem; margin: -0.75rem -1rem; }
-        .info-row:hover { background: rgba(255,255,255,0.03); }
-
-        .btn-glow { position: relative; overflow: hidden; }
-        .btn-glow::before {
+        /* Buttons */
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            font-weight: 600; font-size: 0.9rem;
+            color: white;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 9999px;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.35);
+            transition: all 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .btn-primary::before {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transform: translateX(-100%);
             transition: transform 0.6s;
         }
-        .btn-glow:hover::before { transform: translateX(100%); }
-
-        .photo-card.amber-glow:hover {
-            border-color: rgba(245,158,11,0.3);
-            box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 40px rgba(245,158,11,0.06);
-        }
-        .photo-card.rose-glow:hover {
-            border-color: rgba(244,63,94,0.3);
-            box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 40px rgba(244,63,94,0.06);
+        .btn-primary:hover::before { transform: translateX(100%); }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.45);
         }
 
-        .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent); }
+        .btn-outline {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            font-weight: 600; font-size: 0.9rem;
+            color: #4f46e5;
+            background: white;
+            border: 2px solid #e0e7ff;
+            border-radius: 9999px;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover {
+            border-color: #6366f1;
+            background: rgba(99, 102, 241, 0.04);
+            transform: translateY(-2px);
+        }
+
+        /* Reveal Animation */
+        .reveal-up {
+            opacity: 0; transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal-up.visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+
+        /* Lightbox */
+        .lightbox-modal {
+            position: fixed; inset: 0; z-index: 10000; display: none;
+            align-items: center; justify-content: center;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(16px);
+            cursor: zoom-out; padding: 2rem;
+        }
+        .lightbox-modal.active { display: flex; animation: fadeIn 0.3s ease-out; }
+        .lightbox-modal img {
+            max-width: 88vw; max-height: 82vh;
+            border-radius: 1.25rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+            animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .lb-close {
+            position: absolute; top: 1.5rem; right: 1.5rem;
+            width: 3.25rem; height: 3.25rem; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white; font-size: 1.25rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+        }
+        .lb-close:hover { background: rgba(255, 255, 255, 0.2); transform: rotate(90deg); }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
+
+        /* Toast */
+        .toast-notification {
+            position: fixed; bottom: 2rem; left: 50%;
+            transform: translateX(-50%) translateY(120%);
+            z-index: 10001; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .toast-notification.show { transform: translateX(-50%) translateY(0); }
+
+        /* Typing Cursor */
+        .cursor-blink {
+            display: inline-block; width: 3px; height: 1em;
+            background: linear-gradient(180deg, #6366f1, #ec4899);
+            margin-left: 3px;
+            animation: blinkCursor 1s step-end infinite;
+            vertical-align: text-bottom; border-radius: 2px;
+        }
+        @keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Divider */
+        .elegant-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+            margin: 0 auto;
+            max-width: 60%;
+        }
+
+        /* Sticky Nav */
+        .floating-nav {
+            background: rgba(250, 249, 247, 0.85);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            backdrop-filter: blur(20px) saturate(1.5);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Scroll Progress */
+        .progress-bar {
+            position: fixed; top: 0; left: 0; height: 3px; z-index: 9999;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #ec4899);
+            transition: width 0.05s linear;
+            border-radius: 0 2px 2px 0;
+        }
+
+        /* Article Card Hover */
+        .article-card {
+            position: relative; overflow: hidden;
+        }
+        .article-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, #6366f1, #ec4899);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s;
+        }
+        .article-card:hover::before { transform: scaleX(1); }
 
         @media (max-width: 768px) {
-            .sec-title { font-size: 1.35rem; }
-            .profile-ring::before { inset: -3px; border-radius: 1rem; }
+            .section-title { font-size: 1.35rem; }
+            .profile-frame::before { inset: -3px; border-radius: 1.15rem; }
+            .profile-frame::after { inset: -1px; border-radius: 1.05rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="mesh-bg"></div>
-    <div class="grain"></div>
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
+    <!-- Background Effects -->
+    <div class="pattern-bg"></div>
+    <div class="gradient-orb orb-a"></div>
+    <div class="gradient-orb orb-b"></div>
 
-    <div class="scroll-bar" id="scrollBar" style="width:0%"></div>
+    <!-- Scroll Progress -->
+    <div class="progress-bar" id="progressBar" style="width:0%"></div>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <button class="close-btn" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
-        <img id="lbImg" src="" alt="Preview" />
+    <!-- Lightbox -->
+    <div class="lightbox-modal" id="lightboxModal" onclick="closeLightbox()">
+        <button class="lb-close" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+        <img id="lightboxImg" src="" alt="Preview" />
     </div>
 
-    <div class="toast-box" id="toastBox">
-        <div class="px-6 py-3 rounded-2xl border border-emerald-500/20 text-emerald-200 text-sm font-medium flex items-center gap-3"
-             style="background:rgba(6,9,15,0.85);backdrop-filter:blur(12px);">
-            <i class="fa-solid fa-sparkles text-emerald-400"></i>
-            <span id="toastMsg"></span>
+    <!-- Toast -->
+    <div class="toast-notification" id="toastNotif">
+        <div class="px-7 py-4 rounded-2xl text-white text-sm font-semibold flex items-center gap-3"
+             style="background:linear-gradient(135deg, #4f46e5, #7c3aed);box-shadow:0 10px 40px rgba(79,70,229,0.35);">
+            <i class="fa-solid fa-wand-magic-sparkles text-indigo-200"></i>
+            <span id="toastText"></span>
         </div>
     </div>
 
     <div class="content-wrap">
 
-        <header class="min-h-[80vh] flex flex-col justify-center items-center text-center px-6 pt-20 pb-12">
-            <div class="reveal">
-                <p class="text-xs font-bold uppercase tracking-[0.3em] text-emerald-400/70 mb-6">Mahasiswa Pendidikan Komputer</p>
-                <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[0.95] tracking-tight">
-                    Pasha Ridho<br/>
-                    <span class="bg-gradient-to-r from-emerald-400 via-cyan-400 to-amber-400 bg-clip-text text-transparent" id="typingTarget"></span><span class="typing-cursor"></span>
+        <!-- Hero Section -->
+        <header class="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 pb-16">
+            <div class="reveal-up">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-50 border border-indigo-100 mb-8">
+                    <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+                    <p class="text-xs font-bold uppercase tracking-[0.2em] text-indigo-600">Mahasiswa Pendidikan Komputer</p>
+                </div>
+                
+                <h1 class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight mb-6">
+                    <span class="text-slate-800">Pasha Ridho</span><br/>
+                    <span class="bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent" id="typingTarget"></span><span class="cursor-blink"></span>
                 </h1>
-                <p class="mt-8 text-base md:text-lg text-slate-400 max-w-lg mx-auto leading-relaxed font-light">
-                    Blog pribadi &amp; dokumentasi sejarah RRQ — dari passion gaming hingga catatan perjalanan hidup.
+                
+                <p class="mt-6 text-lg md:text-xl text-slate-500 max-w-xl mx-auto leading-relaxed font-light">
+                    Blog pribadi & dokumentasi sejarah RRQ — dari passion gaming hingga catatan perjalanan hidup.
                 </p>
-                <div class="mt-10 flex flex-wrap justify-center gap-4">
-                    <a href="#biodata" class="btn-glow px-8 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-semibold rounded-full transition-all inline-flex items-center gap-2 shadow-lg shadow-emerald-900/40">
-                        <i class="fa-solid fa-arrow-down text-xs"></i> Jelajahi
+                
+                <div class="mt-12 flex flex-wrap justify-center gap-4">
+                    <a href="#biodata" class="btn-primary">
+                        <i class="fa-solid fa-sparkles text-sm"></i> Jelajahi Sekarang
                     </a>
-                    <a href="index.html" class="px-8 py-3.5 rounded-full border border-white/10 hover:border-white/25 text-white/70 hover:text-white text-sm font-medium transition-all inline-flex items-center gap-2">
-                        <i class="fa-solid fa-house text-xs"></i> Beranda
+                    <a href="index.html" class="btn-outline">
+                        <i class="fa-solid fa-home text-sm"></i> Beranda
                     </a>
                 </div>
             </div>
-            <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-                <div class="w-5 h-8 border border-white/30 rounded-full flex justify-center pt-1.5">
-                    <div class="w-1 h-2 bg-white/50 rounded-full animate-bounce"></div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+                <span class="text-xs text-slate-400 font-medium tracking-wider uppercase">Scroll</span>
+                <div class="w-6 h-10 rounded-full border-2 border-slate-300 flex justify-center pt-2">
+                    <div class="w-1.5 h-2.5 bg-indigo-500 rounded-full animate-bounce"></div>
                 </div>
             </div>
         </header>
 
-        <nav class="sticky top-0 z-50 py-4" id="stickyNav">
-            <div class="max-w-3xl mx-auto px-6 sticky-nav rounded-2xl py-3 px-6 flex justify-between items-center">
-                <span class="font-heading font-bold text-white text-sm tracking-tight hidden sm:block">PRP.</span>
-                <div class="flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar">
-                    <a href="#biodata" class="nav-link active" data-nav>Biodata</a>
-                    <a href="#sejarah" class="nav-link" data-nav>Sejarah</a>
-                    <a href="#pelatih" class="nav-link" data-nav>Coach</a>
-                    <a href="#roster" class="nav-link" data-nav>Roster</a>
-                    <a href="#album" class="nav-link" data-nav>Album</a>
+        <!-- Sticky Navigation -->
+        <nav class="sticky top-0 z-50 py-4 px-4" id="mainNav">
+            <div class="max-w-2xl mx-auto floating-nav rounded-2xl py-3 px-5 flex justify-between items-center overflow-x-auto no-scrollbar">
+                <span class="font-heading font-bold text-slate-800 text-base hidden sm:block">PRP.</span>
+                <div class="flex gap-2 sm:gap-3 mx-auto sm:mx-0">
+                    <a href="#biodata" class="nav-pill active" data-nav>Biodata</a>
+                    <a href="#sejarah" class="nav-pill" data-nav>Sejarah</a>
+                    <a href="#pelatih" class="nav-pill" data-nav>Coach</a>
+                    <a href="#roster" class="nav-pill" data-nav>Roster</a>
+                    <a href="#album" class="nav-pill" data-nav>Album</a>
                 </div>
             </div>
         </nav>
 
-        <main class="max-w-6xl mx-auto px-6 space-y-32 py-20">
+        <!-- Main Content -->
+        <main class="max-w-6xl mx-auto px-6 space-y-28 py-20">
 
-            <section id="biodata" class="scroll-mt-28">
-                <div class="reveal">
-                    <h2 class="sec-title"><span class="bar bg-emerald-500"></span> Data Diri</h2>
-                    <p class="sec-sub">Profil singkat dan informasi pribadi</p>
+            <!-- Biodata Section -->
+            <section id="biodata" class="scroll-mt-32">
+                <div class="reveal-up mb-12">
+                    <div class="section-header">
+                        <span class="accent-line"></span>
+                        <h2 class="section-title">Data Diri</h2>
+                    </div>
+                    <p class="mt-4 text-sm text-slate-400 ml-6">Profil singkat dan informasi pribadi</p>
                 </div>
-                <div class="mt-10 g-card rounded-3xl p-8 md:p-12 reveal reveal-delay-1">
-                    <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-center md:items-start">
-                        <div class="shrink-0 mx-auto md:mx-0">
-                            <div class="profile-ring">
+
+                <div class="glass-card rounded-3xl p-8 md:p-14 reveal-up delay-1">
+                    <div class="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center lg:items-start">
+                        <!-- Profile Photo -->
+                        <div class="shrink-0 mx-auto lg:mx-0">
+                            <div class="profile-frame">
                                 <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272757189673061/pasha_ridho_pradipta_setiawan.jpg?ex=69d7177b&is=69d5c5fb&hm=cb78415139439ea92163f63f7444b6cdcbb16082675c741f1cd6765c42539445&"
                                      alt="Pasha Ridho Pradipta Setiawan"
-                                     class="w-52 h-52 rounded-[1.1rem] object-cover"
+                                     class="w-56 h-56 rounded-[1.25rem] object-cover"
                                      onerror="this.src='https://picsum.photos/seed/pasha-profile/400/400.jpg'" />
                             </div>
-                            <p class="text-center mt-4 text-xs text-slate-500 font-medium">Foto Profil</p>
+                            <p class="text-center mt-5 text-xs text-slate-400 font-medium tracking-wide">Foto Profil</p>
                         </div>
-                        <div class="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-1">
-                            <div class="info-row">
-                                <p class="text-[10px] font-bold text-emerald-400/60 uppercase tracking-[0.2em] mb-1">Nama Lengkap</p>
-                                <p class="text-white font-semibold text-[0.95rem]">Pasha Ridho Pradip Setiawan</p>
+
+                        <!-- Info Grid -->
+                        <div class="flex-1 w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="info-item">
+                                <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.2em] mb-1.5">Nama Lengkap</p>
+                                <p class="text-slate-800 font-semibold text-[1rem]">Pasha Ridho Pradip Setiawan</p>
                             </div>
-                            <div class="info-row">
-                                <p class="text-[10px] font-bold text-emerald-400/60 uppercase tracking-[0.2em] mb-1">Instansi</p>
-                                <p class="text-white font-semibold text-[0.95rem]">FKIP Universitas Mulawarman</p>
+                            <div class="info-item">
+                                <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.2em] mb-1.5">Instansi</p>
+                                <p class="text-slate-800 font-semibold text-[1rem]">FKIP Universitas Mulawarman</p>
                             </div>
-                            <div class="info-row">
-                                <p class="text-[10px] font-bold text-emerald-400/60 uppercase tracking-[0.2em] mb-1">Program Studi</p>
-                                <p class="text-white font-semibold text-[0.95rem]">S-1 Pendidikan Komputer</p>
+                            <div class="info-item">
+                                <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.2em] mb-1.5">Program Studi</p>
+                                <p class="text-slate-800 font-semibold text-[1rem]">S-1 Pendidikan Komputer</p>
                             </div>
-                            <div class="info-row">
-                                <p class="text-[10px] font-bold text-emerald-400/60 uppercase tracking-[0.2em] mb-1">Angkatan</p>
-                                <p class="text-white font-semibold text-[0.95rem]">2024 — A</p>
+                            <div class="info-item">
+                                <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.2em] mb-1.5">Angkatan</p>
+                                <p class="text-slate-800 font-semibold text-[1rem]">2024 — A</p>
                             </div>
-                            <div class="info-row">
-                                <p class="text-[10px] font-bold text-emerald-400/60 uppercase tracking-[0.2em] mb-1">Lokasi</p>
-                                <p class="text-white font-semibold text-[0.95rem]">Samarinda, Kalimantan Timur</p>
+                            <div class="info-item">
+                                <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.2em] mb-1.5">Lokasi</p>
+                                <p class="text-slate-800 font-semibold text-[1rem]">Samarinda, Kalimantan Timur</p>
                             </div>
-                            <div class="info-row">
-                                <p class="text-[10px] font-bold text-emerald-400/60 uppercase tracking-[0.2em] mb-1">Hobi</p>
-                                <p class="text-white font-semibold text-[0.95rem]">Gaming, Futsal, Badminton</p>
+                            <div class="info-item">
+                                <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-[0.2em] mb-1.5">Hobi</p>
+                                <p class="text-slate-800 font-semibold text-[1rem]">Gaming, Futsal, Badminton</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div class="divider"></div>
+            <div class="elegant-divider"></div>
 
-            <section id="sejarah" class="scroll-mt-28">
-                <div class="reveal">
-                    <h2 class="sec-title"><span class="bar bg-cyan-500"></span> Sejarah</h2>
-                    <p class="sec-sub">Perjalanan RRQ dari awal hingga mendunia</p>
+            <!-- Sejarah Section -->
+            <section id="sejarah" class="scroll-mt-32">
+                <div class="reveal-up mb-12">
+                    <div class="section-header">
+                        <span class="accent-line" style="background:linear-gradient(180deg,#06b6d4,#0891b2)"></span>
+                        <h2 class="section-title">Sejarah</h2>
+                    </div>
+                    <p class="mt-4 text-sm text-slate-400 ml-6">Perjalanan RRQ dari awal hingga mendunia</p>
                 </div>
-                <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="g-card rounded-3xl p-8 md:p-10 flex flex-col reveal reveal-delay-1 group">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/15 transition-all">
-                                <i class="fa-solid fa-trophy text-emerald-400"></i>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                    <!-- Article Card 1 -->
+                    <div class="glass-card article-card rounded-3xl p-9 md:p-11 reveal-up delay-1 group">
+                        <div class="flex items-start gap-5 mb-7">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-trophy text-emerald-600 text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-[10px] font-bold text-emerald-400/50 uppercase tracking-[0.15em]">Artikel</p>
-                                <h3 class="font-heading font-bold text-white text-lg">Profil Lengkap RRQ Esports</h3>
+                                <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-[0.18em] mb-1">Artikel</p>
+                                <h3 class="font-heading font-bold text-slate-800 text-xl leading-tight">Profil Lengkap RRQ Esports</h3>
                             </div>
                         </div>
-                        <p class="text-sm text-slate-400 leading-relaxed flex-1">Terbentuknya RRQ pada tahun 2013 hingga menjadi salah satu organisasi esports terbesar di Indonesia yang berhasil go-international dan meraih berbagai gelar juara bergengsi.</p>
-                        <div class="mt-8 pt-5 border-t border-white/5">
+                        <p class="text-[0.92rem] text-slate-500 leading-relaxed flex-1">
+                            Terbentuknya RRQ pada tahun 2013 hingga menjadi salah satu organisasi esports terbesar di Indonesia yang berhasil go-international dan meraih berbagai gelar juara bergengsi.
+                        </p>
+                        <div class="mt-9 pt-6 border-t border-slate-100">
                             <a href="https://popgames.vivanews.com/baca/1654-profil-lengkap-rrq-esports-sejarah-prestasi-dan-perjalanan-menuju-puncak-dunia"
                                target="_blank" rel="noopener noreferrer"
-                               class="btn-glow inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition-all">
+                               class="inline-flex items-center gap-2.5 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-emerald-200 hover:shadow-emerald-300">
                                 Baca Selengkapnya <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="g-card rounded-3xl p-8 md:p-10 flex flex-col reveal reveal-delay-2 group">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/15 transition-all">
-                                <i class="fa-brands fa-youtube text-amber-400"></i>
+
+                    <!-- Video Card 2 -->
+                    <div class="glass-card article-card rounded-3xl p-9 md:p-11 reveal-up delay-2 group">
+                        <div class="flex items-start gap-5 mb-7">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100 border border-amber-200 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-youtube text-amber-600 text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-[10px] font-bold text-amber-400/50 uppercase tracking-[0.15em]">Video</p>
-                                <h3 class="font-heading font-bold text-white text-lg">Juara MPL Season 2</h3>
+                                <p class="text-[10px] font-bold text-amber-600 uppercase tracking-[0.18em] mb-1">Video</p>
+                                <h3 class="font-heading font-bold text-slate-800 text-xl leading-tight">Juara MPL Season 2</h3>
                             </div>
                         </div>
-                        <p class="text-sm text-slate-400 leading-relaxed flex-1">Momen bersejarah ketika RRQ meraih gelar juara pertama mereka di Mobile Legends Professional League Season 2 — titik awal dominasi di kancah kompetitif.</p>
-                        <div class="mt-8 pt-5 border-t border-white/5">
+                        <p class="text-[0.92rem] text-slate-500 leading-relaxed flex-1">
+                            Momen bersejarah ketika RRQ meraih gelar juara pertama mereka di Mobile Legends Professional League Season 2 — titik awal dominasi di kancah kompetitif.
+                        </p>
+                        <div class="mt-9 pt-6 border-t border-slate-100">
                             <a href="http://youtube.com/watch?v=tRWNLNjCT5s"
                                target="_blank" rel="noopener noreferrer"
-                               class="btn-glow inline-flex items-center gap-2 px-5 py-2.5 bg-amber-600/90 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all">
+                               class="inline-flex items-center gap-2.5 px-6 py-3 bg-amber-500 hover:bg-amber-400 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-amber-200 hover:shadow-amber-300">
                                 Tonton Video <i class="fa-solid fa-play text-[10px]"></i>
                             </a>
                         </div>
@@ -385,181 +516,280 @@
                 </div>
             </section>
 
-            <div class="divider"></div>
+            <div class="elegant-divider"></div>
 
-            <section id="pelatih" class="scroll-mt-28">
-                <div class="reveal">
-                    <h2 class="sec-title"><span class="bar bg-purple-500"></span> Foto Coach RRQ Hoshi</h2>
-                    <p class="sec-sub">Pelatih di balik strategi tim</p>
+            <!-- Coach Section -->
+            <section id="pelatih" class="scroll-mt-32">
+                <div class="reveal-up mb-12">
+                    <div class="section-header">
+                        <span class="accent-line" style="background:linear-gradient(180deg,#a855f7,#9333ea)"></span>
+                        <h2 class="section-title">Foto Coach RRQ Hoshi</h2>
+                    </div>
+                    <p class="mt-4 text-sm text-slate-400 ml-6">Pelatih di balik strategi tim</p>
                 </div>
-                <div class="mt-10 g-card rounded-3xl p-6 md:p-8 reveal reveal-delay-1">
-                    <div class="flex flex-col sm:flex-row items-center gap-6">
-                        <div class="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/10 flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-chalkboard-user text-purple-400 text-2xl"></i>
+
+                <div class="glass-card rounded-3xl p-8 md:p-10 reveal-up delay-1">
+                    <div class="flex flex-col sm:flex-row items-center gap-7">
+                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-chalkboard-user text-purple-600 text-3xl"></i>
                         </div>
                         <div class="flex-1 text-center sm:text-left">
-                            <h4 class="font-heading font-bold text-white text-lg">Coach RRQ Hoshi</h4>
-                            <p class="text-sm text-slate-500 mt-1">Klik tombol untuk melihat foto pelatih</p>
+                            <h4 class="font-heading font-bold text-slate-800 text-xl">Coach RRQ Hoshi</h4>
+                            <p class="text-sm text-slate-500 mt-2">Klik tombol untuk melihat foto pelatih</p>
                         </div>
                         <a href="https://cdn.discordapp.com/attachments/1405172324461711462/1491272033995063376/rrq_coach_khezcute.jpg?ex=69d716cf&is=69d5c54f&hm=6810101fd8c2c5cef0c59a58d8d0ad588e2683f4ac5a2eed1a7141e8161755ff&"
                            target="_blank" rel="noopener noreferrer"
-                           class="btn-glow px-6 py-3 bg-purple-600/90 hover:bg-purple-500 text-white text-xs font-bold rounded-xl transition-all inline-flex items-center gap-2 shrink-0">
+                           class="inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-purple-200 shrink-0">
                             <i class="fa-solid fa-eye"></i> Lihat Foto
                         </a>
                     </div>
                 </div>
             </section>
 
-            <div class="divider"></div>
+            <div class="elegant-divider"></div>
 
-            <section id="roster" class="scroll-mt-28">
-                <div class="reveal">
-                    <h2 class="sec-title"><span class="bar bg-amber-500"></span> Roster Pemain</h2>
-                    <p class="sec-sub">Lineup pemain RRQ Hoshi</p>
+            <!-- Roster Section -->
+            <section id="roster" class="scroll-mt-32">
+                <div class="reveal-up mb-12">
+                    <div class="section-header">
+                        <span class="accent-line" style="background:linear-gradient(180deg,#f59e0b,#d97706)"></span>
+                        <h2 class="section-title">Roster Pemain</h2>
+                    </div>
+                    <p class="mt-4 text-sm text-slate-400 ml-6">Lineup pemain RRQ Hoshi</p>
                 </div>
-                <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    <div class="photo-card amber-glow reveal reveal-delay-1" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+                    <!-- Player 1: Toyy -->
+                    <div class="photo-card-modern reveal-up delay-1" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491271861705637898/download.jpg?ex=69d716a6&is=69d5c526&hm=99cb1c46412fbdfece1121a322513721d37a19275a6ce36132dbd1547c71b5c2&" alt="Toyy" onerror="this.src='https://picsum.photos/seed/toyy/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Muhammad Rizky</p><p class="text-white font-heading font-bold text-sm mt-0.5">Toyy</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">Muhammad Rizky</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Toyy</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-1" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 2: Idok -->
+                    <div class="photo-card-modern reveal-up delay-1" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491271861143867463/download_1.jpg?ex=69d716a6&is=69d5c526&hm=04b16926afcce9d7a06041ee792a8d71c57d643c520efedba766df3b42d78956&" alt="Idok" onerror="this.src='https://picsum.photos/seed/idok/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Ali Ridho</p><p class="text-white font-heading font-bold text-sm mt-0.5">Idok</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">Ali Ridho</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Idok</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-2" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 3: Rinz -->
+                    <div class="photo-card-modern reveal-up delay-2" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272033609191554/rinz____savefollow.jpg?ex=69d716cf&is=69d5c54f&hm=146f059330a5cafe3f05c6ef9c8e70650a7077225a7b117dd46823cf69b716c1&" alt="Rinz" onerror="this.src='https://picsum.photos/seed/rinz/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Hajirin Arafat</p><p class="text-white font-heading font-bold text-sm mt-0.5">Rinz</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">Hajirin Arafat</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Rinz</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-2" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 4: Super Kenn -->
+                    <div class="photo-card-modern reveal-up delay-2" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491271860866777088/btr_super_kenn.jpg?ex=69d716a6&is=69d5c526&hm=658e62b314fe8fe40423c202b9091e0b44fd629f79f5f717cb87cf4328ab4ccd&" alt="Super Kenn" onerror="this.src='https://picsum.photos/seed/superkenn/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">Kenneth Marcello</p><p class="text-white font-heading font-bold text-sm mt-0.5">Super Kenn</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">Kenneth Marcello</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Super Kenn</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-3" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 5: Sutsujin -->
+                    <div class="photo-card-modern reveal-up delay-3" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491271861428944906/download_2.jpg?ex=69d716a6&is=69d5c526&hm=4360313fc33e512169828b0bb841fe350f86a41513b98165bb35b5bfbfa6291a&" alt="Sutsujin" onerror="this.src='https://picsum.photos/seed/sutsujin/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">—</p><p class="text-white font-heading font-bold text-sm mt-0.5">Sutsujin</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">—</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Sutsujin</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-3" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
-                            <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491271861965951056/dyrennn____savefollow.jpg?ex=69d716a6&is=69d5c526&hm=ee537adc3a9b66b6ac9913689579c552ee313d40dfa7524036b4e64d5c1fe5d4&" alt="Dyrenn" onerror="this.src='https://picsum.photos/seed/dyrenn/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">—</p><p class="text-white font-heading font-bold text-sm mt-0.5">Dyrenn</p></div>
+
+                    <!-- Player 6: Dyrenn -->
+                    <div class="photo-card-modern reveal-up delay-3" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
+                            <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491271961965951056/dyrennn____savefollow.jpg?ex=69d716a6&is=69d5c526&hm=ee537adc3a9b66b6ac9913689579c552ee313d40dfa7524036b4e64d5c1fe5d4&" alt="Dyrenn" onerror="this.src='https://picsum.photos/seed/dyrenn/400/500.jpg'" />
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">—</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Dyrenn</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-3" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 7: Xinnn -->
+                    <div class="photo-card-modern reveal-up delay-3" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491277022704570490/rrq_xin.jpg?ex=69d71b74&is=69d5c9f4&hm=1d08955383badaf74c381032277928a8def7f8d34fb7f5dc6e00fd01f003325c&" alt="Xinnn" onerror="this.src='https://picsum.photos/seed/xinnn/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">—</p><p class="text-white font-heading font-bold text-sm mt-0.5">RRQ Xinnn</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">—</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">RRQ Xinnn</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-4" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 8: Yehezkiel -->
+                    <div class="photo-card-modern reveal-up delay-4" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491271709125378119/liquid_yehezkiel_-.jpg?ex=69d71681&is=69d5c501&hm=8d9ad8828d0811babef54695af48d4b67611c74fda9b258654dbb405e8546a1f&" alt="Yehezkiel" onerror="this.src='https://picsum.photos/seed/yehezkiel/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">—</p><p class="text-white font-heading font-bold text-sm mt-0.5">Yehezkiel</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">—</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Yehezkiel</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-4" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 9: Hazle -->
+                    <div class="photo-card-modern reveal-up delay-4" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491277981618802749/rrq_hazel.jpg?ex=69d71c59&is=69d5cad9&hm=dc9fabf28c0e8008bf5ca6c58aff0e39e10cc39c342c84398a11ad9382de3068&" alt="Hazle" onerror="this.src='https://picsum.photos/seed/hazle/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">—</p><p class="text-white font-heading font-bold text-sm mt-0.5">Hazle</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">—</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Hazle</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card amber-glow reveal reveal-delay-4" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Player 10: Rezz -->
+                    <div class="photo-card-modern reveal-up delay-4" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272032908873858/rezz_.jpg?ex=69d716cf&is=69d5c54f&hm=7fe12884903b7cddbdf68334b53be9489df96bb0108313eedd175c41bcbcc7cd&" alt="Rezz" onerror="this.src='https://picsum.photos/seed/rezz/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-[10px] font-bold text-amber-400 uppercase tracking-tighter">—</p><p class="text-white font-heading font-bold text-sm mt-0.5">Rezz</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-[10px] font-bold text-amber-300 uppercase tracking-tighter">—</p>
+                                <p class="text-white font-heading font-bold text-base mt-1">Rezz</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <div class="divider"></div>
+            <div class="elegant-divider"></div>
 
-            <section id="album" class="scroll-mt-28">
-                <div class="reveal">
-                    <h2 class="sec-title"><span class="bar bg-rose-500"></span> Album Galeri</h2>
-                    <p class="sec-sub">Momen-momen pribadi yang terdokumentasi</p>
+            <!-- Album Section -->
+            <section id="album" class="scroll-mt-32">
+                <div class="reveal-up mb-12">
+                    <div class="section-header">
+                        <span class="accent-line" style="background:linear-gradient(180deg,#f43f5e,#e11d48)"></span>
+                        <h2 class="section-title">Album Galeri</h2>
+                    </div>
+                    <p class="mt-4 text-sm text-slate-400 ml-6">Momen-momen pribadi yang terdokumentasi</p>
                 </div>
-                <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    <div class="photo-card rose-glow reveal reveal-delay-1" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
+                    <!-- Photo 1 -->
+                    <div class="photo-card-modern reveal-up delay-1" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272030958391296/foto_pashaa_motor.jpeg?ex=69d716ce&is=69d5c54e&hm=aeb885c48479df1a90842c8802eeb2b153edeecfda192f249fcde6260f5dcb4f&" alt="Jalan cari makan" onerror="this.src='https://picsum.photos/seed/motor/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Jalan Cari Makan</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Jalan Cari Makan</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-1" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 2 -->
+                    <div class="photo-card-modern reveal-up delay-1" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272028030767144/foto_kesayangan_aku.jpeg?ex=69d716cd&is=69d5c54d&hm=5d7866032b34d2995fa9bf40083b9f7f01c206f8c7cb06896815f67735074cfb&" alt="Pertama kali dapat Pap" onerror="this.src='https://picsum.photos/seed/pap/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Pertama Kali Dapat Pap</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Pertama Kali Dapat Pap</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-2" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 3 -->
+                    <div class="photo-card-modern reveal-up delay-2" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272029066756126/foto_pas_ke_perjiwa.jpeg?ex=69d716ce&is=69d5c54e&hm=7a88158974d9542805f3e5fa44e0b4783979893fbc3c709a90541b71352246b9&" alt="Ke Perjiwa" onerror="this.src='https://picsum.photos/seed/perjiwa/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Ke Perjiwa Bareng Teman</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Ke Perjiwa Bareng Teman</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-2" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 4 -->
+                    <div class="photo-card-modern reveal-up delay-2" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491278978458193992/IMG_0017.JPG?ex=69d71d47&is=69d5cbc7&hm=5eccaef4c1b78a4743445aab61c40bc0ce674ca44d9cec6ae9d0ff09a37c848c&" alt="Raker" onerror="this.src='https://picsum.photos/seed/raker/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Raker Pemaparan</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Raker Pemaparan</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-3" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 5 -->
+                    <div class="photo-card-modern reveal-up delay-3" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491279334701269112/IMG_20250501_175653_694.jpg?ex=69d71d9c&is=69d5cc1c&hm=599632e4fefcd246d589d5c6debe405311e3a99f5df0f4d9299a81c02a856434&" alt="Steling" onerror="this.src='https://picsum.photos/seed/steling/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Maba Pertama Kali Steling</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Maba Pertama Kali Steling</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-3" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 6 -->
+                    <div class="photo-card-modern reveal-up delay-3" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272030027386930/foto_pash_bukber.jpeg?ex=69d716ce&is=69d5c54e&hm=6d8b3efdd57a8469a339b7b678180eb17d6f3d6784b2e7e6e98e270c2eac5b17&" alt="Bukber" onerror="this.src='https://picsum.photos/seed/bukber/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Bukber Kecepatan Datang</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Bukber Kecepatan Datang</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-3" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 7 -->
+                    <div class="photo-card-modern reveal-up delay-3" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272031889522778/granger_.jpeg?ex=69d716ce&is=69d5c54e&hm=a5194778aac5bd3443c5b06ae540c2e78dddc4ffb7bde1283b5387c83c6843b0&" alt="M7 Prime" onerror="this.src='https://picsum.photos/seed/granger/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Pertama Kali Dapat M7 Prime</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Pertama Kali Dapat M7 Prime</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-4" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 8 -->
+                    <div class="photo-card-modern reveal-up delay-4" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491279848373620776/Pash_Dibontang.jpeg?ex=69d71e16&is=69d5cc96&hm=5e8ac82e31246d8c074637ff9d9c803ac6ee8f77aa946704ebc59520a97a6cbb&" alt="Lebaran Bontang" onerror="this.src='https://picsum.photos/seed/bontang/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Lebaran di Bontang</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Lebaran di Bontang</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="photo-card rose-glow reveal reveal-delay-4" onclick="openLightbox(this)">
-                        <div class="img-wrap aspect-[4/5]">
+
+                    <!-- Photo 9 -->
+                    <div class="photo-card-modern reveal-up delay-4" onclick="openLightbox(this)">
+                        <div class="img-container aspect-[4/5]">
                             <img src="https://cdn.discordapp.com/attachments/1405172324461711462/1491272026529337475/foto_bareng_kartar.jpeg?ex=69d716cd&is=69d5c54d&hm=e8f0db53350d8b550a5b2842d4e2381b3a433b51b7fa187393691a602b98bbcc&" alt="Bareng Kartar" onerror="this.src='https://picsum.photos/seed/kartar/400/500.jpg'" />
-                            <div class="overlay"></div>
-                            <div class="label"><p class="text-white font-heading font-semibold text-sm">Bareng Setelah Sholat</p></div>
+                            <div class="overlay-modern"></div>
+                            <div class="label-modern">
+                                <p class="text-white font-heading font-semibold text-sm">Bareng Setelah Sholat</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -567,22 +797,35 @@
 
         </main>
 
+        <!-- Footer -->
+        <footer class="py-12 text-center">
+            <div class="elegant-divider mb-8"></div>
+            <p class="text-sm text-slate-400 font-medium">
+                © 2025 <span class="text-indigo-600 font-semibold">Pasha Ridho Pradipta S</span> — Blog Pribadi
+            </p>
+        </footer>
+
     </div>
 
     <script>
+        // Scroll Progress Bar
         window.addEventListener('scroll', function () {
-            var s = document.documentElement.scrollTop || document.body.scrollTop;
-            var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById('scrollBar').style.width = ((s / h) * 100) + '%';
+            var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
         });
 
+        // Typing Effect
         (function () {
             var words = ['Pradipta Setiawan', 'Mahasiswa FKIP', 'RRQ Enthusiast', 'Gamer'];
             var el = document.getElementById('typingTarget');
             var wordIndex = 0, charIndex = 0, deleting = false, pause = 0;
+
             function tick() {
                 var word = words[wordIndex];
                 if (pause > 0) { pause--; requestAnimationFrame(tick); return; }
+
                 if (!deleting) {
                     el.textContent = word.substring(0, charIndex + 1);
                     charIndex++;
@@ -597,49 +840,63 @@
             tick();
         })();
 
+        // Reveal on Scroll
         (function () {
             var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
-            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-            document.querySelectorAll('.reveal').forEach(function (el) { observer.observe(el); });
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            document.querySelectorAll('.reveal-up').forEach(function (el) { observer.observe(el); });
         })();
 
+        // Active Navigation
         (function () {
             var sections = document.querySelectorAll('section[id]');
             var navLinks = document.querySelectorAll('[data-nav]');
+
             var observer = new IntersectionObserver(function (entries) {
-                entries.forEach(function (e) {
-                    if (e.isIntersecting) {
-                        var id = e.target.getAttribute('id');
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        var id = entry.target.getAttribute('id');
                         navLinks.forEach(function (link) {
                             link.classList.toggle('active', link.getAttribute('href') === '#' + id);
                         });
                     }
                 });
             }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
-            sections.forEach(function (s) { observer.observe(s); });
+
+            sections.forEach(function (section) { observer.observe(section); });
         })();
 
+        // Lightbox Functions
         function openLightbox(card) {
             var img = card.querySelector('img');
-            document.getElementById('lbImg').src = img.src;
-            document.getElementById('lightbox').classList.add('open');
+            document.getElementById('lightboxImg').src = img.src;
+            document.getElementById('lightboxModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
+
         function closeLightbox() {
-            document.getElementById('lightbox').classList.remove('open');
+            document.getElementById('lightboxModal').classList.remove('active');
             document.body.style.overflow = '';
         }
-        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
 
-        window.addEventListener('load', function () {
-            setTimeout(function () { showToast('Selamat datang di blog pribadi saya!'); }, 800);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeLightbox();
         });
-        function showToast(msg) {
-            var t = document.getElementById('toastBox');
-            document.getElementById('toastMsg').textContent = msg;
-            t.classList.add('show');
-            setTimeout(function () { t.classList.remove('show'); }, 4000);
+
+        // Toast Notification
+        window.addEventListener('load', function () {
+            setTimeout(function () { showToast('Selamat datang di blog pribadi saya!'); }, 900);
+        });
+
+        function showToast(message) {
+            var toast = document.getElementById('toastNotif');
+            document.getElementById('toastText').textContent = message;
+            toast.classList.add('show');
+            setTimeout(function () { toast.classList.remove('show'); }, 4500);
         }
     </script>
 </body>
